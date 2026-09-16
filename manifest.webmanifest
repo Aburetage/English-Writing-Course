@@ -1,0 +1,17 @@
+{
+  "name": "English Writing Course — كورس الكتابة باللغة الإنجليزية",
+  "short_name": "EWC",
+  "description": "كورس متكامل لتعلم الكتابة باللغة الإنجليزية: من الكلمة إلى المقال.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7f6",
+  "theme_color": "#3a9b85",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
