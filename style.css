@@ -451,6 +451,25 @@ details.model summary{cursor:pointer;font-weight:800;color:var(--en)}
 .jbtn{display:inline-flex;align-items:center;gap:8px;background:var(--glass2);border:1px solid var(--brd2);border-radius:999px;padding:9px 22px;font-weight:800;font-size:.88rem;color:var(--primary);text-decoration:none;backdrop-filter:blur(8px);transition:.25s}
 .jbtn:hover{background:var(--grad);color:#fff}
 .jbtn.lock{color:var(--muted);border-style:dashed}
+
+/* ===== شريط التنقل الأفقي بين الدروس ===== */
+.lesson-nav{position:fixed;bottom:76px;left:14px;right:14px;z-index:58;display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--brd);border-radius:999px;box-shadow:var(--shadow);transform:translateY(150%);transition:transform .35s ease;}
+.lesson-nav.show{transform:translateY(0)}
+.lesson-nav .ln-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:999px;border:1px solid var(--brd2);background:var(--glass2);color:var(--primary);font-weight:800;font-size:.85rem;text-decoration:none;transition:.25s;white-space:nowrap;min-height:44px}
+.lesson-nav .ln-btn:hover{background:var(--grad);color:#fff;border-color:transparent}
+.lesson-nav .ln-btn.prev::before{content:"→";font-weight:900}
+.lesson-nav .ln-btn.next::after{content:"←";font-weight:900}
+.lesson-nav .ln-btn.disabled{opacity:.35;pointer-events:none}
+.lesson-nav .ln-pill{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:var(--grad);color:#fff;font-weight:900;font-size:.78rem;white-space:nowrap}
+.lesson-nav .ln-pill .e{font-size:.75rem}
+.lesson-nav .ln-check{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:.7rem}
+.lesson-nav .ln-check.done{background:#4caf50;color:#fff}
+
+/* علامة ✓ للفهرس */
+.toc-check{width:18px;height:18px;border-radius:50%;background:var(--glass2);border:1px solid var(--brd2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--muted);margin-inline-start:6px;transition:.25s}
+.toc-check.done{background:#4caf50;border-color:#4caf50;color:#fff}
+#toc a.done{color:var(--primary)}
+#toc a.done .toc-check{background:#4caf50;border-color:#4caf50;color:#fff}
 footer{text-align:center;color:var(--muted);padding:10px 0 20px;font-size:.84rem}
 footer b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .center{text-align:center}

@@ -14,6 +14,28 @@ const visKey=n=>'l'+n+'vis';
 const isVis=n=>localStorage.getItem(visKey(n))!==null;
 if(curLesson>0)localStorage.setItem(visKey(curLesson),'1');
 
+/* ===== تحديث حالة الدروس في الفهرس ===== */
+function updateTocProgress(){
+  const visited=AVAIL.filter(l=>isVis(l.n));
+  $$('#toc a[href^="lesson"]').forEach(a=>{
+    const href=a.getAttribute('href');
+    const match=href.match(/lesson(\d+)\.html/);
+    if(match){
+      const n=parseInt(match[1],10);
+      let check=a.querySelector('.toc-check');
+      if(!check){
+        check=document.createElement('span');
+        check.className='toc-check';
+        check.innerHTML='✓';
+        a.appendChild(check);
+      }
+      const done=isVis(n);
+      check.classList.toggle('done',done);
+      a.classList.toggle('done',done);
+    }
+  });
+}
+
 /* حقن CSS مرة واحدة: بادج جديد + أنماط الخريطة الذهنية */
 (function(){const s=document.createElement('style');s.textContent='.lnew{background:linear-gradient(135deg,#e67e22,#f39c12);color:#fff;border-radius:999px;padding:2px 12px;font-size:.68rem;font-weight:900;box-shadow:0 4px 10px rgba(230,126,34,.4)}.vflow{display:flex;flex-direction:column;gap:4px;align-items:center;margin:16px 0}.vstep{background:var(--glass2);border:1px solid var(--brd2);border-radius:999px;padding:6px 22px;font-weight:800;font-size:.85rem;backdrop-filter:blur(8px);text-align:center}.vstep .e{font-size:.85rem}.varr{color:var(--primary);font-weight:900;font-size:.9rem}';document.head.appendChild(s);})();
 
@@ -52,7 +74,7 @@ function renderContinue(){
   btn.innerHTML=`▶ واصل من حيث توقفت — Lesson ${target.n} — ${target.en}`;
 }
 
-/* ===== كارت الرحلة ديناميكيًا (كل الصفحات) ===== */
+/* ===== كارت الرحلة ديناميكيًا (كل الصفحات) + شريط التنقل ===== */
 function renderJourney(){
   const host=$('#journeyBox'); if(!host)return;
   const prev=L(curLesson-1), next=L(curLesson+1);
@@ -64,6 +86,37 @@ function renderJourney(){
   else if(next)html+=`<a class="jbtn lock" href="index.html#ls${next.n}">الدرس التالي: Lesson ${next.n} 🔒</a>`;
   else html+=`<a class="jbtn" href="index.html#roadmap">🏁 أنهيت كل المتاح حاليًا</a>`;
   host.innerHTML=html;
+  renderLessonNav();
+}
+
+/* ===== شريط التنقل الأفقي بين الدروس ===== */
+function renderLessonNav(){
+  const nav=$('.lesson-nav'); if(!nav)return;
+  const prev=L(curLesson-1), next=L(curLesson+1), cur=L(curLesson);
+  const prevDone=prev?isVis(prev.n):false;
+  const nextDone=next?isVis(next.n):false;
+  let html='';
+  if(prev&&prev.file){
+    html+=`<a class="ln-btn prev ${!prev.file?'disabled':''}" href="${prev.file}"><span class="ln-check ${prevDone?'done':''}">${prevDone?'✓':''}</span>السابق</a>`;
+  }else{
+    html+=`<a class="ln-btn prev disabled" href="index.html"><span class="ln-check"></span>الرئيسية</a>`;
+  }
+  if(cur){
+    html+=`<div class="ln-pill"><span class="e">Lesson ${cur.n}</span><span class="ln-check ${isVis(cur.n)?'done':''}">${isVis(cur.n)?'✓':''}</span></div>`;
+  }
+  if(next&&next.file){
+    html+=`<a class="ln-btn next" href="${next.file}">التالي<span class="ln-check ${nextDone?'done':''}">${nextDone?'✓':''}</span></a>`;
+  }else if(next){
+    html+=`<a class="ln-btn next disabled" href="index.html#ls${next.n}">التالي<span class="ln-check"></span></a>`;
+  }else{
+    html+=`<a class="ln-btn next disabled" href="index.html#roadmap">🏁<span class="ln-check"></span></a>`;
+  }
+  nav.innerHTML=html;
+}
+
+function showLessonNav(){
+  const nav=$('.lesson-nav');
+  if(nav)nav.classList.add('show');
 }
 
 /* ===== المحاور ===== */
@@ -321,6 +374,8 @@ if('serviceWorker'in navigator&&/^https?:$/.test(location.protocol)){
 (function init(){
   refreshRegistry();
   renderRoadmap();renderContinue();renderJourney();
+  updateTocProgress();
+  showLessonNav();
   const hash=location.hash.slice(1);
   const hel=hash&&document.getElementById(hash);
   if(hash&&secMod[hash]!==undefined){
@@ -335,4 +390,4 @@ if('serviceWorker'in navigator&&/^https?:$/.test(location.protocol)){
   }
   if(!$('.toc-grp.open'))openGrp($('.toc-grp'));
 })();
-window.addEventListener('load',()=>{ refreshRegistry(); renderRoadmap(); renderContinue(); renderJourney(); });
+window.addEventListener('load',()=>{ refreshRegistry(); renderRoadmap(); renderContinue(); renderJourney(); updateTocProgress(); showLessonNav(); });
