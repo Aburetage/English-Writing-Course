@@ -126,6 +126,59 @@ function showLessonNav(){
   if(nav)nav.classList.add('show');
 }
 
+/* ===== دوال الفهرس الجانبي ===== */
+function openGrp(grp){
+  if(!grp)return;
+  $$('.toc-grp').forEach(g=>{if(g!==grp)g.classList.remove('open');});
+  grp.classList.add('open');
+  const body=grp.querySelector('.toc-gbody');
+  if(body)body.style.maxHeight=body.scrollHeight+'px';
+}
+
+function closeGrp(grp){
+  if(!grp)return;
+  grp.classList.remove('open');
+  const body=grp.querySelector('.toc-gbody');
+  if(body)body.style.maxHeight='0';
+}
+
+/* تفعيل أزرار الفهرس */
+document.addEventListener('DOMContentLoaded',()=>{
+  /* أزرار مجموعات الفهرس */
+  $$('.toc-ghead').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const grp=btn.closest('.toc-grp');
+      if(grp.classList.contains('open'))closeGrp(grp);
+      else openGrp(grp);
+    });
+  });
+  
+  /* زر القائمة */
+  const menuBtn=$('#menuBtn');
+  const toc=$('#toc');
+  const backdrop=$('#backdrop');
+  
+  if(menuBtn&&toc&&backdrop){
+    menuBtn.addEventListener('click',()=>{
+      toc.classList.add('open');
+      backdrop.classList.add('show');
+    });
+    
+    backdrop.addEventListener('click',()=>{
+      toc.classList.remove('open');
+      backdrop.classList.remove('show');
+    });
+  }
+  
+  /* روابط الفهرس - تغلق القائمة عند النقر */
+  $$('#toc a[href^="#"], #toc a[href^="lesson"]').forEach(link=>{
+    link.addEventListener('click',()=>{
+      toc.classList.remove('open');
+      backdrop.classList.remove('show');
+    });
+  });
+});
+
 const prb=$('#printBtn');if(prb)prb.onclick=()=>print();
 const mpb=$('#mapBtn');if(mpb)mpb.onclick=()=>{
   const el=document.getElementById('roadmap');
@@ -258,26 +311,15 @@ if('serviceWorker'in navigator&&/^https?:$/.test(location.protocol)){
   });
 }
 
-/* ===== شريط التبويبات السفلي ===== */
-(function(){
-  const isIndex=!!document.getElementById('roadmap');
-  $$('.bb-tab').forEach(t=>{
-    t.addEventListener('click',e=>{
-      const k=t.dataset.tab;
-      if(k==='toc'){e.preventDefault();const tc=$('#toc'),b2=$('#backdrop');if(tc){tc.classList.add('open');if(b2)b2.classList.add('show');}return;}
-      if(k==='map'&&isIndex){e.preventDefault();const el=document.getElementById('roadmap');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return;}
-      if(k==='home'&&isIndex){e.preventDefault();scrollTo({top:0,behavior:'smooth'});return;}
-      if(k==='lesson'&&!isIndex){e.preventDefault();scrollTo({top:0,behavior:'smooth'});return;}
-    });
-  });
-})();
+/* ===== شريط التبويبات السفلي (معطل الآن) ===== */
+/* تم إزالة نظام الشريط السفلي واستبداله بشريط التنقل بين الدروس */
 
 /* ===== البداية + إعادة رسم بعد تحميل كل السكربتات ===== */
 (function init(){
   refreshRegistry();
   renderRoadmap();renderContinue();renderJourney();
   updateTocProgress();
-  showLessonNav();
+  renderLessonNav();
   const hash=location.hash.slice(1);
   const hel=hash&&document.getElementById(hash);
   if(hel){
@@ -287,4 +329,4 @@ if('serviceWorker'in navigator&&/^https?:$/.test(location.protocol)){
   }
   if(!$('.toc-grp.open'))openGrp($('.toc-grp'));
 })();
-window.addEventListener('load',()=>{ refreshRegistry(); renderRoadmap(); renderContinue(); renderJourney(); updateTocProgress(); showLessonNav(); });
+window.addEventListener('load',()=>{ refreshRegistry(); renderRoadmap(); renderContinue(); renderJourney(); updateTocProgress(); renderLessonNav(); });
