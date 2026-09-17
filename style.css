@@ -488,3 +488,167 @@ footer b{background:var(--grad);-webkit-background-clip:text;background-clip:tex
 
 /* ===== إخفاء أيقونة الدرس من الشريط السفلي في كل الأحجام (اختياري) ===== */
 /* .bottombar .bb-tab[data-tab="lesson"]{display:none !important;} */
+/* ===== أزرار التنقل في آخر الدرس (بديل lesson-nav العائم) ===== */
+.lesson-end-nav {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin: 30px 0 20px;
+  padding: 16px;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--brd);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+.len-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--glass2);
+  border: 1px solid var(--brd2);
+  color: var(--text);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  min-height: 70px;
+}
+.len-btn:hover:not(.disabled) {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(58, 155, 133, 0.3);
+}
+.len-btn:hover:not(.disabled) .len-text small,
+.len-btn:hover:not(.disabled) .len-text strong {
+  color: #fff;
+}
+.len-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.len-btn.prev {
+  flex-direction: row;
+}
+.len-btn.next {
+  flex-direction: row-reverse;
+}
+.len-arrow {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary);
+  flex: 0 0 auto;
+  transition: color 0.25s;
+}
+.len-btn:hover:not(.disabled) .len-arrow {
+  color: #fff;
+}
+.len-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: start;
+}
+.len-text small {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+  transition: color 0.25s;
+}
+.len-text strong {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text);
+  transition: color 0.25s;
+  line-height: 1.3;
+}
+.len-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--glass);
+  border: 1px solid var(--brd2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: var(--muted);
+  flex: 0 0 auto;
+  transition: all 0.25s;
+}
+.len-check.done {
+  background: #4caf50;
+  border-color: #4caf50;
+  color: #fff;
+}
+.len-divider {
+  width: 1px;
+  background: var(--brd2);
+  flex: 0 0 auto;
+}
+
+/* ===== أسهم التنقل السريع في الشريط العلوي ===== */
+.top-nav-arrows {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-inline-end: 8px;
+}
+.tna-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--glass2);
+  border: 1px solid var(--brd2);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.9rem;
+  transition: all 0.25s;
+}
+.tna-btn:hover {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.1);
+}
+
+/* ===== موبايل: أزرار التنقل ===== */
+@media (max-width: 640px) {
+  .lesson-end-nav {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+  .len-btn {
+    min-height: 60px;
+    padding: 10px 14px;
+  }
+  .len-text strong {
+    font-size: 0.82rem;
+  }
+  .len-divider {
+    width: 100%;
+    height: 1px;
+  }
+  .top-nav-arrows .tna-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== إخفاء lesson-nav العائم القديم ===== */
+.lesson-nav {
+  display: none !important;
+}
