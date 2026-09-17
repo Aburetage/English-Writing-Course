@@ -19,6 +19,13 @@ venv/
 .env.local
 .env.*
 
+# Build directories
+dist/
+build/
+target/
+*.log
+*.tmp
+*.swp
 # Logs and temp files
 *.log
 *.tmp
@@ -38,6 +45,7 @@ coverage/
 htmlcov/
 .coverage
 
+# Compressed files
 # Build directories
 dist/
 build/
@@ -67,6 +75,22 @@ target/
 *.Z
 *.lz
 *.lzo
+
+# Python specific
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Java specific
+*.class
+*.jar
+.gradle/
+
+# System files
+.DS_Store
+Thumbs.db
 *.tar.gz
 *.tar.bz2
 *.tar.xz
