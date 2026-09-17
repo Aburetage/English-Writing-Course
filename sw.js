@@ -1,5 +1,5 @@
 /* ===== English Writing Course — Service Worker (Auto-Update) ===== */
-const CACHE = 'ewc-auto-v2';
+const CACHE = 'ewc-auto-v3';
 const CORE = [
   './',
   './index.html',
