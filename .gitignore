@@ -26,10 +26,19 @@ target/
 *.log
 *.tmp
 *.swp
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
 
 # Editors
 .vscode/
 .idea/
+
+# System files
+.DS_Store
+Thumbs.db
 
 # Coverage reports
 coverage/
@@ -37,6 +46,17 @@ htmlcov/
 .coverage
 
 # Compressed files
+# Build directories
+dist/
+build/
+target/
+.gradle/
+
+# Python specific
+.mypy_cache/
+.pytest_cache/
+
+# Compression files
 *.zip
 *.gz
 *.tar
@@ -71,4 +91,8 @@ htmlcov/
 # System files
 .DS_Store
 Thumbs.db
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

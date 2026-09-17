@@ -313,6 +313,19 @@ if('serviceWorker'in navigator&&/^https?:$/.test(location.protocol)){
 
 /* ===== شريط التبويبات السفلي (معطل الآن) ===== */
 /* تم إزالة نظام الشريط السفلي واستبداله بشريط التنقل بين الدروس */
+/* ===== شريط التبويبات السفلي ===== */
+(function(){
+  const isIndex=!!document.getElementById('roadmap');
+  $$('.bb-tab').forEach(t=>{
+    t.addEventListener('click',e=>{
+      const k=t.dataset.tab;
+      if(k==='toc'){e.preventDefault();const tc=$('#toc'),b2=$('#backdrop');if(tc){tc.classList.add('open');if(b2)b2.classList.add('show');}return;}
+      if(k==='map'&&isIndex){e.preventDefault();const el=document.getElementById('roadmap');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return;}
+      if(k==='home'&&isIndex){e.preventDefault();scrollTo({top:0,behavior:'smooth'});return;}
+      if(k==='lesson'&&!isIndex){e.preventDefault();scrollTo({top:0,behavior:'smooth'});return;}
+    });
+  });
+})();
 
 /* ===== البداية + إعادة رسم بعد تحميل كل السكربتات ===== */
 (function init(){
