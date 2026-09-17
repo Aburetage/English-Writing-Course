@@ -476,3 +476,15 @@ footer b{background:var(--grad);-webkit-background-clip:text;background-clip:tex
   *,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
   .blob{animation:none;opacity:.18;}
 }
+/* ===== إخفاء عناصر محددة في الموبايل ===== */
+@media(max-width:640px){
+  /* إخفاء اسم الكورس والأيقونة من الشريط العلوي */
+  .topbar .logo{display:none !important;}
+  /* إخفاء أيقونة الخريطة من الشريط العلوي */
+  .topbar #mapBtn{display:none !important;}
+  /* إخفاء أيقونة الدرس من الشريط السفلي */
+  .bottombar .bb-tab[data-tab="lesson"]{display:none !important;}
+}
+
+/* ===== إخفاء أيقونة الدرس من الشريط السفلي في كل الأحجام (اختياري) ===== */
+/* .bottombar .bb-tab[data-tab="lesson"]{display:none !important;} */
