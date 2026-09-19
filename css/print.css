@@ -1,0 +1,245 @@
+/* ===== English Writing Course — Print ===== */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #1f2d33 !important;
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+
+  /* Hide interactive / decorative chrome */
+  .bg,
+  .blob,
+  #progress,
+  .topbar,
+  .top-nav-arrows,
+  .lesson-nav,
+  .crumbs,
+  #toc,
+  #backdrop,
+  .bottombar,
+  .fab,
+  .toast,
+  .opts,
+  .rv,
+  .reset,
+  .ta-meta,
+  .journey,
+  .lesson-end-nav,
+  .lbtn,
+  .jbtn,
+  .signpost,
+  noscript {
+    display: none !important;
+  }
+
+  /* Show all lesson content regardless of module state */
+  .mod {
+    display: block !important;
+    animation: none !important;
+  }
+
+  .wrap {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  section.card,
+  .card {
+    background: #ffffff !important;
+    border: 1px solid #d7dedb !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 10mm !important;
+    padding: 6mm !important;
+  }
+
+  .card-head .num,
+  .formula::before,
+  .coach::before,
+  .defcard .dhead,
+  .phead,
+  .lstation::before,
+  .bstep::before {
+    background: #eef8f5 !important;
+    color: #174f43 !important;
+    box-shadow: none !important;
+    -webkit-text-fill-color: #174f43 !important;
+  }
+
+  .card-head h2 .e,
+  footer b,
+  .logo b {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: #245b87 !important;
+    color: #245b87 !important;
+  }
+
+  .e,
+  [lang="en"] {
+    color: #245b87 !important;
+  }
+
+  .spec,
+  .defcard,
+  .formula,
+  .coach,
+  .alert,
+  .quiz,
+  .q,
+  .ans,
+  .fcard,
+  .role,
+  .fun,
+  .rcard,
+  .refcard,
+  .lstation,
+  .pmini,
+  .gitem,
+  .gbox,
+  .bcard,
+  .aspect,
+  .dstep,
+  .chip,
+  table,
+  th,
+  td {
+    background: #ffffff !important;
+    border-color: #d7dedb !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .spec {
+    border-inline-start: 3px solid #3a9b85 !important;
+  }
+
+  .alert {
+    border: 1px solid #d7dedb !important;
+  }
+
+  .alert .aic,
+  .formula,
+  .coach,
+  .defcard,
+  .spec,
+  .quiz,
+  .q,
+  .ans {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .formula::before,
+  .coach::before {
+    position: static !important;
+    display: inline-block !important;
+    margin-bottom: 2mm !important;
+  }
+
+  .formula,
+  .coach {
+    padding-top: 4mm !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #d7dedb !important;
+    padding: 2mm 3mm !important;
+    font-size: 10pt !important;
+  }
+
+  th {
+    background: #eef8f5 !important;
+    color: #174f43 !important;
+  }
+
+  textarea {
+    border: 1px solid #d7dedb !important;
+    background: #ffffff !important;
+    color: #1f2d33 !important;
+    min-height: 18mm !important;
+    resize: none !important;
+  }
+
+  .fb,
+  .score,
+  .sav,
+  .wc {
+    color: #5f7076 !important;
+  }
+
+  .fb.good {
+    background: #eef8f5 !important;
+    color: #174f43 !important;
+  }
+
+  .fb.bad {
+    background: #fff1f0 !important;
+    color: #973f35 !important;
+  }
+
+  a {
+    color: #245b87 !important;
+    text-decoration: none !important;
+  }
+
+  /* Optional: show URL after external links, but keep lesson internal links clean */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #5f7076;
+    word-break: break-all;
+  }
+
+  .lesson-title {
+    color: #174f43 !important;
+    text-align: center;
+    margin-bottom: 6mm !important;
+  }
+
+  .lesson-meta {
+    justify-content: center;
+    margin-bottom: 6mm !important;
+    color: #5f7076 !important;
+  }
+
+  .lesson-meta span {
+    border: 1px solid #d7dedb !important;
+    background: #ffffff !important;
+  }
+
+  /* Avoid orphan headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Hide answer toggles content if hidden remains hidden; visible answers print normally */
+  [hidden] {
+    display: none !important;
+  }
+}
