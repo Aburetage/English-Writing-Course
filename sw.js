@@ -1,70 +1,132 @@
-/* ===== English Writing Course — Service Worker (Auto-Update) ===== */
-const CACHE = 'ewc-auto-v3';
+/* ===== English Writing Course — Service Worker ===== */
+
+const CACHE = "ewc-v7-bottom-nav";
+
 const CORE = [
-  './',
-  './index.html',
-  './lesson1.html',
-  './lesson2.html',
-  './lesson3.html',
-  './lesson4.html',
-  './style.css',
-  './course.js',
-  './course-data.js',
-  './sw.js',
-  './manifest.webmanifest',
-  './icon.svg',
-  './icon-maskable.svg'
+  "./",
+  "./index.html",
+  "./404.html",
+
+  "./lessons/lesson1.html",
+  "./lessons/lesson2.html",
+  "./lessons/lesson3.html",
+  "./lessons/lesson4.html",
+
+  "./css/tokens.css",
+  "./css/base.css",
+  "./css/layout.css",
+  "./css/components.css",
+  "./css/lessons.css",
+  "./css/print.css",
+
+  "./js/main.js",
+  "./js/utils.js",
+  "./js/storage.js",
+  "./js/navigation.js",
+  "./js/toc.js",
+  "./js/quiz.js",
+  "./js/autosave.js",
+  "./js/roadmap.js",
+  "./js/pwa.js",
+  "./js/data/course.js",
+  "./js/data/vocabulary.js",
+
+  "./manifest.webmanifest",
+  "./robots.txt",
+  "./sitemap.xml",
+
+  "./icons/icon.svg",
+  "./icons/icon-maskable.svg"
 ];
-/* تثبيت: تخزين أساسي فوري + تفعيل فوري للـ SW الجديد */
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE)
-      .then(c => Promise.allSettled(CORE.map(u => c.add(u))))
+
+/* التثبيت: تخزين أساسي + تفعيل فوري */
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches
+      .open(CACHE)
+      .then((cache) => Promise.allSettled(CORE.map((url) => cache.add(url))))
       .then(() => self.skipWaiting())
   );
 });
-/* تفعيل: تنظيف أي كاشات قديمة تلقائيًا + السيطرة على كل التبويبات */
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
-        keys.filter(k => k !== CACHE && k.startsWith('ewc-')).map(k => caches.delete(k))
-      ))
+
+/* التنشيط: حذف الكاشات القديمة + السيطرة على التبويبات */
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== CACHE && key.startsWith("ewc-"))
+            .map((key) => caches.delete(key))
+        )
+      )
       .then(() => self.clients.claim())
   );
 });
-self.addEventListener('fetch', e => {
-  const req = e.request;
-  if (req.method !== 'GET') return;
-  const url = new URL(req.url);
-  /* موارد خارجية (خطوط جوجل): كاش فوري + تحديث في الخلفية */
-  if (url.origin !== location.origin) {
-    e.respondWith(
-      caches.match(req).then(hit => {
-        const refresh = fetch(req).then(res => {
-          if (res && (res.ok || res.type === 'opaque')) {
-            const cp = res.clone();
-            caches.open(CACHE).then(c => c.put(req, cp));
-          }
-          return res;
-        }).catch(() => hit);
-        return hit || refresh;
+
+/* الجلب */
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
+
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+
+  /* موارد خارجية (خطوط جوجل): stale-while-revalidate */
+  if (url.origin !== self.location.origin) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        const network = fetch(request)
+          .then((response) => {
+            if (response && (response.ok || response.type === "opaque")) {
+              const copy = response.clone();
+              caches.open(CACHE).then((cache) => cache.put(request, copy));
+            }
+            return response;
+          })
+          .catch(() => cached);
+
+        return cached || network;
       })
     );
     return;
   }
-  /* صفحات وملفات الموقع: الشبكة أولًا (دايمًا أحدث نسخة) والكاش احتياطي (أوفلاين) */
-  e.respondWith(
-    fetch(req).then(res => {
-      if (res && res.ok) {
-        const cp = res.clone();
-        caches.open(CACHE).then(c => c.put(req, cp));
-      }
-      return res;
-    }).catch(() =>
-      caches.match(req).then(hit =>
-        hit || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())
-      )
-    )
+
+  /* صفحات التنقل: الشبكة أولًا، ثم الكاش، ثم الرئيسية أوفلاين */
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response && response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE).then((cache) => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches
+            .match(request)
+            .then((cached) => cached || caches.match("./index.html"))
+        )
+    );
+    return;
+  }
+
+  /* الأصول الثابتة (css/js/icons/manifest): stale-while-revalidate */
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      const network = fetch(request)
+        .then((response) => {
+          if (response && response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE).then((cache) => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() => cached);
+
+      return cached || network;
+    })
   );
 });
