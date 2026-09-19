@@ -1,470 +1,846 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>English Writing Course | الرئيسية — مقدمة الكورس وخريطة الرحلة</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#3a9b85">
-<link rel="icon" type="image/svg+xml" href="icon.svg">
-<link rel="apple-touch-icon" href="icon.svg">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="EWC">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>English Writing Course | الرئيسية — مقدمة الكورس وخريطة الرحلة</title>
+  <meta name="description" content="الصفحة الرئيسية لكورس الكتابة باللغة الإنجليزية: فلسفة الكورس، خارطة الرحلة، والانتقال من الكلمة إلى المقال.">
+
+  <link rel="canonical" href="https://aburetage.github.io/English-Writing-Course/index.html">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#3a9b85">
+
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="English Writing Course">
+  <meta property="og:title" content="English Writing Course | الرئيسية — مقدمة الكورس وخريطة الرحلة">
+  <meta property="og:description" content="كورس الكتابة باللغة الإنجليزية: من الكلمة إلى المقال، عبر فهم الوظائف، بناء الجمل، الفقرات، والمقالات.">
+  <meta property="og:url" content="https://aburetage.github.io/English-Writing-Course/index.html">
+  <meta property="og:image" content="https://aburetage.github.io/English-Writing-Course/icons/icon.svg">
+  <meta property="og:locale" content="ar_AR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="English Writing Course | الرئيسية">
+  <meta name="twitter:description" content="من الكلمة إلى المقال: كورس تفاعلي للكتابة باللغة الإنجليزية.">
+  <meta name="twitter:image" content="https://aburetage.github.io/English-Writing-Course/icons/icon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/lessons.css">
+  <link rel="stylesheet" href="css/print.css">
+
+  <script type="module" src="js/main.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "English Writing Course",
+    "alternateName": "كورس الكتابة باللغة الإنجليزية",
+    "description": "كورس تفاعلي لبناء مهارة الكتابة باللغة الإنجليزية من الكلمة إلى المقال.",
+    "inLanguage": ["ar", "en"],
+    "provider": {
+      "@type": "Organization",
+      "name": "English Writing Course",
+      "url": "https://aburetage.github.io/English-Writing-Course/"
+    }
+  }
+  </script>
 </head>
-<body data-lesson="0">
 
-<div class="bg"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
-<div id="progress"></div>
+<body data-page="index">
+  <a href="#main" class="skip-link">تخطَّ إلى المحتوى الرئيسي</a>
 
-<header class="topbar glass">
-  <button id="menuBtn" title="الفهرس">☰</button>
-  <a class="logo" href="index.html">
-    <div class="mark">✒️</div>
-    <div><b>English Writing Course</b><small>كورس الكتابة باللغة الإنجليزية</small></div>
-  </a>
-  <div class="lesson-pill">الرئيسية <small>｜ مقدمة الكورس وخريطة الرحلة</small></div>
-  <div class="tools">
-    <button id="mapBtn" title="خريطة الرحلة">🗺</button>
-    <button id="printBtn" title="طباعة / PDF">🖨</button>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
   </div>
-</header>
 
-<aside id="toc" class="glass">
-  <div class="toc-head">
-    <div class="ring">
-      <svg width="46" height="46"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a9b85"/><stop offset="1" stop-color="#7fc9b2"/></linearGradient></defs><circle class="bgc" cx="23" cy="23" r="18"/><circle class="fgc" id="ringFg" cx="23" cy="23" r="18"/></svg>
-      <span id="ringTxt">0%</span>
-    </div>
-    <div class="toc-title"><b>محتويات الرئيسية</b><small><span class="e">English Writing Course — Home</span></small></div>
-  </div>
-  <div class="toc-grp" data-mod="0">
-    <button class="toc-ghead"><span class="gi">🧭</span> فلسفة الكورس <span class="arr">▾</span></button>
-    <div class="toc-gbody">
-      <a href="#nature"><span class="n">✍️</span>ما هي الكتابة؟</a>
-      <a href="#words"><span class="n">🔤</span>معرفة الكلمات لا تكفي</a>
-      <a href="#knowuse"><span class="n">🎯</span>من المعرفة إلى الاستخدام</a>
-    </div>
-  </div>
-  <div class="toc-grp" data-mod="1">
-    <button class="toc-ghead"><span class="gi">📚</span> لماذا وكيف نتعلم <span class="arr">▾</span></button>
-    <div class="toc-gbody">
-      <a href="#why"><span class="n">❓</span>لماذا نتعلم الكتابة؟</a>
-      <a href="#build"><span class="n">🧱</span>تبدأ من الكلمة ولا تتوقف عندها</a>
-      <a href="#words2essays"><span class="n">🏢</span>من Words إلى Essays</a>
-      <a href="#trio"><span class="n">🔗</span>العلاقة بين العناصر الثلاثة</a>
-      <a href="#cycle"><span class="n">🔁</span>من معرفة القاعدة إلى استخدامها</a>
-      <a href="#mistakes"><span class="n">💡</span>الخطأ ليس نهاية التعلم</a>
-      <a href="#stages"><span class="n">📈</span>كيف ستتطور مهارتك؟</a>
-      <a href="#outcomes"><span class="n">🏁</span>ماذا نريد أن تستطيع فعله؟</a>
-      <a href="#view"><span class="n">🗺</span>كيف سننظر إلى الكورس كله؟</a>
-    </div>
-  </div>
-  <div class="toc-grp" data-mod="2">
-    <button class="toc-ghead"><span class="gi">🛣</span> خريطة الرحلة <span class="arr">▾</span></button>
-    <div class="toc-gbody">
-      <a href="#roadmap"><span class="n">🛣</span>الـ16 درسًا</a>
-      <a href="#path"><span class="n">🏁</span>مسار الكورس والختام</a>
-    </div>
-  </div>
-</aside>
-<div id="backdrop"></div>
+  <div id="progress" aria-hidden="true"></div>
 
-<main class="wrap">
+  <nav id="toc" class="glass" aria-label="فهرس المحتويات">
+    <div class="toc-head">
+      <div class="ring" role="progressbar" aria-label="تقدم القراءة" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2c7a68" />
+              <stop offset="1" stop-color="#7fc9b2" />
+            </linearGradient>
+          </defs>
+          <circle class="bgc" cx="23" cy="23" r="18"></circle>
+          <circle id="ringFg" class="fgc" cx="23" cy="23" r="18"></circle>
+        </svg>
+        <span id="ringTxt">0%</span>
+      </div>
 
-<div class="crumbs"><span><i></i> <span class="e">English Writing Course</span> › الرئيسية — مقدمة الكورس وخريطة الرحلة</span></div>
-
-<!-- ==================== المحور 1 ==================== -->
-<div class="mod" data-name="فلسفة الكورس" data-icon="🧭" id="mod0">
-<div class="mod-head glass"><span class="mi">🧭</span><div><b>المحور الأول — فلسفة الكورس</b><small>ما الكتابة؟ ولماذا لا تكفي الكلمات؟ وما هدف الكورس الحقيقي؟</small></div></div>
-
-<section class="card glass" id="nature">
-  <div class="card-head"><span class="num">✍️</span><h2>ما هي الكتابة؟</h2></div>
-  <div class="card-body">
-    <p>الكتابة باللغة الإنجليزية <span class="e">English Writing</span> — الكتابة باللغة الإنجليزية:</p>
-    <div class="xchips">
-      <span class="xchip">ليست مجرد القدرة على وضع كلمات إنجليزية بجانب بعضها</span>
-      <span class="xchip">ليست مجرد معرفة عدد كبير من المفردات</span>
-      <span class="xchip">ليست مجرد حفظ مجموعة من القواعد</span>
-    </div>
-    <div class="ucard">
-      <b>✅ الكتابة مهارة متكاملة تجمع بين:</b>
-      <div class="uchips">
-        <span class="uchip">معرفة الكلمات</span>
-        <span class="uchip">فهم وظائفها</span>
-        <span class="uchip">معرفة كيفية بناء الجملة</span>
-        <span class="uchip">تنظيم الأفكار</span>
-        <span class="uchip">ربط الجمل</span>
-        <span class="uchip">تحويل الجمل إلى فقرات واضحة</span>
-        <span class="uchip">تحويل الفقرات إلى مقال متماسك</span>
+      <div class="toc-title">
+        <b>محتويات الرئيسية</b>
+        <small><span class="e" lang="en">English Writing Course — Home</span></small>
       </div>
     </div>
-    <p>لذلك، عندما نتعلم الكتابة، فإننا لا نتعلم فقط <strong>ماذا نكتب</strong>، وإنما نتعلم أيضًا <strong>كيف نفكر في اللغة عندما نكتب</strong>.</p>
-    <div class="vs">
-      <div class="vside a"><span class="vtag">ماذا نكتب</span><div class="var2">المحتوى نفسه</div></div>
-      <div class="vmid">ليس فقط … وإنما أيضًا</div>
-      <div class="vside b"><span class="vtag">كيف نفكر في اللغة عندما نكتب</span><div class="var2">طريقة التفكير في اللغة</div></div>
-    </div>
-  </div>
-</section>
 
-<section class="card glass" id="words">
-  <div class="card-head"><span class="num">🔤</span><h2>معرفة الكلمات لا تكفي</h2></div>
-  <div class="card-body">
-    <p>فإذا أردت أن تكتب:</p>
-    <div class="spec"><div class="slabel">✏️ الهدف — جملة نريد كتابتها</div><div class="sen">«المزارع يزرع الطماطم في الأرض الجديدة.»</div><div class="sar">The farmer grows tomatoes in the new land.</div></div>
-    <p>فمعرفة الكلمات وحدها لا تكفي. قد تعرف:</p>
-    <div class="scatter"><span class="schip">farmer</span><span class="schip">grow</span><span class="schip">tomato</span><span class="schip">land</span><span class="schip">new</span></div>
-    <div class="fgrid">
-      <div class="fcard"><span class="e">farmer</span><small>مزارع</small></div>
-      <div class="fcard"><span class="e">grow</span><small>يزرع / ينمو</small></div>
-      <div class="fcard"><span class="e">tomato</span><small>طماطم</small></div>
-      <div class="fcard"><span class="e">land</span><small>أرض</small></div>
-      <div class="fcard"><span class="e">new</span><small>جديد</small></div>
-    </div>
-    <div class="alert"><span class="aic">⚠️</span><p>ولكن معرفة هذه الكلمات منفردة لا تضمن قدرتك على تكوين جملة صحيحة منها.</p></div>
-    <div class="sarrow">↓ لكي تكتب الجملة، يجب أن تعرف:</div>
-    <div class="dpath">
-      <div class="dstep">كيف تتغير الكلمة بحسب وظيفتها</div>
-      <div class="dstep">كيف ترتب الكلمات</div>
-      <div class="dstep">كيف تربطها ببعضها</div>
-      <div class="dstep">كيف تستخدم الزمن المناسب</div>
-      <div class="dstep">كيف تجعل الجملة تعبر عن المعنى الذي تريده</div>
-    </div>
-  </div>
-</section>
-
-<section class="card glass" id="knowuse">
-  <div class="card-head"><span class="num">🎯</span><h2>من المعرفة إلى الاستخدام — هدف الكورس</h2></div>
-  <div class="card-body">
-    <p>وهنا يظهر الفرق بين <strong><span class="e">Knowing English</span> — معرفة الإنجليزية</strong> و <strong><span class="e">Using English</span> — استخدام الإنجليزية</strong>.</p>
-    <div class="vs">
-      <div class="vside a"><span class="vtag"><span class="e" style="color:inherit">Knowing English</span> — معرفة الإنجليزية</span><div class="var2">أن تعرف القاعدة</div></div>
-      <div class="vmid">الفرق</div>
-      <div class="vside b"><span class="vtag"><span class="e" style="color:inherit">Using English</span> — استخدام الإنجليزية</span><div class="var2">أن تستخدمها أثناء الكتابة</div></div>
-    </div>
-    <p>قد يعرف المتعلم قاعدة مثل:</p>
-    <div class="formula"><span class="e">The verb usually agrees with the subject.</span><small>«الفعل يتوافق عادةً مع الفاعل.»</small></div>
-    <p>لكن المعرفة الحقيقية تبدأ عندما يستطيع استخدام هذه القاعدة في جملة مثل:</p>
-    <div class="spec"><div class="slabel">✏️ Example — استخدام القاعدة</div><div class="sen">«The farmer grows tomatoes.»</div><div class="sar">«المزارع يزرع الطماطم.»</div></div>
-    <p>ثم يستطيع استخدامها داخل فقرة كاملة، ثم داخل مقال يناقش موضوعًا معينًا.</p>
-    <div class="layers">
-      <div class="layer"><span class="e">Sentence</span><small>جملة تستخدم القاعدة</small></div>
-      <div class="layer"><span class="e">Paragraph</span><small>فقرة كاملة</small></div>
-      <div class="layer"><span class="e">Essay</span><small>مقال يناقش موضوعًا معينًا</small></div>
-    </div>
-    <p>إذن، هدفنا في هذا الكورس ليس أن نصل إلى مرحلة تستطيع فيها أن تقول: «أنا أعرف هذه القاعدة.»</p>
-    <p>الهدف هو أن تصل إلى مرحلة تستطيع فيها أن تقول: «أنا أستطيع استخدام هذه القاعدة أثناء الكتابة.»</p>
-    <div class="vs">
-      <div class="vside a"><span class="vtag">✗ ليس الهدف</span><div class="var2">«أنا أعرف هذه القاعدة.»</div></div>
-      <div class="vmid">الهدف</div>
-      <div class="vside b"><span class="vtag">✓ الهدف الحقيقي</span><div class="var2">«أنا أستطيع استخدام هذه القاعدة أثناء الكتابة.»</div></div>
-    </div>
-  </div>
-</section>
-</div>
-
-<!-- ==================== المحور 2 ==================== -->
-<div class="mod" data-name="لماذا وكيف نتعلم" data-icon="📚" id="mod1">
-<div class="mod-head glass"><span class="mi">📚</span><div><b>المحور الثاني — لماذا وكيف نتعلم</b><small>أهمية الكتابة، بناء المهارة، دورة التعلم، ومخرجات الكورس</small></div></div>
-
-<section class="card glass" id="why">
-  <div class="card-head"><span class="num">❓</span><h2>لماذا نحتاج إلى تعلم الكتابة؟</h2></div>
-  <div class="card-body">
-    <p>الكتابة واحدة من المهارات الأساسية في تعلم أي لغة:</p>
-    <div class="skgrid">
-      <div class="sk"><span class="e">Listening</span><small>الاستماع</small></div>
-      <div class="sk"><span class="e">Speaking</span><small>التحدث</small></div>
-      <div class="sk"><span class="e">Reading</span><small>القراءة</small></div>
-      <div class="sk hl"><span class="e">Writing</span><small>الكتابة — لها طبيعة خاصة</small></div>
-    </div>
-    <p>لكن الكتابة لها طبيعة خاصة؛ لأنها تجبرك على أن تجعل أفكارك واضحة ومنظمة ودقيقة.</p>
-    <div class="vs">
-      <div class="vside a"><span class="vtag">أثناء الحديث</span><small>تساعدك نبرة الصوت</small><small>أو الإشارة</small><small>أو إعادة الكلام</small><small>أو التوضيح الفوري</small></div>
-      <div class="vmid">أما في الكتابة</div>
-      <div class="vside b"><span class="vtag">القارئ</span><small>لا يسمع صوتك</small><small>ولا يرى تعبير وجهك</small><small>ولا يستطيع أن يسألك مباشرة عما تقصده</small></div>
-    </div>
-    <div class="alert"><span class="aic">⚠️</span><p>لذلك يجب أن تحمل الكلمات والجمل نفسها المعنى بوضوح.</p></div>
-    <p>وهذا يجعل الكتابة تدريبًا مهمًا ليس فقط على اللغة، وإنما أيضًا على:</p>
-    <div class="pillars">
-      <div class="pbar">الكتابة تدريب على</div>
-      <div class="pcols five">
-        <div class="pcol"><span class="e">Clarity</span><small>الوضوح</small></div>
-        <div class="pcol"><span class="e">Accuracy</span><small>الدقة</small></div>
-        <div class="pcol"><span class="e">Organization</span><small>التنظيم</small></div>
-        <div class="pcol"><span class="e">Coherence</span><small>ترابط الأفكار</small></div>
-        <div class="pcol"><span class="e">Communication</span><small>التواصل</small></div>
+    <div class="toc-grp">
+      <div class="toc-gbody">
+        <a href="#nature"><span class="n" aria-hidden="true">✍️</span><span>ما هي الكتابة؟</span></a>
+        <a href="#words"><span class="n" aria-hidden="true">🔤</span><span>معرفة الكلمات لا تكفي</span></a>
+        <a href="#knowuse"><span class="n" aria-hidden="true">🎯</span><span>من المعرفة إلى الاستخدام</span></a>
+        <a href="#why"><span class="n" aria-hidden="true">❓</span><span>لماذا نتعلم الكتابة؟</span></a>
+        <a href="#build"><span class="n" aria-hidden="true">🧱</span><span>تبدأ من الكلمة ولا تتوقف عندها</span></a>
+        <a href="#words2essays"><span class="n" aria-hidden="true">🏢</span><span>من Words إلى Essays</span></a>
+        <a href="#trio"><span class="n" aria-hidden="true">🔗</span><span>العلاقة بين العناصر الثلاثة</span></a>
+        <a href="#cycle"><span class="n" aria-hidden="true">🔁</span><span>من معرفة القاعدة إلى استخدامها</span></a>
+        <a href="#mistakes"><span class="n" aria-hidden="true">💡</span><span>الخطأ ليس نهاية التعلم</span></a>
+        <a href="#stages"><span class="n" aria-hidden="true">📈</span><span>كيف ستتطور مهارتك؟</span></a>
+        <a href="#outcomes"><span class="n" aria-hidden="true">🏁</span><span>ماذا نريد أن تستطيع فعله؟</span></a>
+        <a href="#view"><span class="n" aria-hidden="true">🗺</span><span>كيف سننظر إلى الكورس كله؟</span></a>
+        <a href="#roadmap"><span class="n" aria-hidden="true">🛣</span><span>خريطة الرحلة</span></a>
+        <a href="#path"><span class="n" aria-hidden="true">🏁</span><span>مسار الكورس والختام</span></a>
       </div>
     </div>
-    <p>ولهذا فإن تعلم الكتابة بشكل صحيح سيساعدك على استخدام الإنجليزية في الدراسة والعمل والمراسلات والتقارير والمقالات وغيرها من المواقف التي تحتاج فيها إلى التعبير عن أفكارك بصورة منظمة.</p>
-    <div class="tags2"><span class="tag2">الدراسة</span><span class="tag2">العمل</span><span class="tag2">المراسلات</span><span class="tag2">التقارير</span><span class="tag2">المقالات</span></div>
-  </div>
-</section>
+  </nav>
 
-<section class="card glass" id="build">
-  <div class="card-head"><span class="num">🧱</span><h2>الكتابة تبدأ من الكلمة، لكنها لا تتوقف عند الكلمة</h2></div>
-  <div class="card-body">
-    <p>من السهل أن نعتقد أن تحسين الكتابة يعني حفظ المزيد من الكلمات.</p>
-    <p>المفردات مهمة بالتأكيد.</p>
-    <p><strong><span class="e">Vocabulary</span> — المفردات</strong> هي المواد التي نستخدمها للتعبير عن أفكارنا، وكلما اتسعت مفرداتك زادت قدرتك على التعبير.</p>
-    <p>لكن الكلمات وحدها لا تصنع كتابة جيدة.</p>
-    <p>يمكن أن تعرف مئات أو آلاف الكلمات، ومع ذلك تجد صعوبة في كتابة فقرة صحيحة؛ لأن المشكلة ليست دائمًا في معرفة الكلمات، وإنما في معرفة <strong>العلاقة بينها</strong>.</p>
-    <p>وهنا يأتي دور <strong><span class="e">Grammar</span> — القواعد</strong>.</p>
-    <p>القواعد تخبرنا بكيفية عمل اللغة، بينما تساعدنا المفردات على تحديد المعنى الذي نريد التعبير عنه.</p>
-    <p>لكن حتى <span class="e">Grammar</span> — القواعد و<span class="e">Vocabulary</span> — المفردات لا تكفيان وحدهما.</p>
-    <p>نحتاج أيضًا إلى معرفة:</p>
-    <div class="reflist">
-      <div class="refcard"><b><span class="e">Sentence Structure</span> — تركيب الجملة</b><small>كيف تتحول الكلمات إلى جملة لها معنى صحيح ومنظم.</small></div>
-      <div class="refcard"><b><span class="e">Paragraph Structure</span> — تركيب الفقرة</b><small>كيف تتحول مجموعة الجمل إلى وحدة واحدة تدور حول فكرة محددة.</small></div>
-      <div class="refcard"><b><span class="e">Essay Structure</span> — تركيب المقال</b><small>كيف نجمع مجموعة من الفقرات بطريقة منظمة لنناقش موضوعًا كاملًا.</small></div>
+  <div id="backdrop"></div>
+
+  <main id="main" class="wrap">
+    <h1 class="sr-only">
+      <span class="e" lang="en">English Writing Course</span>
+      — كورس الكتابة باللغة الإنجليزية
+    </h1>
+
+    <section class="card center" id="home-hero">
+      <h1 class="lesson-title">
+        <span class="e" lang="en">English Writing Course</span>
+        كورس الكتابة باللغة الإنجليزية
+      </h1>
+
+      <p>
+        من
+        <span class="e" lang="en">Word</span>
+        — الكلمة، إلى
+        <span class="e" lang="en">Essay</span>
+        — المقال: رحلة متدرجة لبناء مهارة الكتابة بصورة صحيحة وطبيعية.
+      </p>
+
+      <div class="achain ltr">
+        <span class="chip"><span class="e" lang="en">Word</span></span>
+        <span class="chip"><span class="e" lang="en">Phrase</span></span>
+        <span class="chip"><span class="e" lang="en">Clause</span></span>
+        <span class="chip"><span class="e" lang="en">Sentence</span></span>
+        <span class="chip"><span class="e" lang="en">Paragraph</span></span>
+        <span class="chip"><span class="e" lang="en">Essay</span></span>
+      </div>
+
+      <div class="journey">
+        <a id="continueBtn" class="lbtn" href="lessons/lesson1.html">
+          ▶ ابدأ من Lesson 1 — Definitions
+        </a>
+        <a class="jbtn" href="#roadmap">
+          🗺 خريطة الرحلة
+        </a>
+      </div>
+    </section>
+
+    <section class="card" id="philosophy">
+      <div class="card-head">
+        <span class="num" aria-hidden="true">🧭</span>
+        <h2>
+          <span class="e" lang="en">المحور الأول</span>
+          — فلسفة الكورس
+        </h2>
+      </div>
+
+      <p>
+        ما الكتابة؟ ولماذا لا تكفي الكلمات؟ وما هدف الكورس الحقيقي؟
+      </p>
+
+      <section class="card" id="nature">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">✍️</span>
+          <h2>ما هي الكتابة؟</h2>
+        </div>
+
+        <p>
+          <span class="e" lang="en">English Writing</span>
+          — الكتابة باللغة الإنجليزية:
+        </p>
+
+        <ul>
+          <li>ليست مجرد القدرة على وضع كلمات إنجليزية بجانب بعضها.</li>
+          <li>ليست مجرد معرفة عدد كبير من المفردات.</li>
+          <li>ليست مجرد حفظ مجموعة من القواعد.</li>
+        </ul>
+
+        <div class="alert ok">
+          <span class="aic" aria-hidden="true">✅</span>
+          <p>
+            الكتابة مهارة متكاملة تجمع بين:
+            معرفة الكلمات، فهم وظائفها، معرفة كيفية بناء الجملة، تنظيم الأفكار، ربط الجمل، تحويل الجمل إلى فقرات واضحة، وتحويل الفقرات إلى مقال متماسك.
+          </p>
+        </div>
+
+        <p>
+          لذلك، عندما نتعلم الكتابة، فإننا لا نتعلم فقط
+          <span class="e" lang="en">what to write</span>
+          — ماذا نكتب، وإنما نتعلم أيضًا
+          <span class="e" lang="en">how to think in the language while writing</span>
+          — كيف نفكر في اللغة عندما نكتب.
+        </p>
+      </section>
+
+      <section class="card" id="words">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🔤</span>
+          <h2>معرفة الكلمات لا تكفي</h2>
+        </div>
+
+        <p>إذا أردت أن تكتب:</p>
+
+        <div class="spec">
+          <div class="slabel"><span aria-hidden="true">✏️</span> الهدف — جملة نريد كتابتها</div>
+          <div class="sen" lang="en">The farmer grows tomatoes in the new land.</div>
+          <div class="sar">«المزارع يزرع الطماطم في الأرض الجديدة.»</div>
+        </div>
+
+        <p>فمعرفة الكلمات وحدها لا تكفي. قد تعرف:</p>
+
+        <div class="fgrid">
+          <div class="fcard"><span class="e" lang="en">farmer</span><small>مزارع</small></div>
+          <div class="fcard"><span class="e" lang="en">grow</span><small>يزرع / ينمو</small></div>
+          <div class="fcard"><span class="e" lang="en">tomato</span><small>طماطم</small></div>
+          <div class="fcard"><span class="e" lang="en">land</span><small>أرض</small></div>
+          <div class="fcard"><span class="e" lang="en">new</span><small>جديد</small></div>
+        </div>
+
+        <div class="alert">
+          <span class="aic" aria-hidden="true">⚠️</span>
+          <p>
+            ولكن معرفة هذه الكلمات منفردة لا تضمن قدرتك على تكوين جملة صحيحة منها.
+          </p>
+        </div>
+
+        <p>لكي تكتب الجملة، يجب أن تعرف:</p>
+
+        <ul>
+          <li>كيف تتغير الكلمة بحسب وظيفتها.</li>
+          <li>كيف ترتب الكلمات.</li>
+          <li>كيف تربطها ببعضها.</li>
+          <li>كيف تستخدم الزمن المناسب.</li>
+          <li>كيف تجعل الجملة تعبر عن المعنى الذي تريده.</li>
+        </ul>
+      </section>
+
+      <section class="card" id="knowuse">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🎯</span>
+          <h2>من المعرفة إلى الاستخدام — هدف الكورس</h2>
+        </div>
+
+        <p>
+          وهنا يظهر الفرق بين:
+          <span class="e" lang="en">Knowing English</span>
+          — معرفة الإنجليزية، و
+          <span class="e" lang="en">Using English</span>
+          — استخدام الإنجليزية.
+        </p>
+
+        <div class="vs">
+          <div class="vside a">
+            <span class="vtag"><span class="e" lang="en">Knowing English</span></span>
+            <div class="var2">أن تعرف القاعدة.</div>
+          </div>
+          <div class="vmid">الفرق</div>
+          <div class="vside b">
+            <span class="vtag"><span class="e" lang="en">Using English</span></span>
+            <div class="var2">أن تستخدمها أثناء الكتابة.</div>
+          </div>
+        </div>
+
+        <p>قد يعرف المتعلم قاعدة مثل:</p>
+
+        <div class="spec">
+          <div class="sen" lang="en">The verb usually agrees with the subject.</div>
+          <div class="sar">«الفعل يتوافق عادةً مع الفاعل.»</div>
+        </div>
+
+        <p>لكن المعرفة الحقيقية تبدأ عندما يستطيع استخدام هذه القاعدة في جملة مثل:</p>
+
+        <div class="spec">
+          <div class="slabel"><span aria-hidden="true">✏️</span> Example — استخدام القاعدة</div>
+          <div class="sen" lang="en">The farmer grows tomatoes.</div>
+          <div class="sar">«المزارع يزرع الطماطم.»</div>
+        </div>
+
+        <p>ثم يستطيع استخدامها داخل فقرة كاملة، ثم داخل مقال يناقش موضوعًا معينًا.</p>
+
+        <div class="achain ltr">
+          <span class="chip"><span class="e" lang="en">Sentence</span><small>جملة تستخدم القاعدة</small></span>
+          <span class="chip"><span class="e" lang="en">Paragraph</span><small>فقرة كاملة</small></span>
+          <span class="chip"><span class="e" lang="en">Essay</span><small>مقال يناقش موضوعًا</small></span>
+        </div>
+
+        <div class="vs">
+          <div class="vside a">
+            <span class="vtag">✗ ليس الهدف</span>
+            <div class="var2">«أنا أعرف هذه القاعدة.»</div>
+          </div>
+          <div class="vmid">الهدف</div>
+          <div class="vside b">
+            <span class="vtag">✓ الهدف الحقيقي</span>
+            <div class="var2">«أنا أستطيع استخدام هذه القاعدة أثناء الكتابة.»</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="card" id="learning">
+      <div class="card-head">
+        <span class="num" aria-hidden="true">📚</span>
+        <h2>
+          <span class="e" lang="en">المحور الثاني</span>
+          — لماذا وكيف نتعلم
+        </h2>
+      </div>
+
+      <p>
+        أهمية الكتابة، بناء المهارة، دورة التعلم، ومخرجات الكورس.
+      </p>
+
+      <section class="card" id="why">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">❓</span>
+          <h2>لماذا نحتاج إلى تعلم الكتابة؟</h2>
+        </div>
+
+        <p>الكتابة واحدة من المهارات الأساسية في تعلم أي لغة:</p>
+
+        <div class="roles">
+          <div class="role"><span class="ric" aria-hidden="true">🎧</span><span class="e" lang="en">Listening</span><small>الاستماع</small></div>
+          <div class="role"><span class="ric" aria-hidden="true">🗣</span><span class="e" lang="en">Speaking</span><small>التحدث</small></div>
+          <div class="role"><span class="ric" aria-hidden="true">📖</span><span class="e" lang="en">Reading</span><small>القراءة</small></div>
+          <div class="role"><span class="ric" aria-hidden="true">✍️</span><span class="e" lang="en">Writing</span><small>الكتابة</small></div>
+        </div>
+
+        <p>لكن الكتابة لها طبيعة خاصة؛ لأنها تجبرك على أن تجعل أفكارك واضحة ومنظمة ودقيقة.</p>
+
+        <div class="vs">
+          <div class="vside a">
+            <span class="vtag">أثناء الحديث</span>
+            <div class="var2">تساعدك نبرة الصوت، أو الإشارة، أو إعادة الكلام، أو التوضيح الفوري.</div>
+          </div>
+          <div class="vmid">أما في الكتابة</div>
+          <div class="vside b">
+            <span class="vtag">القارئ</span>
+            <div class="var2">لا يسمع صوتك، ولا يرى تعبير وجهك، ولا يستطيع أن يسألك مباشرة عما تقصده.</div>
+          </div>
+        </div>
+
+        <p>لذلك يجب أن تحمل الكلمات والجمل نفسها المعنى بوضوح.</p>
+
+        <div class="funs">
+          <div class="fun">
+            <span class="fic" aria-hidden="true">💎</span>
+            <b><span class="e" lang="en">Clarity</span></b>
+            <div class="var2">الوضوح</div>
+          </div>
+          <div class="fun">
+            <span class="fic" aria-hidden="true">🎯</span>
+            <b><span class="e" lang="en">Accuracy</span></b>
+            <div class="var2">الدقة</div>
+          </div>
+          <div class="fun">
+            <span class="fic" aria-hidden="true">🧱</span>
+            <b><span class="e" lang="en">Organization</span></b>
+            <div class="var2">التنظيم</div>
+          </div>
+          <div class="fun">
+            <span class="fic" aria-hidden="true">🔗</span>
+            <b><span class="e" lang="en">Coherence</span></b>
+            <div class="var2">ترابط الأفكار</div>
+          </div>
+        </div>
+
+        <p>
+          ولهذا فإن تعلم الكتابة بشكل صحيح سيساعدك على استخدام الإنجليزية في الدراسة والعمل والمراسلات والتقارير والمقالات وغيرها من المواقف التي تحتاج فيها إلى التعبير عن أفكارك بصورة منظمة.
+        </p>
+      </section>
+
+      <section class="card" id="build">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🧱</span>
+          <h2>الكتابة تبدأ من الكلمة، لكنها لا تتوقف عند الكلمة</h2>
+        </div>
+
+        <p>
+          من السهل أن نعتقد أن تحسين الكتابة يعني حفظ المزيد من الكلمات.
+          المفردات مهمة بالتأكيد.
+        </p>
+
+        <div class="defcard">
+          <div class="dhead"><span class="e" lang="en">Vocabulary</span> — المفردات</div>
+          <div class="dar">هي المواد التي نستخدمها للتعبير عن أفكارنا، وكلما اتسعت مفرداتك زادت قدرتك على التعبير.</div>
+        </div>
+
+        <p>لكن الكلمات وحدها لا تصنع كتابة جيدة.</p>
+
+        <p>
+          يمكن أن تعرف مئات أو آلاف الكلمات، ومع ذلك تجد صعوبة في كتابة فقرة صحيحة؛ لأن المشكلة ليست دائمًا في معرفة الكلمات، وإنما في معرفة العلاقة بينها.
+        </p>
+
+        <p>
+          وهنا يأتي دور
+          <span class="e" lang="en">Grammar</span>
+          — القواعد.
+        </p>
+
+        <p>
+          القواعد تخبرنا بكيفية عمل اللغة، بينما تساعدنا المفردات على تحديد المعنى الذي نريد التعبير عنه.
+        </p>
+
+        <p>
+          لكن حتى
+          <span class="e" lang="en">Grammar</span>
+          و
+          <span class="e" lang="en">Vocabulary</span>
+          لا يكفيان وحدهما. نحتاج أيضًا إلى معرفة:
+        </p>
+
+        <div class="recap">
+          <div class="rcard">
+            <b><span class="e" lang="en">Sentence Structure</span></b>
+            <small>كيف تتحول الكلمات إلى جملة لها معنى صحيح ومنظم.</small>
+          </div>
+          <div class="rcard">
+            <b><span class="e" lang="en">Paragraph Structure</span></b>
+            <small>كيف تتحول مجموعة الجمل إلى وحدة واحدة تدور حول فكرة محددة.</small>
+          </div>
+          <div class="rcard">
+            <b><span class="e" lang="en">Essay Structure</span></b>
+            <small>كيف نجمع مجموعة من الفقرات بطريقة منظمة لنناقش موضوعًا كاملًا.</small>
+          </div>
+        </div>
+
+        <p>ومن هنا يمكننا تصور عملية الكتابة باعتبارها بناءً متدرجًا:</p>
+
+        <div class="achain ltr">
+          <span class="chip"><span class="e" lang="en">Words</span><small>الكلمات</small></span>
+          <span class="chip"><span class="e" lang="en">Sentences</span><small>الجمل</small></span>
+          <span class="chip"><span class="e" lang="en">Paragraphs</span><small>الفقرات</small></span>
+          <span class="chip"><span class="e" lang="en">Essays</span><small>المقالات</small></span>
+        </div>
+      </section>
+
+      <section class="card" id="words2essays">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🏢</span>
+          <h2>من <span class="e" lang="en">Words</span> إلى <span class="e" lang="en">Essays</span></h2>
+        </div>
+
+        <div class="recap">
+          <div class="rcard">
+            <b><span class="e" lang="en">Word</span> — الكلمة</b>
+            <small>الكلمة تحمل معنى، ولكنها غالبًا لا تعبر وحدها عن فكرة كاملة.</small>
+          </div>
+          <div class="rcard">
+            <b><span class="e" lang="en">Sentence</span> — الجملة</b>
+            <small>عندما نضع الكلمات في علاقات صحيحة نحصل على الجملة، والجملة تستطيع التعبير عن فكرة أو معلومة كاملة.</small>
+          </div>
+          <div class="rcard">
+            <b><span class="e" lang="en">Paragraph</span> — الفقرة</b>
+            <small>عندما نربط عدة جمل تخدم فكرة رئيسية واحدة نحصل على الفقرة.</small>
+          </div>
+          <div class="rcard">
+            <b><span class="e" lang="en">Essay</span> — المقال</b>
+            <small>عندما نجمع عدة فقرات منظمة لمعالجة موضوع أكبر نحصل على المقال.</small>
+          </div>
+        </div>
+
+        <p>وبالتالي فإن المقال الجيد لا يظهر فجأة. إنه نتيجة طبيعية لبناء صحيح يبدأ من العناصر الأصغر.</p>
+
+        <p>يمكن تشبيه ذلك ببناء مبنى:</p>
+
+        <div class="fgrid">
+          <div class="fcard"><span aria-hidden="true">🧱</span><small>مواد البناء الصغيرة = الكلمات</small></div>
+          <div class="fcard"><span aria-hidden="true">🧩</span><small>وحدات أجزاء المبنى = الجمل</small></div>
+          <div class="fcard"><span aria-hidden="true">🚪</span><small>الغرف / الوحدات المنظمة = الفقرات</small></div>
+          <div class="fcard"><span aria-hidden="true">🏢</span><small>المبنى الكامل = المقال</small></div>
+        </div>
+
+        <div class="alert">
+          <span class="aic" aria-hidden="true">⚠️</span>
+          <p>
+            إذا كانت الوحدات الصغيرة غير صحيحة، فسيصبح البناء الأكبر أكثر صعوبة.
+            ولهذا يبدأ هذا الكورس من الأساسيات، ثم يصعد بك تدريجيًا إلى الكتابة الأكثر تعقيدًا.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" id="trio">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🔗</span>
+          <h2>العلاقة بين <span class="e" lang="en">Grammar</span> و<span class="e" lang="en">Vocabulary</span> و<span class="e" lang="en">Writing</span></h2>
+        </div>
+
+        <div class="roles">
+          <div class="role">
+            <span class="ric" aria-hidden="true">📚</span>
+            <span class="e" lang="en">Vocabulary</span>
+            <small>المفردات — تساعدك على معرفة الكلمات التي تحتاجها للتعبير عن المعنى.</small>
+          </div>
+          <div class="role">
+            <span class="ric" aria-hidden="true">📐</span>
+            <span class="e" lang="en">Grammar</span>
+            <small>القواعد — تساعدك على استخدام هذه الكلمات بطريقة صحيحة.</small>
+          </div>
+          <div class="role">
+            <span class="ric" aria-hidden="true">🧩</span>
+            <span class="e" lang="en">Writing Structure</span>
+            <small>بناء الكتابة — يساعدك على تنظيم ما تريد قوله.</small>
+          </div>
+        </div>
+
+        <p>
+          فمثلًا، قد تعرف كلمة:
+          <span class="e" lang="en">increase</span>
+          — يزيد / يرفع، و
+          <span class="e" lang="en">production</span>
+          — الإنتاج.
+        </p>
+
+        <p>وقد تعرف قاعدة تكوين الجملة. لكن لكي تكتب فكرة مفيدة، تحتاج إلى معرفة كيفية تحويل هذه المعرفة إلى جملة:</p>
+
+        <div class="spec">
+          <div class="slabel"><span aria-hidden="true">✏️</span> Example — من معرفة إلى جملة</div>
+          <div class="sen" lang="en">Good irrigation can increase crop production.</div>
+          <div class="sar">«يمكن للري الجيد أن يزيد إنتاج المحصول.»</div>
+        </div>
+
+        <p>ثم لا تتوقف عند الجملة. يمكنك وضعها مع جمل أخرى تشرح الفكرة:</p>
+
+        <div class="spec">
+          <div class="slabel"><span aria-hidden="true">✏️</span> Example — من جملة إلى فقرة</div>
+          <div class="sen" lang="en">Good irrigation can increase crop production. It also helps plants use water more efficiently.</div>
+          <div class="sar">«يمكن للري الجيد أن يزيد إنتاج المحصول. كما أنه يساعد النباتات على استخدام المياه بكفاءة أكبر.»</div>
+        </div>
+
+        <p>
+          هنا بدأنا نتحرك من
+          <span class="e" lang="en">Sentence</span>
+          إلى
+          <span class="e" lang="en">Paragraph</span>.
+        </p>
+      </section>
+
+      <section class="card" id="cycle">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🔁</span>
+          <h2>من معرفة القاعدة إلى استخدامها</h2>
+        </div>
+
+        <p>هناك فرق مهم بين أن تعرف القاعدة وأن تستطيع استخدامها.</p>
+
+        <p>
+          قد يقرأ الطالب شرحًا عن:
+          <span class="e" lang="en">Subject</span>
+          — الفاعل،
+          <span class="e" lang="en">Verb</span>
+          — الفعل،
+          <span class="e" lang="en">Object</span>
+          — المفعول به، ويستطيع حفظ التعريفات.
+        </p>
+
+        <p>لكن عندما يُطلب منه كتابة جملة، قد يتردد أو يرتكب أخطاء.</p>
+
+        <div class="alert">
+          <span class="aic" aria-hidden="true">⚠️</span>
+          <p>
+            المشكلة هنا ليست بالضرورة نقص المعلومات، وإنما نقص
+            <span class="e" lang="en">Practice</span>
+            — التدريب.
+          </p>
+        </div>
+
+        <p>ولهذا لن يكون الكورس قائمًا على القراءة فقط. سنتحرك بصورة متكررة عبر دورة تعليمية:</p>
+
+        <div class="dpath">
+          <div class="dstep">1. <span class="e" lang="en">Understand</span> — افهم</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">2. <span class="e" lang="en">Practice</span> — تدرّب</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">3. <span class="e" lang="en">Write</span> — اكتب</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">4. <span class="e" lang="en">Correct</span> — صحح</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">5. <span class="e" lang="en">Rewrite</span> — أعد الكتابة</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">6. <span class="e" lang="en">Master</span> — أتقن</div>
+        </div>
+
+        <p>ومع تكرار هذه العملية تتحول المعرفة النظرية تدريجيًا إلى مهارة عملية.</p>
+      </section>
+
+      <section class="card" id="mistakes">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">💡</span>
+          <h2>الخطأ ليس نهاية التعلم</h2>
+        </div>
+
+        <p>في الكتابة، من الطبيعي أن تخطئ.</p>
+
+        <p>قد تخطئ في:</p>
+
+        <div class="fgrid">
+          <div class="fcard"><span class="e" lang="en">Grammar</span><small>القواعد</small></div>
+          <div class="fcard"><span class="e" lang="en">Vocabulary</span><small>المفردات</small></div>
+          <div class="fcard"><span class="e" lang="en">Word Order</span><small>ترتيب الكلمات</small></div>
+          <div class="fcard"><span class="e" lang="en">Spelling</span><small>الإملاء</small></div>
+          <div class="fcard"><span class="e" lang="en">Punctuation</span><small>علامات الترقيم</small></div>
+          <div class="fcard"><span class="e" lang="en">Natural Expression</span><small>التعبير الطبيعي</small></div>
+        </div>
+
+        <p>لكن الهدف من التصحيح ليس مجرد وضع علامة «خطأ» على الجملة.</p>
+
+        <div class="vs">
+          <div class="vside a">
+            <span class="vtag">خطأ</span>
+            <div class="ven" lang="en">He go to work every day.</div>
+            <div class="var2">«هو يذهب إلى العمل كل يوم.»</div>
+          </div>
+          <div class="vmid">↓ التصحيح وحده لا يكفي</div>
+          <div class="vside b">
+            <span class="vtag">صحيح</span>
+            <div class="ven" lang="en">He goes to work every day.</div>
+            <div class="var2">«هو يذهب إلى العمل كل يوم.»</div>
+          </div>
+        </div>
+
+        <p>
+          الأهم أن نفهم لماذا أصبحت:
+          <span class="e" lang="en">go → goes</span>،
+          وما علاقة ذلك بالفاعل والزمن وتركيب الجملة.
+        </p>
+
+        <p>
+          بهذه الطريقة يصبح الخطأ وسيلة لاكتشاف القاعدة، وليس مجرد شيء يجب محوه.
+        </p>
+      </section>
+
+      <section class="card" id="stages">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">📈</span>
+          <h2>كيف ستتطور مهارتك خلال الكورس؟</h2>
+        </div>
+
+        <p>لن ننتقل مباشرة من معرفة الكلمات إلى كتابة مقال كامل. سنمر بمراحل متدرجة.</p>
+
+        <div class="achain ltr">
+          <span class="chip"><span class="e" lang="en">Concepts</span><small>المفاهيم</small></span>
+          <span class="chip"><span class="e" lang="en">Parts of Speech</span><small>أقسام الكلام</small></span>
+          <span class="chip"><span class="e" lang="en">Sentence Structure</span><small>تركيب الجملة</small></span>
+          <span class="chip"><span class="e" lang="en">Types of Sentences</span><small>أنواع الجمل</small></span>
+          <span class="chip"><span class="e" lang="en">Punctuation</span><small>علامات الترقيم</small></span>
+          <span class="chip"><span class="e" lang="en">Paragraph Writing</span><small>كتابة الفقرة</small></span>
+          <span class="chip"><span class="e" lang="en">Essay Writing</span><small>كتابة المقال</small></span>
+        </div>
+
+        <p>
+          إذن، كل جزء في الكورس له وظيفة في الرحلة. لا توجد هذه المراحل لمجرد زيادة عدد الدروس، وإنما لأن الكتابة نفسها مبنية بهذه الصورة.
+        </p>
+      </section>
+
+      <section class="card" id="outcomes">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🏁</span>
+          <h2>ماذا نريد أن تستطيع فعله في نهاية الكورس؟</h2>
+        </div>
+
+        <p>في بداية الكورس قد يكون تركيزك على فهم الكلمات والقواعد. ومع تقدمك، نريد أن يصبح بإمكانك أن:</p>
+
+        <ul>
+          <li>تفهم وظيفة الكلمات داخل الجملة.</li>
+          <li>تبني جملة صحيحة.</li>
+          <li>تتعرف إلى أنواع الجمل وتستخدمها.</li>
+          <li>تستخدم علامات الترقيم بصورة صحيحة.</li>
+          <li>تنظم عدة جمل حول فكرة واحدة.</li>
+          <li>تكتب فقرة لها بداية واضحة وتطور منطقي ونهاية مناسبة.</li>
+          <li>تربط الفقرات ببعضها.</li>
+          <li>تنظم مقالًا كاملًا.</li>
+          <li>تتعرف إلى الأخطاء الشائعة وتتجنبها.</li>
+          <li>تراجع كتابتك وتكتشف مشكلاتها.</li>
+          <li>تعيد صياغة كتابتك وتحسنها.</li>
+        </ul>
+
+        <div class="defcard">
+          <div class="dhead"><span class="e" lang="en">Independent Writing</span> — الكتابة المستقلة</div>
+          <div class="dar">
+            أن تكون قادرًا على أخذ فكرة، وتحويلها إلى كتابة إنجليزية واضحة ومنظمة دون الاعتماد في كل خطوة على حفظ نموذج جاهز.
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="view">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🗺</span>
+          <h2>كيف سننظر إلى الكورس كله؟</h2>
+        </div>
+
+        <p>يمكن أن ننظر إلى الرحلة باعتبارها انتقالًا من وحدة اللغة إلى وحدة المعنى ثم إلى النص الكامل.</p>
+
+        <div class="dpath">
+          <div class="dstep">ما هذه الكلمة؟ وما وظيفتها؟</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">كيف تُستخدم داخل الجملة؟</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">كيف أجمع الجمل لأشرح فكرة؟</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">كيف أجمع الأفكار في فقرات؟</div>
+          <div class="darr" aria-hidden="true">↓</div>
+          <div class="dstep">كيف أبني نصًا كاملًا يناقش موضوعًا؟</div>
+        </div>
+
+        <p>وهكذا نتحرك من:</p>
+
+        <div class="achain ltr">
+          <span class="chip"><span class="e" lang="en">Word</span><small>كلمة</small></span>
+          <span class="chip"><span class="e" lang="en">Sentence</span><small>جملة</small></span>
+          <span class="chip"><span class="e" lang="en">Paragraph</span><small>فقرة</small></span>
+          <span class="chip"><span class="e" lang="en">Essay</span><small>مقال</small></span>
+        </div>
+
+        <p>لكن هناك انتقال آخر يحدث في الوقت نفسه:</p>
+
+        <div class="achain ltr">
+          <span class="chip"><span class="e" lang="en">Knowledge</span><small>معرفة</small></span>
+          <span class="chip"><span class="e" lang="en">Skill</span><small>مهارة</small></span>
+          <span class="chip"><span class="e" lang="en">Performance</span><small>أداء</small></span>
+        </div>
+
+        <p>
+          فالمعرفة هي البداية، لكنها ليست النهاية.
+          أن تعرف كيف تُبنى الجملة شيء، وأن تستطيع بناءها بنفسك شيء آخر.
+        </p>
+      </section>
+    </section>
+
+    <section class="card" id="roadmap-section">
+      <div class="card-head">
+        <span class="num" aria-hidden="true">🛣</span>
+        <h2>
+          <span class="e" lang="en">المحور الثالث</span>
+          — خريطة رحلة الكورس
+        </h2>
+      </div>
+
+      <p>
+        16 درسًا تُرسم تلقائيًا من سجل الكورس: كل مرحلة تمهد لما بعدها.
+      </p>
+
+      <section class="card" id="roadmap">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🛣</span>
+          <h2><span class="e" lang="en">Course Roadmap</span> — خريطة رحلة الكورس</h2>
+        </div>
+
+        <p id="courseStats">✅ جارٍ حساب تقدمك…</p>
+
+        <div id="roadmapStations" aria-label="محطات الكورس"></div>
+      </section>
+
+      <section class="card" id="path">
+        <div class="card-head">
+          <span class="num" aria-hidden="true">🏁</span>
+          <h2>مسار الكورس والختام</h2>
+        </div>
+
+        <p>وهكذا يكون مسار الكورس:</p>
+
+        <div class="pipe">
+          <span class="pstep"><span class="e" lang="en">Definitions</span></span>
+          <span class="pstep"><span class="e" lang="en">Parts of Speech</span></span>
+          <span class="pstep"><span class="e" lang="en">Sentence</span></span>
+          <span class="pstep"><span class="e" lang="en">Paragraph</span></span>
+          <span class="pstep"><span class="e" lang="en">Essay</span></span>
+        </div>
+
+        <p>
+          ومع كل مرحلة لا نكتفي بأن نعرف المعلومات، بل نحاول تحويلها إلى استخدام فعلي.
+        </p>
+
+        <p>
+          في النهاية، يجب ألا تكون النتيجة مجرد أنك قرأت ستة عشر درسًا، وإنما أن تكون قد انتقلت تدريجيًا من فهم مكونات اللغة إلى القدرة على استخدامها في
+          <span class="e" lang="en">Independent Writing</span>
+          — الكتابة المستقلة.
+        </p>
+
+        <div class="alert ok">
+          <span class="aic" aria-hidden="true">🌱</span>
+          <p>والآن نبدأ من الأساس.</p>
+        </div>
+
+        <a class="signpost" href="lessons/lesson1.html">
+          <span class="e" lang="en">Start Now — Lesson 1 — Definitions</span>
+          — ابدأ الآن — الدرس الأول — التعريفات
+        </a>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <b>✒️ English Writing Course</b>
+    — كورس الكتابة باللغة الإنجليزية
+    <br>
+    <span class="e" lang="en">Home</span>
+    | الرئيسية — مقدمة الكورس وخريطة الرحلة
+    <br>
+    <button id="resetAll" class="rv" type="button">🧹 مسح جميع الإجابات المحفوظة</button>
+  </footer>
+
+  <button id="topFab" class="fab" type="button" aria-label="العودة إلى أعلى الصفحة">
+    ↑
+  </button>
+
+  <nav class="bottombar glass" aria-label="شريط التنقل السفلي">
+    <div class="bb-tabs">
+      <button class="bb-tab" type="button" data-tab="toc" aria-label="الفهرس">
+        <span class="i" aria-hidden="true">📑</span>
+        <span>الفهرس</span>
+      </button>
+
+      <button class="bb-tab" type="button" data-tab="lesson" aria-label="الدرس">
+        <span class="i" aria-hidden="true">📖</span>
+        <span>الدرس</span>
+      </button>
+
+      <button class="bb-tab" type="button" data-tab="map" aria-label="الخريطة">
+        <span class="i" aria-hidden="true">🗺</span>
+        <span>الخريطة</span>
+      </button>
+
+      <button class="bb-tab active" type="button" data-tab="home" aria-label="الرئيسية">
+        <span class="i" aria-hidden="true">🏠</span>
+        <span>الرئيسية</span>
+      </button>
     </div>
-    <p>ومن هنا يمكننا تصور عملية الكتابة باعتبارها بناءً متدرجًا:</p>
-    <div class="layers">
-      <div class="layer"><span class="e">Words</span><small>الكلمات</small></div>
-      <div class="layer"><span class="e">Sentences</span><small>الجمل</small></div>
-      <div class="layer"><span class="e">Paragraphs</span><small>الفقرات</small></div>
-      <div class="layer"><span class="e">Essays</span><small>المقالات</small></div>
+  </nav>
+
+  <noscript>
+    <div class="alert" style="margin:80px 16px 0;">
+      <span class="aic" aria-hidden="true">⚠️</span>
+      <p>
+        لتفعيل خريطة الرحلة، الحفظ التلقائي، الفهرس، والتنقل الذكي، يرجى تشغيل JavaScript.
+      </p>
     </div>
-    <p>كل مرحلة تعتمد على المرحلة التي قبلها.</p>
-  </div>
-</section>
-
-<section class="card glass" id="words2essays">
-  <div class="card-head"><span class="num">🏢</span><h2>من Words إلى Essays</h2></div>
-  <div class="card-body">
-    <p>لنبدأ من أصغر وحدة في هذا التسلسل:</p>
-    <div class="reflist">
-      <div class="refcard"><b><span class="e">Word</span> — الكلمة</b><small>الكلمة تحمل معنى، ولكنها غالبًا لا تعبر وحدها عن فكرة كاملة.</small></div>
-      <div class="refcard"><b><span class="e">Sentence</span> — الجملة</b><small>عندما نضع الكلمات في علاقات صحيحة نحصل على الجملة، والجملة تستطيع التعبير عن فكرة أو معلومة كاملة.</small></div>
-      <div class="refcard"><b><span class="e">Paragraph</span> — الفقرة</b><small>عندما نربط عدة جمل تخدم فكرة رئيسية واحدة نحصل على الفقرة، ولا ينبغي أن تكون مجرد مجموعة جمل متجاورة، بل مجموعة مترابطة تخدم فكرة واحدة.</small></div>
-      <div class="refcard"><b><span class="e">Essay</span> — المقال</b><small>عندما نجمع عدة فقرات منظمة لمعالجة موضوع أكبر نحصل على المقال.</small></div>
-    </div>
-    <p>وبالتالي فإن المقال الجيد لا يظهر فجأة.</p>
-    <p>إنه نتيجة طبيعية لبناء صحيح يبدأ من العناصر الأصغر.</p>
-    <h3>يمكن تشبيه ذلك ببناء مبنى</h3>
-    <div class="mgrid">
-      <div class="mcard"><span class="mic">🧱</span><span class="mb">مواد البناء الصغيرة</span><span class="meq">=</span><span class="mw">الكلمات</span></div>
-      <div class="mcard"><span class="mic">🧩</span><span class="mb">وحدات أجزاء المبنى</span><span class="meq">=</span><span class="mw">الجمل</span></div>
-      <div class="mcard"><span class="mic">🚪</span><span class="mb">الغرف / الوحدات المنظمة</span><span class="meq">=</span><span class="mw">الفقرات</span></div>
-      <div class="mcard"><span class="mic">🏢</span><span class="mb">المبنى الكامل</span><span class="meq">=</span><span class="mw">المقال</span></div>
-    </div>
-    <p>الكلمات تشبه مواد البناء الصغيرة، والجمل تشبه الوحدات التي نبني بها أجزاء المبنى، والفقرات تشبه الغرف أو الوحدات المنظمة، والمقال يشبه المبنى الكامل.</p>
-    <div class="alert"><span class="aic">⚠️</span><p>إذا كانت الوحدات الصغيرة غير صحيحة، فسيصبح البناء الأكبر أكثر صعوبة.</p></div>
-    <p>ولهذا يبدأ هذا الكورس من الأساسيات، ثم يصعد بك تدريجيًا إلى الكتابة الأكثر تعقيدًا.</p>
-  </div>
-</section>
-
-<section class="card glass" id="trio">
-  <div class="card-head"><span class="num">🔗</span><h2>العلاقة بين Grammar وVocabulary وWriting</h2></div>
-  <div class="card-body">
-    <p>هناك ثلاثة عناصر أساسية سنحتاج إليها باستمرار:</p>
-    <div class="roles">
-      <div class="role"><span class="ric">📚</span><span class="e">Vocabulary</span><small>المفردات — تساعدك على معرفة الكلمات التي تحتاجها للتعبير عن المعنى.</small></div>
-      <div class="role"><span class="ric">📐</span><span class="e">Grammar</span><small>القواعد — تساعدك على استخدام هذه الكلمات بطريقة صحيحة.</small></div>
-      <div class="role"><span class="ric">🧩</span><span class="e">Writing Structure</span><small>بناء الكتابة — يساعدك على تنظيم ما تريد قوله.</small></div>
-    </div>
-    <p>فمثلًا، قد تعرف كلمة:</p>
-    <div class="fgrid">
-      <div class="fcard"><span class="e">increase</span><small>يزيد / يرفع</small></div>
-      <div class="fcard"><span class="e">production</span><small>الإنتاج</small></div>
-    </div>
-    <p>وقد تعرف قاعدة تكوين الجملة.</p>
-    <p>لكن لكي تكتب فكرة مفيدة، تحتاج إلى معرفة كيفية تحويل هذه المعرفة إلى جملة:</p>
-    <div class="spec"><div class="slabel">✏️ Example — من معرفة إلى جملة</div><div class="sen">«Good irrigation can increase crop production.»</div><div class="sar">«يمكن للري الجيد أن يزيد إنتاج المحصول.»</div></div>
-    <p>ثم لا تتوقف عند الجملة.</p>
-    <p>يمكنك وضعها مع جمل أخرى تشرح الفكرة:</p>
-    <div class="spec"><div class="slabel">✏️ Example — من جملة إلى فقرة</div><div class="sen">«Good irrigation can increase crop production. It also helps plants use water more efficiently.»</div><div class="sar">«يمكن للري الجيد أن يزيد إنتاج المحصول. كما أنه يساعد النباتات على استخدام المياه بكفاءة أكبر.»</div></div>
-    <p>هنا بدأنا نتحرك من <strong><span class="e">Sentence</span> — الجملة</strong> إلى <strong><span class="e">Paragraph</span> — الفقرة</strong>.</p>
-    <div class="pipe"><span class="pstep">Sentence</span><span class="pstep">Paragraph</span></div>
-    <p>وهذا هو النوع من الانتقال الذي سنمارسه تدريجيًا خلال الكورس.</p>
-  </div>
-</section>
-
-<section class="card glass" id="cycle">
-  <div class="card-head"><span class="num">🔁</span><h2>من معرفة القاعدة إلى استخدامها</h2></div>
-  <div class="card-body">
-    <p>هناك فرق مهم بين أن تعرف القاعدة وأن تستطيع استخدامها.</p>
-    <p>قد يقرأ الطالب شرحًا عن:</p>
-    <div class="fgrid">
-      <div class="fcard"><span class="e">Subject</span><small>الفاعل</small></div>
-      <div class="fcard"><span class="e">Verb</span><small>الفعل</small></div>
-      <div class="fcard"><span class="e">Object</span><small>المفعول به</small></div>
-    </div>
-    <p>ويستطيع حفظ التعريفات.</p>
-    <p>لكن عندما يُطلب منه كتابة جملة، قد يتردد أو يرتكب أخطاء.</p>
-    <div class="alert"><span class="aic">⚠️</span><p>المشكلة هنا ليست بالضرورة نقص المعلومات، وإنما نقص <span class="e">Practice</span> — التدريب.</p></div>
-    <p>ولهذا لن يكون الكورس قائمًا على القراءة فقط.</p>
-    <p>سنتحرك بصورة متكررة عبر دورة تعليمية:</p>
-    <div class="cycle">
-      <div class="ccore"><span>🔁</span>دورة تتكرر حتى الإتقان</div>
-      <div class="cnode2"><i>1</i><span class="e">Understand</span><small>افهم</small></div>
-      <div class="cnode2"><i>2</i><span class="e">Practice</span><small>تدرّب</small></div>
-      <div class="cnode2"><i>3</i><span class="e">Write</span><small>اكتب</small></div>
-      <div class="cnode2"><i>4</i><span class="e">Correct</span><small>صحح</small></div>
-      <div class="cnode2"><i>5</i><span class="e">Rewrite</span><small>أعد الكتابة</small></div>
-      <div class="cnode2"><i>6</i><span class="e">Master</span><small>أتقن</small></div>
-    </div>
-    <div class="dpath">
-      <div class="dstep">أولًا نفهم الفكرة.</div>
-      <div class="dstep">ثم نطبقها في تدريبات بسيطة.</div>
-      <div class="dstep">ثم نستخدمها في الكتابة.</div>
-      <div class="dstep">ثم نكتشف الأخطاء.</div>
-      <div class="dstep">ثم نفهم سبب الخطأ.</div>
-      <div class="dstep">ثم نعيد الكتابة بصورة صحيحة.</div>
-    </div>
-    <p>ومع تكرار هذه العملية تتحول المعرفة النظرية تدريجيًا إلى مهارة عملية.</p>
-  </div>
-</section>
-
-<section class="card glass" id="mistakes">
-  <div class="card-head"><span class="num">💡</span><h2>الخطأ ليس نهاية التعلم</h2></div>
-  <div class="card-body">
-    <p>في الكتابة، من الطبيعي أن تخطئ.</p>
-    <p>قد تخطئ في:</p>
-    <div class="mchips">
-      <span class="mchip"><span class="e">Grammar</span> — القواعد</span>
-      <span class="mchip"><span class="e">Vocabulary</span> — المفردات</span>
-      <span class="mchip"><span class="e">Word Order</span> — ترتيب الكلمات</span>
-      <span class="mchip"><span class="e">Spelling</span> — الإملاء</span>
-      <span class="mchip"><span class="e">Punctuation</span> — علامات الترقيم</span>
-      <span class="mchip"><span class="e">Natural Expression</span> — التعبير الطبيعي</span>
-    </div>
-    <p>لكن الهدف من التصحيح ليس مجرد وضع علامة «خطأ» على الجملة.</p>
-    <p>إذا كتبت:</p>
-    <div class="corr"><div class="cwrong">He go to work every day.</div><div class="cwrongar">«هو يذهب إلى العمل كل يوم.»</div><div class="carr2">↓ التصحيح وحده لا يكفي</div><div class="cright">He goes to work every day.</div><div class="crightar">«هو يذهب إلى العمل كل يوم.»</div></div>
-    <p>فلن يكون كافيًا أن نقول:</p>
-    <p class="center"><span class="e">«He goes to work every day.»</span> — «هو يذهب إلى العمل كل يوم.»</p>
-    <p>الأهم أن نفهم <strong>لماذا</strong> أصبحت:</p>
-    <div class="why"><p><span class="e">go → goes</span></p><p>وما علاقة ذلك بالفاعل والزمن وتركيب الجملة.</p></div>
-    <p>بهذه الطريقة يصبح الخطأ وسيلة لاكتشاف القاعدة، وليس مجرد شيء يجب محوه.</p>
-    <p>ومع الوقت نريد أن تقل الأخطاء لأنك أصبحت تفهم النظام الذي تعمل به اللغة، وليس لأنك تحفظ قائمة طويلة من الجمل الصحيحة.</p>
-  </div>
-</section>
-
-<section class="card glass" id="stages">
-  <div class="card-head"><span class="num">📈</span><h2>كيف ستتطور مهارتك خلال الكورس؟</h2></div>
-  <div class="card-body">
-    <p>لن ننتقل مباشرة من معرفة الكلمات إلى كتابة مقال كامل.</p>
-    <p>سنمر بمراحل متدرجة.</p>
-    <div class="stairs">
-      <div class="stcol"><div class="stbox"><span class="e">Concepts</span><small>المفاهيم والعناصر</small></div></div>
-      <div class="stcol"><div class="stbox"><span class="e">Parts of Speech</span><small>أقسام الكلام</small></div></div>
-      <div class="stcol"><div class="stbox"><span class="e">Sentence Structure</span><small>تركيب الجملة</small></div></div>
-      <div class="stcol"><div class="stbox"><span class="e">Types of Sentences</span><small>أنواع الجمل</small></div></div>
-      <div class="stcol"><div class="stbox"><span class="e">Punctuation</span><small>علامات الترقيم</small></div></div>
-      <div class="stcol"><div class="stbox"><span class="e">Paragraph Writing</span><small>كتابة الفقرة</small></div></div>
-      <div class="stcol"><div class="stbox"><span class="e">Essay Writing</span><small>كتابة المقال</small></div></div>
-    </div>
-    <p>في البداية سنتعرف إلى المفاهيم والعناصر التي تقوم عليها الكتابة.</p>
-    <p>ثم نفهم <strong><span class="e">Parts of Speech</span> — أقسام الكلام</strong>، لأننا نحتاج إلى معرفة وظيفة الكلمات داخل اللغة.</p>
-    <p>بعد ذلك ننتقل إلى <strong><span class="e">Sentence Structure</span> — تركيب الجملة</strong>، لأننا نحتاج إلى تحويل الكلمات إلى جمل صحيحة.</p>
-    <p>ثم ندرس <strong><span class="e">Types of Sentences</span> — أنواع الجمل</strong>، ونتدرب عليها.</p>
-    <p>بعد ذلك نصل إلى <strong><span class="e">Punctuation</span> — علامات الترقيم</strong>، لأنها تساعد على تنظيم الكتابة وتوضيح العلاقة بين أجزائها.</p>
-    <p>ثم ننتقل إلى <strong><span class="e">Paragraph Writing</span> — كتابة الفقرة</strong>، وهنا يبدأ الانتقال الحقيقي من بناء الجملة إلى تنظيم الأفكار.</p>
-    <p>بعد أن نتقن الفقرة، ننتقل إلى <strong><span class="e">Essay Writing</span> — كتابة المقال</strong>.</p>
-    <p>هناك سنتعلم أنواع المقالات وكيفية بناء المقال وتنظيم مقدمته وفقراته وخاتمته، ثم نتعرف إلى الأخطاء الشائعة في الكتابة الأكاديمية، وأساسيات التوثيق والمراجع، ثم نصل إلى التدريب العملي على كتابة المقال.</p>
-    <div class="alert ok"><span class="aic">🧭</span><p>إذن، كل جزء في الكورس له وظيفة في الرحلة. لا توجد هذه المراحل لمجرد زيادة عدد الدروس، وإنما لأن الكتابة نفسها مبنية بهذه الصورة.</p></div>
-  </div>
-</section>
-
-<section class="card glass" id="outcomes">
-  <div class="card-head"><span class="num">🏁</span><h2>ماذا نريد أن تستطيع فعله في نهاية الكورس؟</h2></div>
-  <div class="card-body">
-    <p>في بداية الكورس قد يكون تركيزك على فهم الكلمات والقواعد.</p>
-    <p>ومع تقدمك، نريد أن يصبح بإمكانك أن:</p>
-    <div class="ckgrid">
-      <div class="dstep">تفهم وظيفة الكلمات داخل الجملة.</div>
-      <div class="dstep">تبني جملة صحيحة.</div>
-      <div class="dstep">تتعرف إلى أنواع الجمل وتستخدمها.</div>
-      <div class="dstep">تستخدم علامات الترقيم بصورة صحيحة.</div>
-      <div class="dstep">تنظم عدة جمل حول فكرة واحدة.</div>
-      <div class="dstep">تكتب فقرة لها بداية واضحة وتطور منطقي ونهاية مناسبة.</div>
-      <div class="dstep">تربط الفقرات ببعضها.</div>
-      <div class="dstep">تنظم مقالًا كاملًا.</div>
-      <div class="dstep">تتعرف إلى الأخطاء الشائعة وتتجنبها.</div>
-      <div class="dstep">تراجع كتابتك وتكتشف مشكلاتها.</div>
-      <div class="dstep">تعيد صياغة كتابتك وتحسنها.</div>
-    </div>
-    <p>وفي النهاية، نريد أن تصل إلى:</p>
-    <div class="dest">🏁 <span class="e">Independent Writing</span> — الكتابة المستقلة<small>أن تكون قادرًا على أخذ فكرة، وتحويلها إلى كتابة إنجليزية واضحة ومنظمة دون الاعتماد في كل خطوة على حفظ نموذج جاهز.</small></div>
-  </div>
-</section>
-
-<section class="card glass" id="view">
-  <div class="card-head"><span class="num">🗺</span><h2>كيف سننظر إلى الكورس كله؟</h2></div>
-  <div class="card-body">
-    <p>يمكن أن ننظر إلى الرحلة باعتبارها انتقالًا من <strong>وحدة اللغة</strong> إلى <strong>وحدة المعنى</strong> ثم إلى <strong>النص الكامل</strong>.</p>
-    <p>في البداية نسأل:</p>
-    <div class="dpath">
-      <div class="dstep">ما هذه الكلمة؟ وما وظيفتها؟</div>
-      <div class="darr">↓</div>
-      <div class="dstep">كيف تستخدم داخل الجملة؟</div>
-      <div class="darr">↓</div>
-      <div class="dstep">كيف أجمع الجمل لأشرح فكرة؟</div>
-      <div class="darr">↓</div>
-      <div class="dstep">كيف أجمع الأفكار في فقرات؟</div>
-      <div class="darr">↓</div>
-      <div class="dstep">كيف أبني نصًا كاملًا يناقش موضوعًا؟</div>
-    </div>
-    <p>وهكذا نتحرك من:</p>
-    <div class="pipe"><span class="pstep">Word</span><span class="pstep">Sentence</span><span class="pstep">Paragraph</span><span class="pstep">Essay</span></div>
-    <div class="achain rtl"><span class="chip">كلمة</span><span class="chip">جملة</span><span class="chip">فقرة</span><span class="chip">مقال</span></div>
-    <p>لكن هناك انتقال آخر يحدث في الوقت نفسه:</p>
-    <div class="tbar">
-      <div class="tseg">Knowledge<small>معرفة</small></div>
-      <div class="tseg">Skill<small>مهارة</small></div>
-      <div class="tseg">Performance<small>أداء</small></div>
-    </div>
-    <p>فالمعرفة هي البداية، لكنها ليست النهاية.</p>
-    <p>أن تعرف كيف تُبنى الجملة شيء، وأن تستطيع بناءها بنفسك شيء آخر.</p>
-    <p>وأن تستطيع كتابة فقرة صحيحة شيء، وأن تستطيع كتابة فقرة جيدة عن موضوع لم تتدرب عليه من قبل شيء آخر.</p>
-    <div class="alert ok"><span class="aic">✍️</span><p>ولهذا سيكون التطبيق جزءًا أساسيًا من الكورس، وليس مرحلة إضافية منفصلة عن التعلم.</p></div>
-  </div>
-</section>
-</div>
-
-<!-- ==================== المحور 3 ==================== -->
-<div class="mod" data-name="خريطة الرحلة" data-icon="🛣" id="mod2">
-<div class="mod-head glass"><span class="mi">🛣</span><div><b>المحور الثالث — خريطة رحلة الكورس</b><small>16 درسًا تُرسم تلقائيًا من سجل الكورس: كل مرحلة تمهد لما بعدها</small></div></div>
-
-<section class="card glass" id="roadmap">
-  <div class="card-head"><span class="num">🛣</span><h2><span class="e">Course Roadmap</span> — خريطة رحلة الكورس</h2></div>
-  <div class="card-body">
-    <p>سنلتزم بالترتيب الأصلي للدروس، لأن كل مرحلة تمهد لما بعدها:</p>
-    <div class="tags2"><span class="tag2" id="courseStats"></span></div>
-    <div id="roadmapStations"></div>
-    <div class="cta"><a id="continueBtn" href="lesson1.html">▶ واصل من حيث توقفت</a></div>
-  </div>
-</section>
-
-<section class="card glass" id="path">
-  <div class="card-head"><span class="num">🏁</span><h2>مسار الكورس والختام</h2></div>
-  <div class="card-body">
-    <p>وهكذا يكون مسار الكورس:</p>
-    <div class="pipe"><span class="pstep">Definitions</span><span class="pstep">Parts of Speech</span><span class="pstep">Sentence</span><span class="pstep">Paragraph</span><span class="pstep">Essay</span></div>
-    <div class="achain rtl"><span class="chip">التعريفات</span><span class="chip">أقسام الكلام</span><span class="chip">الجملة</span><span class="chip">الفقرة</span><span class="chip">المقال</span></div>
-    <p>ومع كل مرحلة لا نكتفي بأن نعرف المعلومات، بل نحاول تحويلها إلى استخدام فعلي.</p>
-    <p>في النهاية، يجب ألا تكون النتيجة مجرد أنك قرأت ستة عشر درسًا، وإنما أن تكون قد انتقلت تدريجيًا من فهم مكونات اللغة إلى القدرة على استخدامها في <strong><span class="e">Independent Writing</span> — الكتابة المستقلة</strong>.</p>
-    <div class="alert ok"><span class="aic">🌱</span><p>والآن نبدأ من الأساس.</p></div>
-    <div class="cta"><a href="lesson1.html">🚀 ابدأ الآن — Lesson 1 — Definitions</a></div>
-  </div>
-</section>
-</div>
-
-<footer>
-  ✒️ <b>English Writing Course</b> — كورس الكتابة باللغة الإنجليزية<br>
-  الرئيسية — مقدمة الكورس وخريطة الرحلة
-</footer>
-
-</main>
-
-<button class="fab" id="topFab" title="العودة للأعلى">↑</button>
-
-<script src="course-data.js"></script>
-<script src="course.js"></script>
+  </noscript>
 </body>
 </html>
