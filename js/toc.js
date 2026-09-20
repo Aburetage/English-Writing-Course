@@ -60,7 +60,10 @@ function bindTocLinks() {
       }
 
       setActiveLink(href);
-      closeToc();
+
+      setTimeout(() => {
+        closeToc();
+      }, 180);
     });
   });
 }
@@ -70,6 +73,14 @@ function bindBackdrop() {
 
   if (backdropElement) {
     backdropElement.addEventListener("click", closeToc);
+  }
+}
+
+function bindCloseButton() {
+  const closeBtn = $(".toc-close");
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeToc);
   }
 }
 
@@ -114,14 +125,11 @@ export function initToc() {
   if (!tocElement) return;
 
   bindBackdrop();
+  bindCloseButton();
   bindTocLinks();
   bindKeyboard();
   observeSections();
 
-  /**
-   * إذا كان هناك hash في الرابط عند الفتح،
-   * فعّل الرابط المطابق.
-   */
   if (window.location.hash) {
     setActiveLink(window.location.hash);
   }
