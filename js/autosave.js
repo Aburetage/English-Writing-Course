@@ -5,10 +5,7 @@ import { getWriting, saveWriting } from "./storage.js";
 
 export function initAutosave() {
   const textareas = $$("textarea[data-save]");
-
-  textareas.forEach((textarea) => {
-    bindTextarea(textarea);
-  });
+  textareas.forEach((textarea) => bindTextarea(textarea));
 }
 
 function bindTextarea(textarea) {
