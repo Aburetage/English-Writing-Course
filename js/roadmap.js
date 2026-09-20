@@ -1,30 +1,17 @@
 /* ===== English Writing Course — Roadmap (مجمّعة بالمراحل) ===== */
 
-import COURSE from "./data/course.js";
+import COURSE from "./course.js";
 import {
   $,
+  escapeHtml,
   homeHref,
   roadmapHref,
   lessonHref,
   lessonStationHref,
-  toast
+  toast,
+  getCurrentLessonNumber
 } from "./utils.js";
 import { isLessonVisited, markLessonVisited } from "./storage.js";
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function currentLessonNumber() {
-  const attr = document.body.dataset.lesson;
-  if (attr) return Number(attr);
-  const m = location.pathname.match(/lesson(\d+)\.html/i);
-  return m ? Number(m[1]) : 0;
-}
 
 function lessonByNumber(n) {
   return COURSE.find((l) => l.n === n) || null;
@@ -32,11 +19,6 @@ function lessonByNumber(n) {
 
 function availableLessons() {
   return COURSE.filter((l) => l.file);
-}
-
-function latestAvailable() {
-  const list = availableLessons();
-  return list.length ? list[list.length - 1] : null;
 }
 
 /* ---------- رسم الخريطة حسب المراحل ---------- */
@@ -48,11 +30,10 @@ export function renderRoadmap() {
   if (!COURSE || !COURSE.length) {
     host.innerHTML =
       '<div class="alert"><span class="aic" aria-hidden="true">⚠️</span>' +
-      "<p>لا يمكن رسم خريطة الرحلة: تأكد من تحميل سجل الكورس (js/data/course.js).</p></div>";
+      "<p>لا يمكن رسم خريطة الرحلة: تأكد من تحميل سجل الكورس (js/course.js).</p></div>";
     return;
   }
 
-  // نزيل class="road" القديم (flex صف واحد) ونستبدله بالبنية الجديدة
   host.classList.remove("road");
   host.classList.add("rm-wrap");
 
@@ -84,7 +65,7 @@ export function renderRoadmap() {
   host.querySelectorAll(".rm-station.locked").forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
       event.preventDefault();
-      toast("هذا الدرس قريبًا — أكمل الدروس المفتوحة أولًا", "warning");
+      toast("هذا الدرس قريبًا — أكمل الدروس المفتوحة أولًا");
     });
   });
 }
@@ -154,7 +135,7 @@ export function renderJourney() {
   const host = $("#journeyBox");
   if (!host) return;
 
-  const current = currentLessonNumber();
+  const current = getCurrentLessonNumber();
   if (!current) return;
 
   markLessonVisited(current);
