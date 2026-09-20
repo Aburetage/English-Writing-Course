@@ -5,7 +5,6 @@ const STORAGE_KEY = "ewc:progress:v2";
 const LEGACY_KEYS = [
   "ewc-progress",
   "ewc_progress",
-  "ewc:progress:v1",
   "writing_answers",
   "quiz_answers",
   "course_progress"
@@ -100,6 +99,7 @@ export function saveProgress(state) {
 
 export function saveWriting(key, value) {
   if (!key) return;
+
   const state = getProgress();
   state.writing[key] = String(value ?? "");
   saveProgress(state);
@@ -113,17 +113,23 @@ export function getWriting(key) {
 
 export function saveQuizAnswer(quizId, qid, payload) {
   if (!quizId || !qid) return;
+
   const state = getProgress();
   const compositeKey = `${quizId}:${qid}`;
+
+  state.quiz=compositeKey;
+
   state.quiz[compositeKey] = {
     ...(payload || {}),
     updatedAt: new Date().toISOString()
   };
+
   saveProgress(state);
 }
 
 export function getQuizAnswer(quizId, qid) {
   if (!quizId || !qid) return null;
+
   const state = getProgress();
   const compositeKey = `${quizId}:${qid}`;
   return state.quiz?.[compositeKey] || null;
@@ -131,19 +137,23 @@ export function getQuizAnswer(quizId, qid) {
 
 export function resetQuizProgress(quizId) {
   if (!quizId) return;
+
   const state = getProgress();
   const prefix = `${quizId}:`;
+
   Object.keys(state.quiz || {}).forEach((key) => {
     if (key.startsWith(prefix)) {
       delete state.quiz[key];
     }
   });
+
   saveProgress(state);
 }
 
 export function markLessonVisited(lessonNumber) {
   const n = Number(lessonNumber);
   if (!Number.isFinite(n) || n <= 0) return;
+
   const state = getProgress();
   state.visited[n] = new Date().toISOString();
   saveProgress(state);
@@ -152,6 +162,7 @@ export function markLessonVisited(lessonNumber) {
 export function isLessonVisited(lessonNumber) {
   const n = Number(lessonNumber);
   if (!Number.isFinite(n) || n <= 0) return false;
+
   const state = getProgress();
   return Boolean(state.visited?.[n]);
 }
@@ -159,6 +170,7 @@ export function isLessonVisited(lessonNumber) {
 export function markLessonCompleted(lessonNumber) {
   const n = Number(lessonNumber);
   if (!Number.isFinite(n) || n <= 0) return;
+
   const state = getProgress();
   state.completed[n] = new Date().toISOString();
   saveProgress(state);
@@ -167,6 +179,7 @@ export function markLessonCompleted(lessonNumber) {
 export function isLessonCompleted(lessonNumber) {
   const n = Number(lessonNumber);
   if (!Number.isFinite(n) || n <= 0) return false;
+
   const state = getProgress();
   return Boolean(state.completed?.[n]);
 }
