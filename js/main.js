@@ -2,171 +2,124 @@
 
 import {
   $,
+  $$,
   toast,
-  getCurrentLessonNumber,
-  smoothScrollTo
+  smoothScrollTo,
+  prefersReducedMotion
 } from "./utils.js";
 
-import {
-  resetAllProgress
-} from "./storage.js";
-
-import { initToc } from "./toc.js";
 import { initNavigation } from "./navigation.js";
-import { initQuizzes } from "./quiz.js";
+import { initToc } from "./toc.js";
+import { initQuizzes, initRevealButtons } from "./quiz.js";
 import { initAutosave } from "./autosave.js";
+import { initRoadmap } from "./roadmap.js";
 import { initPWA } from "./pwa.js";
 
 import {
-  markCurrentLessonVisited,
-  renderAllRoadmapUI
-} from "./roadmap.js";
-
-import { getLessonByNumber } from "./data/course.js";
+  resetAllProgress,
+  markLessonVisited
+} from "./storage.js";
 
 const RING_CIRCUMFERENCE = 2 * Math.PI * 18;
 
-function updateReadingProgress() {
-  const html = document.documentElement;
-
-  const scrollTop = html.scrollTop || document.body.scrollTop || 0;
-  const scrollHeight = html.scrollHeight - html.clientHeight;
-
-  const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
-
+function initScrollUI() {
   const progressBar = $("#progress");
-
-  if (progressBar) {
-    progressBar.style.width = `${Math.min(Math.max(progress, 0), 1) * 100}%`;
-  }
-
   const ringForeground = $("#ringFg");
-
-  if (ringForeground) {
-    const offset = RING_CIRCUMFERENCE - (RING_CIRCUMFERENCE * progress);
-    ringForeground.style.strokeDashoffset = String(offset);
-  }
-
   const ringText = $("#ringTxt");
+  const topFab = $("#topFab");
 
-  if (ringText) {
-    ringText.textContent = `${Math.round(progress * 100)}%`;
-  }
+  function update() {
+    const html = document.documentElement;
+    const maxScroll = html.scrollHeight - html.clientHeight;
+    const progress = maxScroll > 0 ? html.scrollTop / maxScroll : 0;
 
-  const fab = $("#topFab");
-
-  if (fab) {
-    fab.classList.toggle("show", scrollTop > 500);
-  }
-}
-
-let endToastShown = false;
-
-function showEndOfLessonToast() {
-  if (endToastShown) return;
-
-  const current = getCurrentLessonNumber();
-
-  if (!current) return;
-
-  endToastShown = true;
-
-  const next = getLessonByNumber(current + 1);
-
-  const message = next?.file
-    ? `🎉 أنهيت الدرس؟ <a href="${next.file}" style="color:#fff;text-decoration:underline">التالي: Lesson ${next.n}</a>`
-    : `🏁 أنهيت كل المتاح حاليًا — تابع خريطة الرحلة`;
-
-  toast(message, 9000);
-}
-
-function bindScrollUI() {
-  window.addEventListener(
-    "scroll",
-    () => {
-      updateReadingProgress();
-
-      const html = document.documentElement;
-
-      const nearBottom =
-        html.scrollTop + html.clientHeight >=
-        html.scrollHeight - 160;
-
-      if (nearBottom) {
-        showEndOfLessonToast();
-      }
-    },
-    { passive: true }
-  );
-
-  updateReadingProgress();
-}
-
-function bindHashNavigation() {
-  window.addEventListener("hashchange", () => {
-    const hash = window.location.hash.slice(1);
-
-    if (!hash) return;
-
-    const target = document.getElementById(hash);
-
-    if (target) {
-      smoothScrollTo(target);
+    if (progressBar) {
+      progressBar.style.width = `${progress * 100}%`;
     }
-  });
-}
 
-function scrollToInitialHash() {
-  const hash = window.location.hash.slice(1);
+    if (ringForeground) {
+      ringForeground.style.strokeDashoffset = String(
+        RING_CIRCUMFERENCE - RING_CIRCUMFERENCE * progress
+      );
+    }
 
-  if (!hash) return;
+    if (ringText) {
+      ringText.textContent = `${Math.round(progress * 100)}%`;
+    }
 
-  const target = document.getElementById(hash);
+    if (topFab) {
+      topFab.classList.toggle("show", html.scrollTop > 420);
+    }
+  }
 
-  if (target) {
-    setTimeout(() => {
-      smoothScrollTo(target);
-    }, 250);
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+
+  if (topFab) {
+    topFab.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion() ? "auto" : "smooth"
+      });
+    });
   }
 }
 
-function bindResetAllButton() {
-  const button = $("#resetAll");
+function initHashNavigation() {
+  function goToHash() {
+    const hash = window.location.hash;
+    if (!hash || hash === "#") return;
 
+    const target = $(hash);
+    if (!target) return;
+
+    window.setTimeout(() => smoothScrollTo(target), 90);
+  }
+
+  window.addEventListener("hashchange", goToHash);
+  goToHash();
+}
+
+function initResetAllButton() {
+  const button = $("#resetAll");
   if (!button) return;
 
   button.addEventListener("click", () => {
     const confirmed = window.confirm(
-      "سيتم مسح جميع إجاباتك المحفوظة ونتائج التمارين وعلامات الزيارة. هل أنت متأكد؟"
+      "هل تريد مسح كل الإجابات والتقدم المحفوظ في هذا المتصفح؟\n\nلا يمكن التراجع بعد المسح."
     );
 
     if (!confirmed) return;
 
     resetAllProgress();
+    toast("تم مسح كل البيانات المحفوظة", "success");
 
-    window.alert("تم المسح بنجاح ✅");
-
-    window.location.reload();
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 700);
   });
 }
 
+function initCurrentLessonVisit() {
+  const lessonNumber = Number(document.body.dataset.lesson || 0);
+  if (lessonNumber > 0) {
+    markLessonVisited(lessonNumber);
+  }
+}
+
 function init() {
-  markCurrentLessonVisited();
-
-  initToc();
   initNavigation();
+  initToc();
   initQuizzes();
+  initRevealButtons();
   initAutosave();
-
-  renderAllRoadmapUI();
-
-  bindScrollUI();
-  bindHashNavigation();
-  bindResetAllButton();
-
-  scrollToInitialHash();
-
+  initRoadmap();
   initPWA();
+  initScrollUI();
+  initHashNavigation();
+  initResetAllButton();
+  initCurrentLessonVisit();
 }
 
 if (document.readyState === "loading") {
