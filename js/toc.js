@@ -1,98 +1,128 @@
-/* ===== English Writing Course — Table Of Contents ===== */
+/* ===== English Writing Course — Table of Contents ===== */
 
-import { $, $$, smoothScrollTo } from "./utils.js";
+import { $, $$, smoothScrollTo, supportsIntersectionObserver } from "./utils.js";
 
-export function initToc() {
-  const toc = $("#toc");
-  if (!toc) return;
+let tocElement = null;
+let backdropElement = null;
 
-  const backdrop = $("#backdrop");
-  const buttons = $$('.bottombar .bb-tab[data-tab="toc"]');
-  const links = $$("#toc a[href^='#']");
+export function isTocOpen() {
+  return Boolean(tocElement?.classList.contains("open"));
+}
 
-  let isOpen = false;
+export function openToc() {
+  if (!tocElement) return;
 
-  function setState(open) {
-    isOpen = Boolean(open);
+  tocElement.classList.add("open");
 
-    toc.classList.toggle("open", isOpen);
-    document.body.classList.toggle("toc-open", isOpen);
-
-    if (backdrop) {
-      backdrop.classList.toggle("show", isOpen);
-    }
-
-    buttons.forEach((button) => {
-      button.setAttribute("aria-expanded", String(isOpen));
-    });
-  }
-
-  // navigation.js dispatches "ewc:toggle-toc" when the 📑 tab is clicked.
-  window.addEventListener("ewc:toggle-toc", () => {
-    setState(!isOpen);
-  });
-
-  if (backdrop) {
-    backdrop.addEventListener("click", () => setState(false));
-  }
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && isOpen) {
-      setState(false);
-    }
-  });
-
-  links.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const hash = link.getAttribute("href");
-      if (!hash || hash === "#") return;
-
-      const target = $(hash);
-      if (!target) return;
-
-      event.preventDefault();
-      smoothScrollTo(target);
-      history.replaceState(null, "", hash);
-      setState(false);
-    });
-  });
-
-  initActiveLinkOnScroll(links);
-
-  if (window.location.hash) {
-    const target = $(window.location.hash);
-    if (target) {
-      window.setTimeout(() => smoothScrollTo(target), 120);
-    }
+  if (backdropElement) {
+    backdropElement.classList.add("show");
   }
 }
 
-function initActiveLinkOnScroll(links) {
-  if (!links.length) return;
+export function closeToc() {
+  if (!tocElement) return;
 
-  const sections = links
-    .map((link) => $(link.getAttribute("href")))
-    .filter(Boolean);
+  tocElement.classList.remove("open");
+
+  if (backdropElement) {
+    backdropElement.classList.remove("show");
+  }
+}
+
+export function toggleToc() {
+  if (isTocOpen()) {
+    closeToc();
+  } else {
+    openToc();
+  }
+}
+
+function setActiveLink(hash) {
+  $$("#toc a").forEach((link) => {
+    link.classList.toggle("active", link.getAttribute("href") === hash);
+  });
+}
+
+function bindTocLinks() {
+  $$("#toc a").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href") || "";
+
+      if (!href.startsWith("#")) return;
+
+      event.preventDefault();
+
+      const id = href.slice(1);
+      const target = document.getElementById(id);
+
+      if (target) {
+        smoothScrollTo(target);
+      }
+
+      setActiveLink(href);
+      closeToc();
+    });
+  });
+}
+
+function bindBackdrop() {
+  backdropElement = $("#backdrop");
+
+  if (backdropElement) {
+    backdropElement.addEventListener("click", closeToc);
+  }
+}
+
+function bindKeyboard() {
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeToc();
+    }
+  });
+}
+
+function observeSections() {
+  if (!supportsIntersectionObserver()) return;
+
+  const sections = $$("section.card[id], .card[id]");
 
   if (!sections.length) return;
 
-  function updateActive() {
-    let activeId = sections[0]?.id || "";
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-    for (const section of sections) {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 140) {
-        activeId = section.id;
-      }
+        const id = entry.target.id;
+        if (!id) return;
+
+        setActiveLink(`#${id}`);
+      });
+    },
+    {
+      rootMargin: "-25% 0px -65% 0px",
+      threshold: 0.1
     }
+  );
 
-    links.forEach((link) => {
-      const isActive = link.getAttribute("href") === `#${activeId}`;
-      link.classList.toggle("active", isActive);
-    });
+  sections.forEach((section) => observer.observe(section));
+}
+
+export function initToc() {
+  tocElement = $("#toc");
+
+  if (!tocElement) return;
+
+  bindBackdrop();
+  bindTocLinks();
+  bindKeyboard();
+  observeSections();
+
+  /**
+   * إذا كان هناك hash في الرابط عند الفتح،
+   * فعّل الرابط المطابق.
+   */
+  if (window.location.hash) {
+    setActiveLink(window.location.hash);
   }
-
-  window.addEventListener("scroll", updateActive, { passive: true });
-  window.addEventListener("resize", updateActive);
-  updateActive();
 }
