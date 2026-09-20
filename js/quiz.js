@@ -9,7 +9,11 @@ import {
 
 export function initQuizzes() {
   const quizzes = $$(".quiz");
-  quizzes.forEach((quiz, index) => bindQuiz(quiz, index));
+
+  quizzes.forEach((quiz, index) => {
+    bindQuiz(quiz, index);
+  });
+
   bindResetButtons();
 }
 
@@ -50,7 +54,11 @@ function bindQuiz(quiz, index) {
   }
 
   const questions = $$(".q", quiz);
-  questions.forEach((question) => bindQuestion(question, quizId));
+
+  questions.forEach((question) => {
+    bindQuestion(question, quizId);
+  });
+
   updateScore(quiz, questions);
 }
 
@@ -126,9 +134,9 @@ function bindQuestion(question, quizId) {
         });
       }
 
-      const parentQuiz = question.closest(".quiz");
-      if (parentQuiz) {
-        updateScore(parentQuiz, $$(".q", parentQuiz));
+      const quiz = question.closest(".quiz");
+      if (quiz) {
+        updateScore(quiz, $$(".q", quiz));
       }
     });
   });
@@ -193,7 +201,7 @@ function bindResetButtons() {
       }
 
       updateScore(quiz, questions);
-      toast("تم إعادة تعيين هذا الاختبار");
+      toast("تم إعادة تعيين هذا الاختبار", "info");
     });
   });
 }
