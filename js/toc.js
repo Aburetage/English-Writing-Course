@@ -27,12 +27,7 @@ export function initToc() {
     });
   }
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      setState(!isOpen);
-    });
-  });
-
+  // navigation.js هو اللي بيعمل dispatch للزرار؛ هنا نستمع فقط
   window.addEventListener("ewc:toggle-toc", () => {
     setState(!isOpen);
   });
