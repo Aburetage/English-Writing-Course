@@ -3,185 +3,243 @@
 @media print {
   @page {
     size: A4;
-    margin: 18mm 14mm;
+    margin: 16mm;
   }
 
-  html, body {
+  html,
+  body {
     background: #ffffff !important;
-    color: #14231f !important;
-    font-size: 11pt;
-    line-height: 1.55;
+    color: #1f2d33 !important;
+    font-size: 12pt;
+    line-height: 1.6;
   }
 
-  /* Hide interactive chrome */
+  /* Hide interactive / decorative chrome */
   .bg,
+  .blob,
   #progress,
+  .topbar,
+  .top-nav-arrows,
+  .lesson-nav,
+  .crumbs,
   #toc,
   #backdrop,
   .bottombar,
   .fab,
-  .skip-link,
   .toast,
-  .reset,
+  .opts,
   .rv,
-  .bb-tabs,
+  .reset,
+  .ta-meta,
+  .journey,
+  .lesson-end-nav,
+  .lbtn,
+  .jbtn,
+  .signpost,
   noscript {
     display: none !important;
   }
 
-  /* Cards: avoid breaking inside */
-  .card,
-  .alert,
-  .defcard,
-  .spec,
-  .formula,
-  .coach,
-  .quiz .q,
-  .q,
-  .ans,
-  .rm-station,
-  .station,
-  .role,
-  .pillar,
-  .stair,
-  .grow-row,
-  .fcard,
-  .rcard {
+  /* Show all lesson content regardless of module state */
+  .mod {
+    display: block !important;
+    animation: none !important;
+  }
+
+  .wrap {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  section.card,
+  .card {
+    background: #ffffff !important;
+    border: 1px solid #d7dedb !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     break-inside: avoid;
     page-break-inside: avoid;
+    margin-bottom: 10mm !important;
+    padding: 6mm !important;
+  }
+
+  .card-head .num,
+  .formula::before,
+  .coach::before,
+  .defcard .dhead,
+  .phead,
+  .lstation::before,
+  .bstep::before {
+    background: #eef8f5 !important;
+    color: #174f43 !important;
     box-shadow: none !important;
-    background: #ffffff !important;
-    border: 1px solid #cde8df !important;
+    -webkit-text-fill-color: #174f43 !important;
   }
 
-  /* Show answers when printing */
+  .card-head h2 .e,
+  footer b,
+  .logo b {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: #245b87 !important;
+    color: #245b87 !important;
+  }
+
+  .e,
+  [lang="en"] {
+    color: #245b87 !important;
+  }
+
+  .spec,
+  .defcard,
+  .formula,
+  .coach,
+  .alert,
+  .quiz,
+  .q,
+  .ans,
+  .fcard,
+  .role,
+  .fun,
+  .rcard,
+  .refcard,
+  .lstation,
+  .pmini,
+  .gitem,
+  .gbox,
+  .bcard,
+  .aspect,
+  .dstep,
+  .chip,
+  table,
+  th,
+  td {
+    background: #ffffff !important;
+    border-color: #d7dedb !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .spec {
+    border-inline-start: 3px solid #3a9b85 !important;
+  }
+
+  .alert {
+    border: 1px solid #d7dedb !important;
+  }
+
+  .alert .aic,
+  .formula,
+  .coach,
+  .defcard,
+  .spec,
+  .quiz,
+  .q,
   .ans {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
-  /* Textareas: show content as plain text */
-  textarea {
-    border: 1px solid #cde8df !important;
-    background: #ffffff !important;
-    color: #14231f !important;
-    min-height: 60px;
-    resize: none;
+  .formula::before,
+  .coach::before {
+    position: static !important;
+    display: inline-block !important;
+    margin-bottom: 2mm !important;
   }
 
-  /* Quiz buttons: show as list */
-  .quiz .opts {
-    display: block;
+  .formula,
+  .coach {
+    padding-top: 4mm !important;
   }
 
-  .quiz .opts button {
-    display: inline-block;
-    background: #ffffff !important;
-    border: 1px solid #cde8df !important;
-    color: #14231f !important;
-    padding: 2px 8px;
-    margin: 2px;
-    font-size: 10pt;
-  }
-
-  .quiz .opts button.ok {
-    background: #e6f7ec !important;
-    border-color: #2ea043 !important;
-    font-weight: 900;
-  }
-
-  /* Links: show URL after text */
-  a[href^="http"]::after,
-  a[href^="/"]::after {
-    content: " (" attr(href) ")";
-    font-size: 9pt;
-    color: #61756f;
-    font-weight: 400;
-  }
-
-  a.signpost::after,
-  a.lbtn::after,
-  .len-btn::after {
-    content: "" !important;
-  }
-
-  /* Tables */
   table {
-    font-size: 10pt;
-    border: 1px solid #cde8df;
+    width: 100% !important;
+    border-collapse: collapse !important;
   }
 
-  th, td {
-    border: 1px solid #cde8df !important;
-    padding: 4px 6px;
+  th,
+  td {
+    border: 1px solid #d7dedb !important;
+    padding: 2mm 3mm !important;
+    font-size: 10pt !important;
   }
 
   th {
-    background: #e8f5f1 !important;
+    background: #eef8f5 !important;
+    color: #174f43 !important;
   }
 
-  /* Headings */
-  h1, h2, h3, h4, h5, h6 {
-    color: #14231f !important;
-    page-break-after: avoid;
+  textarea {
+    border: 1px solid #d7dedb !important;
+    background: #ffffff !important;
+    color: #1f2d33 !important;
+    min-height: 18mm !important;
+    resize: none !important;
+  }
+
+  .fb,
+  .score,
+  .sav,
+  .wc {
+    color: #5f7076 !important;
+  }
+
+  .fb.good {
+    background: #eef8f5 !important;
+    color: #174f43 !important;
+  }
+
+  .fb.bad {
+    background: #fff1f0 !important;
+    color: #973f35 !important;
+  }
+
+  a {
+    color: #245b87 !important;
+    text-decoration: none !important;
+  }
+
+  /* Optional: show URL after external links, but keep lesson internal links clean */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #5f7076;
+    word-break: break-all;
   }
 
   .lesson-title {
-    font-size: 18pt;
-  }
-
-  .card-head h2 {
-    font-size: 14pt;
-  }
-
-  /* Code */
-  code {
-    background: #e8f5f1 !important;
-    color: #1f5b4e !important;
-    border: 1px solid #cde8df !important;
-  }
-
-  pre {
-    background: #f5f9f7 !important;
-    color: #14231f !important;
-    border: 1px solid #cde8df !important;
-    page-break-inside: avoid;
-  }
-
-  /* Roadmap: print as list */
-  .rm-grid,
-  .road {
-    display: block;
-  }
-
-  .rm-station,
-  .station {
-    display: block;
-    margin-bottom: 8px;
-    page-break-inside: avoid;
-  }
-
-  /* Hide journey nav at end of lesson when printing */
-  #journeyBox,
-  .lesson-end-nav {
-    display: none !important;
-  }
-
-  /* Footer */
-  footer {
+    color: #174f43 !important;
     text-align: center;
-    color: #61756f;
-    font-size: 9pt;
-    border-top: 1px solid #cde8df;
-    padding-top: 8px;
-    margin-top: 16px;
+    margin-bottom: 6mm !important;
   }
 
-  /* English text */
-  .e, .en, [lang="en"] {
-    font-family: "Cairo", "Segoe UI", Tahoma, sans-serif !important;
-    direction: ltr;
-    unicode-bidi: isolate;
+  .lesson-meta {
+    justify-content: center;
+    margin-bottom: 6mm !important;
+    color: #5f7076 !important;
+  }
+
+  .lesson-meta span {
+    border: 1px solid #d7dedb !important;
+    background: #ffffff !important;
+  }
+
+  /* Avoid orphan headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Hide answer toggles content if hidden remains hidden; visible answers print normally */
+  [hidden] {
+    display: none !important;
   }
 }
