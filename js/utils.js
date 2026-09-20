@@ -1,12 +1,34 @@
 /* ===== English Writing Course — Utils ===== */
 
+const isLessonPage = window.location.pathname.includes("/lessons/");
+
+export const SITE_ROOT = isLessonPage ? "../" : "";
+
 export const $ = (selector, root = document) => root.querySelector(selector);
 
 export const $$ = (selector, root = document) =>
   Array.from(root.querySelectorAll(selector));
 
+export function homeHref() {
+  return `${SITE_ROOT}index.html`;
+}
+
+export function roadmapHref() {
+  return `${homeHref()}#roadmap`;
+}
+
+export function lessonHref(file) {
+  if (!file) return "#";
+  if (file.includes("/")) return file;
+  return isLessonPage ? file : `lessons/${file}`;
+}
+
+export function lessonStationHref(n) {
+  return `${homeHref()}#ls${n}`;
+}
+
 export function debounce(fn, delay = 300) {
-  let timer = null;
+  let timer;
   return (...args) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
@@ -15,73 +37,6 @@ export function debounce(fn, delay = 300) {
 
 export function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-export function toast(message, type = "info") {
-  if (!message) return;
-
-  let host = $("#toastHost");
-
-  if (!host) {
-    host = document.createElement("div");
-    host.id = "toastHost";
-    host.setAttribute("aria-live", "polite");
-    host.setAttribute("aria-atomic", "true");
-
-    Object.assign(host.style, {
-      position: "fixed",
-      left: "16px",
-      right: "16px",
-      bottom: "calc(88px + env(safe-area-inset-bottom, 0px))",
-      zIndex: "9999",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: "8px",
-      pointerEvents: "none"
-    });
-
-    document.body.appendChild(host);
-  }
-
-  const el = document.createElement("div");
-  el.className = `toast ${type}`;
-
-  const backgrounds = {
-    info: "rgba(31, 45, 51, 0.94)",
-    success: "rgba(44, 122, 104, 0.96)",
-    warning: "rgba(196, 142, 28, 0.96)",
-    danger: "rgba(184, 87, 74, 0.96)"
-  };
-
-  Object.assign(el.style, {
-    pointerEvents: "auto",
-    maxWidth: "360px",
-    width: "max-content",
-    maxHeight: "80vh",
-    overflowWrap: "anywhere",
-    background: backgrounds[type] || backgrounds.info,
-    color: "#ffffff",
-    padding: "10px 16px",
-    borderRadius: "999px",
-    boxShadow: "0 10px 28px rgba(0, 0, 0, 0.22)",
-    fontWeight: "800",
-    fontSize: "0.88rem",
-    lineHeight: "1.6",
-    textAlign: "center",
-    opacity: "1",
-    transform: "translateY(0)",
-    transition: "opacity 0.3s ease, transform 0.3s ease"
-  });
-
-  el.textContent = message;
-  host.appendChild(el);
-
-  setTimeout(() => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(8px)";
-    setTimeout(() => el.remove(), 320);
-  }, 2600);
 }
 
 export function smoothScrollTo(target, offset = 88) {
@@ -95,4 +50,53 @@ export function smoothScrollTo(target, offset = 88) {
     top: Math.max(0, top),
     behavior: prefersReducedMotion() ? "auto" : "smooth"
   });
+}
+
+function removeExistingToasts() {
+  $$(".toast").forEach((el) => el.remove());
+}
+
+export function toast(message, timeout = 4200) {
+  if (!message) return;
+
+  removeExistingToasts();
+
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.setAttribute("role", "status");
+  el.setAttribute("aria-live", "polite");
+
+  Object.assign(el.style, {
+    position: "fixed",
+    left: "16px",
+    right: "16px",
+    bottom: "calc(88px + env(safe-area-inset-bottom, 0px))",
+    zIndex: "9999",
+    margin: "0 auto",
+    maxWidth: "360px",
+    width: "max-content",
+    background: "rgba(31, 45, 51, 0.94)",
+    color: "#ffffff",
+    padding: "10px 16px",
+    borderRadius: "999px",
+    boxShadow: "0 10px 28px rgba(0, 0, 0, 0.22)",
+    fontFamily: '"Cairo", Tahoma, sans-serif',
+    fontWeight: "800",
+    fontSize: "0.88rem",
+    lineHeight: "1.6",
+    textAlign: "center",
+    pointerEvents: "auto",
+    opacity: "1",
+    transform: "translateY(0)",
+    transition: "opacity 0.3s ease, transform 0.3s ease"
+  });
+
+  el.innerHTML = message;
+  document.body.appendChild(el);
+
+  window.setTimeout(() => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(8px)";
+    window.setTimeout(() => el.remove(), 320);
+  }, timeout);
 }
