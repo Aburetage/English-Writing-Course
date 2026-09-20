@@ -5,129 +5,94 @@ export const $ = (selector, root = document) => root.querySelector(selector);
 export const $$ = (selector, root = document) =>
   Array.from(root.querySelectorAll(selector));
 
-/**
- * هل نحن داخل صفحة درس؟
- * يعتمد على:
- * 1) وجود data-lesson في body
- * 2) أو أن المسار يحتوي على /lessons/
- */
-export const isLessonPage =
-  Boolean(document.body?.dataset?.lesson) ||
-  window.location.pathname.includes("/lessons/");
-
-/**
- * جذر الموقع بالنسبة للصفحة الحالية.
- * إذا كنا في lessons/ فنحتاج ../
- * وإذا كنا في الجذر فنستخدم ""
- */
-export const SITE_ROOT = isLessonPage ? "../" : "";
-
-/**
- * رابط داخلي لصفحة رئيسية.
- */
-export function homeHref() {
-  return `${SITE_ROOT}index.html`;
-}
-
-/**
- * رابط خريطة الرحلة.
- */
-export function roadmapHref() {
-  return `${homeHref()}#roadmap`;
-}
-
-/**
- * رابط درس من سجل الكورس.
- * file يجب أن يكون مثل: lesson1.html
- * وليس lessons/lesson1.html
- */
-export function lessonHref(file) {
-  if (!file) return "#";
-
-  // إذا كان الملف يحتوي بالفعل على مسار، نتركه كما هو.
-  if (file.includes("/")) return file;
-
-  return isLessonPage ? file : `lessons/${file}`;
-}
-
-/**
- * رابط محطة درس في الخريطة.
- */
-export function lessonStationHref(n) {
-  return `${homeHref()}#ls${n}`;
-}
-
-/**
- * Debounce بسيط.
- */
 export function debounce(fn, delay = 300) {
-  let timer;
-
+  let timer = null;
   return (...args) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };
 }
 
-/**
- * إزالة أي Toast قديم.
- */
-function removeExistingToasts() {
-  $$(".toast").forEach((el) => el.remove());
+export function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/**
- * إشعار سفلي أنيق.
- */
-export function toast(message, timeout = 4200) {
-  removeExistingToasts();
+export function toast(message, type = "info") {
+  if (!message) return;
+
+  let host = $("#toastHost");
+
+  if (!host) {
+    host = document.createElement("div");
+    host.id = "toastHost";
+    host.setAttribute("aria-live", "polite");
+    host.setAttribute("aria-atomic", "true");
+
+    Object.assign(host.style, {
+      position: "fixed",
+      left: "16px",
+      right: "16px",
+      bottom: "calc(88px + env(safe-area-inset-bottom, 0px))",
+      zIndex: "9999",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "8px",
+      pointerEvents: "none"
+    });
+
+    document.body.appendChild(host);
+  }
 
   const el = document.createElement("div");
-  el.className = "toast";
-  el.setAttribute("role", "status");
-  el.setAttribute("aria-live", "polite");
-  el.innerHTML = message;
+  el.className = `toast ${type}`;
 
-  document.body.appendChild(el);
+  const backgrounds = {
+    info: "rgba(31, 45, 51, 0.94)",
+    success: "rgba(44, 122, 104, 0.96)",
+    warning: "rgba(196, 142, 28, 0.96)",
+    danger: "rgba(184, 87, 74, 0.96)"
+  };
+
+  Object.assign(el.style, {
+    pointerEvents: "auto",
+    maxWidth: "360px",
+    width: "max-content",
+    maxHeight: "80vh",
+    overflowWrap: "anywhere",
+    background: backgrounds[type] || backgrounds.info,
+    color: "#ffffff",
+    padding: "10px 16px",
+    borderRadius: "999px",
+    boxShadow: "0 10px 28px rgba(0, 0, 0, 0.22)",
+    fontWeight: "800",
+    fontSize: "0.88rem",
+    lineHeight: "1.6",
+    textAlign: "center",
+    opacity: "1",
+    transform: "translateY(0)",
+    transition: "opacity 0.3s ease, transform 0.3s ease"
+  });
+
+  el.textContent = message;
+  host.appendChild(el);
 
   setTimeout(() => {
-    el.remove();
-  }, timeout);
+    el.style.opacity = "0";
+    el.style.transform = "translateY(8px)";
+    setTimeout(() => el.remove(), 320);
+  }, 2600);
 }
 
-/**
- * الحصول على رقم الدرس الحالي من body[data-lesson].
- */
-export function getCurrentLessonNumber() {
-  const value = parseInt(document.body?.dataset?.lesson || "0", 10);
-  return Number.isFinite(value) ? value : 0;
-}
+export function smoothScrollTo(target, offset = 88) {
+  const el = typeof target === "string" ? $(target) : target;
+  if (!el) return;
 
-/**
- * هل المتصفح يدعم IntersectionObserver؟
- */
-export function supportsIntersectionObserver() {
-  return "IntersectionObserver" in window;
-}
+  const rect = el.getBoundingClientRect();
+  const top = rect.top + window.scrollY - offset;
 
-/**
- * تمرير ناعم لعنصر.
- */
-export function smoothScrollTo(element, block = "start") {
-  if (!element) return;
-
-  element.scrollIntoView({
-    behavior: "smooth",
-    block
-  });
-}
-
-/**
- * تمرير ناعم لأعلى الصفحة.
- */
-export function scrollToTop() {
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top: Math.max(0, top),
+    behavior: prefersReducedMotion() ? "auto" : "smooth"
   });
 }
