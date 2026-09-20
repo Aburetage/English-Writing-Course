@@ -1,6 +1,6 @@
 /* ===== English Writing Course — Service Worker ===== */
 
-const CACHE = "ewc-final-v1";
+const CACHE = "ewc-final-v3";
 
 const CORE = [
   "./",
@@ -28,8 +28,8 @@ const CORE = [
   "./js/autosave.js",
   "./js/roadmap.js",
   "./js/pwa.js",
-  "./js/data/course.js",
-  "./js/data/vocabulary.js",
+  "./js/course.js",
+  "./js/vocabulary.js",
 
   "./manifest.webmanifest",
   "./robots.txt",
@@ -76,6 +76,7 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
+  // Cross-origin: cache first, then network update if possible.
   if (url.origin !== self.location.origin) {
     event.respondWith(
       caches.match(request).then((cached) => {
@@ -95,6 +96,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Navigations: network first, then cache, then index.html fallback.
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
@@ -114,6 +116,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Same-origin static assets: cache first, then network update.
   event.respondWith(
     caches.match(request).then((cached) => {
       const network = fetch(request)
