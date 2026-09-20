@@ -2,10 +2,10 @@
 
 import {
   $,
+  $$,
   toast,
   smoothScrollTo,
-  prefersReducedMotion,
-  getCurrentLessonNumber
+  prefersReducedMotion
 } from "./utils.js";
 
 import { initNavigation } from "./navigation.js";
@@ -55,6 +55,15 @@ function initScrollUI() {
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   update();
+
+  if (topFab) {
+    topFab.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion() ? "auto" : "smooth"
+      });
+    });
+  }
 }
 
 function initHashNavigation() {
@@ -84,7 +93,7 @@ function initResetAllButton() {
     if (!confirmed) return;
 
     resetAllProgress();
-    toast("تم مسح كل البيانات المحفوظة");
+    toast("تم مسح كل البيانات المحفوظة", "success");
 
     window.setTimeout(() => {
       window.location.reload();
@@ -93,7 +102,7 @@ function initResetAllButton() {
 }
 
 function initCurrentLessonVisit() {
-  const lessonNumber = getCurrentLessonNumber();
+  const lessonNumber = Number(document.body.dataset.lesson || 0);
   if (lessonNumber > 0) {
     markLessonVisited(lessonNumber);
   }
