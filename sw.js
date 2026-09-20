@@ -1,6 +1,6 @@
 /* ===== English Writing Course — Service Worker ===== */
 
-const CACHE = "ewc-v7-bottom-nav";
+const CACHE = "ewc-final-v1";
 
 const CORE = [
   "./",
@@ -39,7 +39,12 @@ const CORE = [
   "./icons/icon-maskable.svg"
 ];
 
-/* التثبيت: تخزين أساسي + تفعيل فوري */
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -49,7 +54,6 @@ self.addEventListener("install", (event) => {
   );
 });
 
-/* التنشيط: حذف الكاشات القديمة + السيطرة على التبويبات */
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
@@ -65,7 +69,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-/* الجلب */
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
@@ -73,7 +76,6 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
-  /* موارد خارجية (خطوط جوجل): stale-while-revalidate */
   if (url.origin !== self.location.origin) {
     event.respondWith(
       caches.match(request).then((cached) => {
@@ -93,7 +95,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  /* صفحات التنقل: الشبكة أولًا، ثم الكاش، ثم الرئيسية أوفلاين */
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
@@ -113,7 +114,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  /* الأصول الثابتة (css/js/icons/manifest): stale-while-revalidate */
   event.respondWith(
     caches.match(request).then((cached) => {
       const network = fetch(request)
