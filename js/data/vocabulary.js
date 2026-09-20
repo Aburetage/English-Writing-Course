@@ -55,7 +55,16 @@ export const VOCABULARY = {
     { en: "report", ar: "تقرير" },
     { en: "weather", ar: "طقس" },
     { en: "meeting", ar: "اجتماع" },
-    { en: "situation", ar: "موقف/حالة" }
+    { en: "situation", ar: "موقف/حالة" },
+    { en: "meaning", ar: "معنى" },
+    { en: "function", ar: "وظيفة" },
+    { en: "context", ar: "سياق" },
+    { en: "relationship", ar: "علاقة" },
+    { en: "action", ar: "فعل/نشاط" },
+    { en: "state", ar: "حالة" },
+    { en: "sentence", ar: "جملة" },
+    { en: "structure", ar: "تركيب/بنية" },
+    { en: "purpose", ar: "مقصد/غرض" }
   ],
 
   verbs: [
@@ -94,7 +103,11 @@ export const VOCABULARY = {
     { en: "require", ar: "يتطلب" },
     { en: "improve", ar: "يحسن" },
     { en: "think", ar: "يفكر" },
-    { en: "speak", ar: "يتحدث" }
+    { en: "speak", ar: "يتحدث" },
+    { en: "describe", ar: "يصف" },
+    { en: "connect", ar: "يربط" },
+    { en: "identify", ar: "يحدد/يتعرف على" },
+    { en: "classify", ar: "يصنف" }
   ],
 
   adjectives: [
@@ -127,7 +140,9 @@ export const VOCABULARY = {
     { en: "dry", ar: "جاف" },
     { en: "regular", ar: "منتظم" },
     { en: "clean", ar: "نظيف" },
-    { en: "smooth", ar: "سلس" }
+    { en: "smooth", ar: "سلس" },
+    { en: "specific", ar: "محدد" },
+    { en: "general", ar: "عام" }
   ],
 
   adverbs: [
@@ -182,7 +197,8 @@ export const VOCABULARY = {
     { en: "from", ar: "من" },
     { en: "with", ar: "مع" },
     { en: "into", ar: "إلى داخل" },
-    { en: "after", ar: "بعد" }
+    { en: "after", ar: "بعد" },
+    { en: "between", ar: "بين" }
   ],
 
   conjunctions: [
@@ -192,7 +208,11 @@ export const VOCABULARY = {
     { en: "because", ar: "لأن" },
     { en: "if", ar: "إذا" },
     { en: "although", ar: "رغم أن/على الرغم من أن" },
-    { en: "as", ar: "حيث إن/لأن/كما، حسب السياق" }
+    { en: "as", ar: "حيث إن/لأن/كما، حسب السياق" },
+    { en: "while", ar: "بينما/أثناء" },
+    { en: "who", ar: "الذي/التي للعاقل" },
+    { en: "which", ar: "الذي/التي لغير العاقل" },
+    { en: "that", ar: "الذي/التي بحسب السياق" }
   ],
 
   interjections: [
