@@ -1,84 +1,149 @@
 /* ===== English Writing Course — Navigation ===== */
 
-import { $, $$, prefersReducedMotion, getCurrentLessonNumber, lessonHref } from "./utils.js";
-import COURSE from "./course.js";
+import {
+  $,
+  $$,
+  isLessonPage,
+  homeHref,
+  roadmapHref,
+  lessonHref,
+  getCurrentLessonNumber,
+  scrollToTop,
+  smoothScrollTo
+} from "./utils.js";
 
-function lessonByNumber(n) {
-  return COURSE.find((l) => l.n === n) || null;
+import { toggleToc } from "./toc.js";
+
+import {
+  COURSE,
+  getLessonByNumber,
+  getFirstAvailableLesson
+} from "./data/course.js";
+
+function goHomeOrTop() {
+  const roadmap = $("#roadmap");
+
+  if (roadmap) {
+    scrollToTop();
+    return;
+  }
+
+  window.location.href = homeHref();
 }
 
-function onHomePage() {
-  return (
-    document.body.dataset.page === "home" ||
-    Boolean($("#roadmapStations"))
-  );
+function goToRoadmap() {
+  const roadmap = $("#roadmap");
+
+  if (roadmap) {
+    smoothScrollTo(roadmap);
+    return;
+  }
+
+  window.location.href = roadmapHref();
 }
 
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: prefersReducedMotion() ? "auto" : "smooth"
-  });
+function goToLessonOrTop() {
+  if (isLessonPage) {
+    scrollToTop();
+    return;
+  }
+
+  const first = getFirstAvailableLesson();
+
+  if (first?.file) {
+    window.location.href = lessonHref(first.file);
+  } else {
+    goToRoadmap();
+  }
+}
+
+function navigateLesson(direction) {
+  const current = getCurrentLessonNumber();
+
+  if (!current) return;
+
+  const targetNumber = current + direction;
+  const target = getLessonByNumber(targetNumber);
+
+  if (target?.file) {
+    window.location.href = lessonHref(target.file);
+    return;
+  }
+
+  if (direction === -1) {
+    window.location.href = homeHref();
+  }
 }
 
 function bindBottomTabs() {
-  $$(".bottombar .bb-tab").forEach((tab) => {
+  $$(".bb-tab").forEach((tab) => {
     tab.addEventListener("click", (event) => {
+      event.preventDefault();
+
       const key = tab.dataset.tab;
 
-      // الفهرس: زر (مش لينك) → نمنع السلوك الطبيعي ونفتح الـ drawer
       if (key === "toc") {
-        event.preventDefault();
-        window.dispatchEvent(new CustomEvent("ewc:toggle-toc"));
+        toggleToc();
         return;
       }
 
-      // الرئيسية ونحن في الصفحة الرئيسية: نطلع فوق بدل إعادة تحميل
-      if (key === "home" && onHomePage()) {
-        event.preventDefault();
-        scrollToTop();
+      if (key === "map") {
+        goToRoadmap();
         return;
       }
 
-      // الدرس ونحن في صفحة درس: نطلع فوق
-      if (key === "lesson" && !onHomePage()) {
-        event.preventDefault();
-        scrollToTop();
+      if (key === "home") {
+        goHomeOrTop();
         return;
       }
 
-      // المقدمة ونحن في صفحة درس: نروح للمقدمة في index
-      if (key === "intro" && !onHomePage()) {
-        // نسيب اللينك الطبيعي يشتغل: ../index.html#intro
+      if (key === "lesson") {
+        goToLessonOrTop();
         return;
       }
 
-      // الخريطة: لا نمنع السلوك الطبيعي أبدًا.
-      // على الرئيسية href="#roadmap" → يسكرول للقسم.
-      // على صفحة درس href="../index.html#roadmap" → يروح للرئيسية ثم يسكرول.
-      // هذا يضمن أن الزر يعمل حتى لو فشل أي JS.
+      if (key === "print") {
+        window.print();
+      }
     });
   });
 }
 
-function initTopFab() {
-  const fab = $("#topFab");
-  if (!fab) return;
-  fab.addEventListener("click", scrollToTop);
-}
+function bindLegacyButtons() {
+  const menuBtn = $("#menuBtn");
 
-function markActiveTab() {
-  const page = document.body.dataset.page;
-  const lesson = document.body.dataset.lesson;
-
-  if (page === "home") {
-    const homeTab = $('.bottombar .bb-tab[data-tab="home"]');
-    if (homeTab) homeTab.classList.add("active");
+  if (menuBtn) {
+    menuBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      toggleToc();
+    });
   }
 
-  if (lesson) {
-    const lessonTab = $('.bottombar .bb-tab[data-tab="lesson"]');
-    if (lessonTab) lessonTab.classList.add("active");
+  const mapBtn = $("#mapBtn");
+
+  if (mapBtn) {
+    mapBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      goToRoadmap();
+    });
+  }
+
+  const printBtn = $("#printBtn");
+
+  if (printBtn) {
+    printBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.print();
+    });
+  }
+
+  const topFab = $("#topFab");
+
+  if (topFab) {
+    topFab.addEventListener("click", (event) => {
+      event.preventDefault();
+      scrollToTop();
+    });
   }
 }
 
@@ -86,31 +151,71 @@ function bindKeyboardShortcuts() {
   document.addEventListener("keydown", (event) => {
     if (!event.altKey) return;
 
-    const current = getCurrentLessonNumber();
-
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      const target = lessonByNumber(current + 1);
-      if (target && target.file) {
-        window.location.href = lessonHref(target.file);
-      }
+      navigateLesson(1);
     }
 
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      const target = lessonByNumber(current - 1);
-      if (target && target.file) {
-        window.location.href = lessonHref(target.file);
-      } else if (current > 0) {
-        window.location.href = "../index.html";
-      }
+      navigateLesson(-1);
     }
   });
 }
 
+function bindMobileSwipe() {
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
+
+  document.addEventListener(
+    "touchstart",
+    (event) => {
+      if (event.touches.length !== 1) return;
+
+      const target = event.target;
+
+      const excluded = target.closest(
+        "#toc, .bottombar, .topbar, textarea, button, a, select, details, .stairs, .opts"
+      );
+
+      if (excluded) return;
+
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+      tracking = true;
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "touchend",
+    (event) => {
+      if (!tracking) return;
+
+      tracking = false;
+
+      const endTouch = event.changedTouches[0];
+      const deltaX = endTouch.clientX - startX;
+      const deltaY = endTouch.clientY - startY;
+
+      const isHorizontalSwipe = Math.abs(deltaX) > 70 && Math.abs(deltaY) < 50;
+
+      if (!isHorizontalSwipe) return;
+
+      if (deltaX < 0) {
+        navigateLesson(1);
+      } else {
+        navigateLesson(-1);
+      }
+    },
+    { passive: true }
+  );
+}
+
 export function initNavigation() {
   bindBottomTabs();
-  initTopFab();
-  markActiveTab();
+  bindLegacyButtons();
   bindKeyboardShortcuts();
+  bindMobileSwipe();
 }
