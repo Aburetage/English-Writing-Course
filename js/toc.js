@@ -1,136 +1,103 @@
-/* ===== English Writing Course — Table of Contents ===== */
+/* ===== English Writing Course — Table Of Contents ===== */
 
-import { $, $$, smoothScrollTo, supportsIntersectionObserver } from "./utils.js";
+import { $, $$, smoothScrollTo } from "./utils.js";
 
-let tocElement = null;
-let backdropElement = null;
+export function initToc() {
+  const toc = $("#toc");
+  if (!toc) return;
 
-export function isTocOpen() {
-  return Boolean(tocElement?.classList.contains("open"));
-}
+  const backdrop = $("#backdrop");
+  const buttons = $$('.bottombar .bb-tab[data-tab="toc"]');
+  const links = $$("#toc a[href^='#']");
 
-export function openToc() {
-  if (!tocElement) return;
+  let isOpen = false;
 
-  tocElement.classList.add("open");
+  function setState(open) {
+    isOpen = Boolean(open);
 
-  if (backdropElement) {
-    backdropElement.classList.add("show");
+    toc.classList.toggle("open", isOpen);
+    document.body.classList.toggle("toc-open", isOpen);
+
+    if (backdrop) {
+      backdrop.classList.toggle("show", isOpen);
+    }
+
+    buttons.forEach((button) => {
+      button.setAttribute("aria-expanded", String(isOpen));
+    });
   }
-}
 
-export function closeToc() {
-  if (!tocElement) return;
-
-  tocElement.classList.remove("open");
-
-  if (backdropElement) {
-    backdropElement.classList.remove("show");
-  }
-}
-
-export function toggleToc() {
-  if (isTocOpen()) {
-    closeToc();
-  } else {
-    openToc();
-  }
-}
-
-function setActiveLink(hash) {
-  $$("#toc a").forEach((link) => {
-    link.classList.toggle("active", link.getAttribute("href") === hash);
-  });
-}
-
-function bindTocLinks() {
-  $$("#toc a").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const href = link.getAttribute("href") || "";
-
-      if (!href.startsWith("#")) return;
-
-      event.preventDefault();
-
-      const id = href.slice(1);
-      const target = document.getElementById(id);
-
-      if (target) {
-        smoothScrollTo(target);
-      }
-
-      setActiveLink(href);
-
-      setTimeout(() => {
-        closeToc();
-      }, 180);
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setState(!isOpen);
     });
   });
-}
 
-function bindBackdrop() {
-  backdropElement = $("#backdrop");
+  window.addEventListener("ewc:toggle-toc", () => {
+    setState(!isOpen);
+  });
 
-  if (backdropElement) {
-    backdropElement.addEventListener("click", closeToc);
+  if (backdrop) {
+    backdrop.addEventListener("click", () => setState(false));
   }
-}
 
-function bindCloseButton() {
-  const closeBtn = $(".toc-close");
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", closeToc);
-  }
-}
-
-function bindKeyboard() {
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeToc();
+    if (event.key === "Escape" && isOpen) {
+      setState(false);
     }
   });
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const hash = link.getAttribute("href");
+      if (!hash || hash === "#") return;
+
+      const target = $(hash);
+      if (!target) return;
+
+      event.preventDefault();
+      smoothScrollTo(target);
+      history.replaceState(null, "", hash);
+      setState(false);
+    });
+  });
+
+  initActiveLinkOnScroll(links);
+
+  if (window.location.hash) {
+    const target = $(window.location.hash);
+    if (target) {
+      window.setTimeout(() => smoothScrollTo(target), 120);
+    }
+  }
 }
 
-function observeSections() {
-  if (!supportsIntersectionObserver()) return;
+function initActiveLinkOnScroll(links) {
+  if (!links.length) return;
 
-  const sections = $$("section.card[id], .card[id]");
+  const sections = links
+    .map((link) => $(link.getAttribute("href")))
+    .filter(Boolean);
 
   if (!sections.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+  function updateActive() {
+    let activeId = sections[0]?.id || "";
 
-        const id = entry.target.id;
-        if (!id) return;
-
-        setActiveLink(`#${id}`);
-      });
-    },
-    {
-      rootMargin: "-25% 0px -65% 0px",
-      threshold: 0.1
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 140) {
+        activeId = section.id;
+      }
     }
-  );
 
-  sections.forEach((section) => observer.observe(section));
-}
-
-export function initToc() {
-  tocElement = $("#toc");
-
-  if (!tocElement) return;
-
-  bindBackdrop();
-  bindCloseButton();
-  bindTocLinks();
-  bindKeyboard();
-  observeSections();
-
-  if (window.location.hash) {
-    setActiveLink(window.location.hash);
+    links.forEach((link) => {
+      const isActive = link.getAttribute("href") === `#${activeId}`;
+      link.classList.toggle("active", isActive);
+    });
   }
+
+  window.addEventListener("scroll", updateActive, { passive: true });
+  window.addEventListener("resize", updateActive);
+  updateActive();
 }
