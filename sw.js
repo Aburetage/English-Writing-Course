@@ -1,6 +1,6 @@
 /* ===== English Writing Course — Service Worker ===== */
 
-const CACHE = "ewc-final-v3";
+const CACHE = "ewc-v7-bottom-nav";
 
 const CORE = [
   "./",
@@ -28,8 +28,8 @@ const CORE = [
   "./js/autosave.js",
   "./js/roadmap.js",
   "./js/pwa.js",
-  "./js/course.js",
-  "./js/vocabulary.js",
+  "./js/data/course.js",
+  "./js/data/vocabulary.js",
 
   "./manifest.webmanifest",
   "./robots.txt",
@@ -39,12 +39,7 @@ const CORE = [
   "./icons/icon-maskable.svg"
 ];
 
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-
+/* التثبيت: تخزين أساسي + تفعيل فوري */
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -54,6 +49,7 @@ self.addEventListener("install", (event) => {
   );
 });
 
+/* التنشيط: حذف الكاشات القديمة + السيطرة على التبويبات */
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
@@ -69,6 +65,7 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+/* الجلب */
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
@@ -76,7 +73,7 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
-  // Cross-origin: cache first, then network update if possible.
+  /* موارد خارجية (خطوط جوجل): stale-while-revalidate */
   if (url.origin !== self.location.origin) {
     event.respondWith(
       caches.match(request).then((cached) => {
@@ -96,7 +93,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Navigations: network first, then cache, then index.html fallback.
+  /* صفحات التنقل: الشبكة أولًا، ثم الكاش، ثم الرئيسية أوفلاين */
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
@@ -116,7 +113,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Same-origin static assets: cache first, then network update.
+  /* الأصول الثابتة (css/js/icons/manifest): stale-while-revalidate */
   event.respondWith(
     caches.match(request).then((cached) => {
       const network = fetch(request)
