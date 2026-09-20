@@ -1,103 +1,51 @@
-/* ===== English Writing Course — Table Of Contents ===== */
+/* ===== English Writing Course — Navigation ===== */
 
-import { $, $$, smoothScrollTo } from "./utils.js";
+import { $, $$, prefersReducedMotion } from "./utils.js";
 
-export function initToc() {
-  const toc = $("#toc");
-  if (!toc) return;
-
-  const backdrop = $("#backdrop");
-  const buttons = $$('.bottombar .bb-tab[data-tab="toc"]');
-  const links = $$("#toc a[href^='#']");
-
-  let isOpen = false;
-
-  function setState(open) {
-    isOpen = Boolean(open);
-
-    toc.classList.toggle("open", isOpen);
-    document.body.classList.toggle("toc-open", isOpen);
-
-    if (backdrop) {
-      backdrop.classList.toggle("show", isOpen);
-    }
-
-    buttons.forEach((button) => {
-      button.setAttribute("aria-expanded", String(isOpen));
-    });
-  }
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      setState(!isOpen);
-    });
-  });
-
-  window.addEventListener("ewc:toggle-toc", () => {
-    setState(!isOpen);
-  });
-
-  if (backdrop) {
-    backdrop.addEventListener("click", () => setState(false));
-  }
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && isOpen) {
-      setState(false);
-    }
-  });
-
-  links.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const hash = link.getAttribute("href");
-      if (!hash || hash === "#") return;
-
-      const target = $(hash);
-      if (!target) return;
-
-      event.preventDefault();
-      smoothScrollTo(target);
-      history.replaceState(null, "", hash);
-      setState(false);
-    });
-  });
-
-  initActiveLinkOnScroll(links);
-
-  if (window.location.hash) {
-    const target = $(window.location.hash);
-    if (target) {
-      window.setTimeout(() => smoothScrollTo(target), 120);
-    }
-  }
+export function initNavigation() {
+  initTopFab();
+  initBottomBar();
+  markActiveTab();
 }
 
-function initActiveLinkOnScroll(links) {
-  if (!links.length) return;
+function initTopFab() {
+  const fab = $("#topFab");
+  if (!fab) return;
 
-  const sections = links
-    .map((link) => $(link.getAttribute("href")))
-    .filter(Boolean);
-
-  if (!sections.length) return;
-
-  function updateActive() {
-    let activeId = sections[0]?.id || "";
-
-    for (const section of sections) {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 140) {
-        activeId = section.id;
-      }
-    }
-
-    links.forEach((link) => {
-      const isActive = link.getAttribute("href") === `#${activeId}`;
-      link.classList.toggle("active", isActive);
+  fab.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion() ? "auto" : "smooth"
     });
+  });
+}
+
+function initBottomBar() {
+  const tabs = $$(".bottombar .bb-tab");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", (event) => {
+      const name = tab.dataset.tab;
+
+      if (name === "toc") {
+        event.preventDefault();
+        window.dispatchEvent(new CustomEvent("ewc:toggle-toc"));
+      }
+    });
+  });
+}
+
+function markActiveTab() {
+  const page = document.body.dataset.page;
+  const lesson = document.body.dataset.lesson;
+
+  if (page === "home") {
+    const homeTab = $('.bottombar .bb-tab[data-tab="home"]');
+    if (homeTab) homeTab.classList.add("active");
   }
 
-  window.addEventListener("scroll", updateActive, { passive: true });
-  window.addEventListener("resize", updateActive);
-  updateActive();
+  if (lesson) {
+    const lessonTab = $('.bottombar .bb-tab[data-tab="lesson"]');
+    if (lessonTab) lessonTab.classList.add("active");
+  }
 }
