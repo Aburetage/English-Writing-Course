@@ -1,129 +1,133 @@
 /* ===== English Writing Course — Utils ===== */
 
-export const isLessonPage = window.location.pathname.includes("/lessons/");
-
-export const SITE_ROOT = isLessonPage ? "../" : "";
-
 export const $ = (selector, root = document) => root.querySelector(selector);
 
 export const $$ = (selector, root = document) =>
   Array.from(root.querySelectorAll(selector));
 
+/**
+ * هل نحن داخل صفحة درس؟
+ * يعتمد على:
+ * 1) وجود data-lesson في body
+ * 2) أو أن المسار يحتوي على /lessons/
+ */
+export const isLessonPage =
+  Boolean(document.body?.dataset?.lesson) ||
+  window.location.pathname.includes("/lessons/");
+
+/**
+ * جذر الموقع بالنسبة للصفحة الحالية.
+ * إذا كنا في lessons/ فنحتاج ../
+ * وإذا كنا في الجذر فنستخدم ""
+ */
+export const SITE_ROOT = isLessonPage ? "../" : "";
+
+/**
+ * رابط داخلي لصفحة رئيسية.
+ */
 export function homeHref() {
   return `${SITE_ROOT}index.html`;
 }
 
+/**
+ * رابط خريطة الرحلة.
+ */
 export function roadmapHref() {
   return `${homeHref()}#roadmap`;
 }
 
-export function introHref() {
-  return `${homeHref()}#intro`;
-}
-
+/**
+ * رابط درس من سجل الكورس.
+ * file يجب أن يكون مثل: lesson1.html
+ * وليس lessons/lesson1.html
+ */
 export function lessonHref(file) {
   if (!file) return "#";
+
+  // إذا كان الملف يحتوي بالفعل على مسار، نتركه كما هو.
   if (file.includes("/")) return file;
+
   return isLessonPage ? file : `lessons/${file}`;
 }
 
+/**
+ * رابط محطة درس في الخريطة.
+ */
 export function lessonStationHref(n) {
   return `${homeHref()}#ls${n}`;
 }
 
+/**
+ * Debounce بسيط.
+ */
 export function debounce(fn, delay = 300) {
   let timer;
+
   return (...args) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };
 }
 
-export function prefersReducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-export function smoothScrollTo(target, offset = 88) {
-  const el = typeof target === "string" ? $(target) : target;
-  if (!el) return;
-
-  const rect = el.getBoundingClientRect();
-  const top = rect.top + window.scrollY - offset;
-
-  window.scrollTo({
-    top: Math.max(0, top),
-    behavior: prefersReducedMotion() ? "auto" : "smooth"
-  });
-}
-
-export function getCurrentLessonNumber() {
-  const value = parseInt(document.body?.dataset?.lesson || "0", 10);
-  return Number.isFinite(value) ? value : 0;
-}
-
-export function supportsIntersectionObserver() {
-  return "IntersectionObserver" in window;
-}
-
+/**
+ * إزالة أي Toast قديم.
+ */
 function removeExistingToasts() {
   $$(".toast").forEach((el) => el.remove());
 }
 
 /**
- * Toast notification.
- * NOTE: message is rendered via innerHTML because internal callers
- * pass safe HTML (e.g. links to next lesson). Never pass user input.
+ * إشعار سفلي أنيق.
  */
 export function toast(message, timeout = 4200) {
-  if (!message) return;
-
   removeExistingToasts();
 
   const el = document.createElement("div");
   el.className = "toast";
   el.setAttribute("role", "status");
   el.setAttribute("aria-live", "polite");
-
-  Object.assign(el.style, {
-    position: "fixed",
-    left: "16px",
-    right: "16px",
-    bottom: "calc(88px + env(safe-area-inset-bottom, 0px))",
-    zIndex: "9999",
-    margin: "0 auto",
-    maxWidth: "360px",
-    width: "max-content",
-    background: "rgba(31, 45, 51, 0.94)",
-    color: "#ffffff",
-    padding: "10px 16px",
-    borderRadius: "999px",
-    boxShadow: "0 10px 28px rgba(0, 0, 0, 0.22)",
-    fontFamily: '"Cairo", Tahoma, sans-serif',
-    fontWeight: "800",
-    fontSize: "0.88rem",
-    lineHeight: "1.6",
-    textAlign: "center",
-    pointerEvents: "auto",
-    opacity: "1",
-    transform: "translateY(0)",
-    transition: "opacity 0.3s ease, transform 0.3s ease"
-  });
-
   el.innerHTML = message;
+
   document.body.appendChild(el);
 
   setTimeout(() => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(8px)";
-    setTimeout(() => el.remove(), 320);
+    el.remove();
   }, timeout);
 }
 
-export function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+/**
+ * الحصول على رقم الدرس الحالي من body[data-lesson].
+ */
+export function getCurrentLessonNumber() {
+  const value = parseInt(document.body?.dataset?.lesson || "0", 10);
+  return Number.isFinite(value) ? value : 0;
+}
+
+/**
+ * هل المتصفح يدعم IntersectionObserver؟
+ */
+export function supportsIntersectionObserver() {
+  return "IntersectionObserver" in window;
+}
+
+/**
+ * تمرير ناعم لعنصر.
+ */
+export function smoothScrollTo(element, block = "start") {
+  if (!element) return;
+
+  element.scrollIntoView({
+    behavior: "smooth",
+    block
+  });
+}
+
+/**
+ * تمرير ناعم لأعلى الصفحة.
+ */
+export function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
