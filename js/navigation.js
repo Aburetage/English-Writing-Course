@@ -1,17 +1,17 @@
-/* ===== English Writing Course — Navigation (بسيطة ومضمونة) ===== */
+/* ===== English Writing Course — Navigation ===== */
 
-import { $, $$, prefersReducedMotion, lessonHref } from "./utils.js";
-import COURSE from "./data/course.js";
-
-function currentLessonNumber() {
-  const attr = document.body.dataset.lesson;
-  if (attr) return Number(attr);
-  const m = location.pathname.match(/lesson(\d+)\.html/i);
-  return m ? Number(m[1]) : 0;
-}
+import { $, $$, prefersReducedMotion, getCurrentLessonNumber, lessonHref } from "./utils.js";
+import COURSE from "./course.js";
 
 function lessonByNumber(n) {
   return COURSE.find((l) => l.n === n) || null;
+}
+
+function onHomePage() {
+  return (
+    document.body.dataset.page === "home" ||
+    Boolean($("#roadmapStations"))
+  );
 }
 
 function scrollToTop() {
@@ -21,16 +21,12 @@ function scrollToTop() {
   });
 }
 
-function onHomePage() {
-  return document.body.dataset.page === "home" || Boolean($("#roadmapStations"));
-}
-
 function bindBottomTabs() {
   $$(".bottombar .bb-tab").forEach((tab) => {
     tab.addEventListener("click", (event) => {
       const key = tab.dataset.tab;
 
-      // الفهرس: زر افتراضي (مش لينك) → نمنع السلوك الطبيعي ونفتح الـ drawer
+      // الفهرس: زر (مش لينك) → نمنع السلوك الطبيعي ونفتح الـ drawer
       if (key === "toc") {
         event.preventDefault();
         window.dispatchEvent(new CustomEvent("ewc:toggle-toc"));
@@ -51,6 +47,12 @@ function bindBottomTabs() {
         return;
       }
 
+      // المقدمة ونحن في صفحة درس: نروح للمقدمة في index
+      if (key === "intro" && !onHomePage()) {
+        // نسيب اللينك الطبيعي يشتغل: ../index.html#intro
+        return;
+      }
+
       // الخريطة: لا نمنع السلوك الطبيعي أبدًا.
       // على الرئيسية href="#roadmap" → يسكرول للقسم.
       // على صفحة درس href="../index.html#roadmap" → يروح للرئيسية ثم يسكرول.
@@ -65,21 +67,43 @@ function initTopFab() {
   fab.addEventListener("click", scrollToTop);
 }
 
+function markActiveTab() {
+  const page = document.body.dataset.page;
+  const lesson = document.body.dataset.lesson;
+
+  if (page === "home") {
+    const homeTab = $('.bottombar .bb-tab[data-tab="home"]');
+    if (homeTab) homeTab.classList.add("active");
+  }
+
+  if (lesson) {
+    const lessonTab = $('.bottombar .bb-tab[data-tab="lesson"]');
+    if (lessonTab) lessonTab.classList.add("active");
+  }
+}
+
 function bindKeyboardShortcuts() {
   document.addEventListener("keydown", (event) => {
     if (!event.altKey) return;
 
+    const current = getCurrentLessonNumber();
+
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      const target = lessonByNumber(currentLessonNumber() + 1);
-      if (target && target.file) window.location.href = lessonHref(target.file);
+      const target = lessonByNumber(current + 1);
+      if (target && target.file) {
+        window.location.href = lessonHref(target.file);
+      }
     }
 
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      const target = lessonByNumber(currentLessonNumber() - 1);
-      if (target && target.file) window.location.href = lessonHref(target.file);
-      else if (currentLessonNumber() > 0) window.location.href = "../index.html";
+      const target = lessonByNumber(current - 1);
+      if (target && target.file) {
+        window.location.href = lessonHref(target.file);
+      } else if (current > 0) {
+        window.location.href = "../index.html";
+      }
     }
   });
 }
@@ -87,5 +111,6 @@ function bindKeyboardShortcuts() {
 export function initNavigation() {
   bindBottomTabs();
   initTopFab();
+  markActiveTab();
   bindKeyboardShortcuts();
 }
