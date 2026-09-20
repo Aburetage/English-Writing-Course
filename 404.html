@@ -4,172 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>404 — الصفحة غير موجودة | English Writing Course</title>
-  <meta name="description" content="الصفحة المطلوبة غير موجودة أو تم نقلها.">
-  <meta name="robots" content="noindex, follow">
+  <title>English Writing Course | 404 — الصفحة غير موجودة</title>
+  <meta name="description" content="الصفحة التي تبحث عنها غير موجودة. يمكنك العودة إلى الرئيسية أو خريطة الرحلة.">
 
+  <link rel="canonical" href="https://aburetage.github.io/English-Writing-Course/404.html">
+
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#3a9b85">
+
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="English Writing Course">
+  <meta property="og:title" content="English Writing Course | 404 — الصفحة غير موجودة">
+  <meta property="og:description" content="الصفحة التي تبحث عنها غير موجودة.">
+  <meta property="og:url" content="https://aburetage.github.io/English-Writing-Course/404.html">
+  <meta property="og:image" content="https://aburetage.github.io/English-Writing-Course/icons/icon.svg">
+  <meta property="og:locale" content="ar_AR">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #eef4f1;
-      --card: rgba(255, 255, 255, 0.88);
-      --border: rgba(44, 122, 104, 0.14);
-      --text: #243430;
-      --muted: #61756f;
-      --strong: #14231f;
-      --brand: #3a9b85;
-      --brand-dark: #2c7a68;
-      --gradient: linear-gradient(135deg, #2c7a68, #3a9b85 55%, #7fc9b2);
-      --shadow: 0 18px 45px rgba(31, 45, 51, 0.12);
-      --radius: 24px;
-    }
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/lessons.css">
+  <link rel="stylesheet" href="css/print.css">
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Cairo", Tahoma, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(127, 201, 178, 0.28), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(43, 108, 163, 0.16), transparent 32%),
-        var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      line-height: 1.8;
-    }
-
-    .shell {
-      width: min(760px, 100%);
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(24px, 5vw, 44px);
-      text-align: center;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    .code {
-      margin: 0;
-      font-size: clamp(4rem, 12vw, 7rem);
-      font-weight: 900;
-      line-height: 1;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h1 {
-      margin: 12px 0 10px;
-      color: var(--strong);
-      font-size: clamp(1.5rem, 4vw, 2.25rem);
-      line-height: 1.35;
-    }
-
-    p {
-      margin: 0 auto 24px;
-      max-width: 560px;
-      color: var(--muted);
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 48px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .btn-primary {
-      color: #fff;
-      background: var(--gradient);
-      box-shadow: 0 10px 24px rgba(58, 155, 133, 0.28);
-    }
-
-    .btn-secondary {
-      color: var(--brand-dark);
-      background: rgba(58, 155, 133, 0.10);
-      border: 1px solid rgba(58, 155, 133, 0.18);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .note {
-      margin-top: 22px;
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-
-    @media (max-width: 520px) {
-      .actions {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
-    }
-  </style>
+  <script type="module" src="js/main.js"></script>
 </head>
 
-<body>
-  <main class="shell">
-    <section class="card">
-      <p class="code">404</p>
+<body data-page="404">
+  <a href="#main" class="skip-link">تخطَّ إلى المحتوى الرئيسي</a>
 
-      <h1>الصفحة غير موجودة</h1>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
 
-      <p>
-        آسف، الصفحة اللي بتدور عليها مش موجودة أو تم نقلها.
-        تقدر ترجع للرئيسية وتكمل رحلتك في الكورس.
-      </p>
+  <div id="progress" aria-hidden="true"></div>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="https://aburetage.github.io/English-Writing-Course/">
-          🏠 العودة للرئيسية
-        </a>
+  <div id="backdrop"></div>
 
-        <a class="btn btn-secondary" href="https://aburetage.github.io/English-Writing-Course/#roadmap">
-          🗺 خريطة الرحلة
-        </a>
+  <main id="main" class="wrap">
+    <section class="card center">
+      <div class="card-head" style="justify-content:center;">
+        <span class="num" aria-hidden="true">🧭</span>
+        <h2>
+          <span class="e" lang="en">404</span>
+          — الصفحة غير موجودة
+        </h2>
       </div>
 
-      <p class="note">
-        English Writing Course — كورس الكتابة باللغة الإنجليزية
+      <p>
+        يبدو أنك وصلت إلى رابط غير موجود داخل
+        <span class="e" lang="en">English Writing Course</span>.
+      </p>
+
+      <div class="alert">
+        <span class="aic" aria-hidden="true">⚠️</span>
+        <p>
+          قد يكون الرابط قديمًا، أو تم نقل الدروس إلى مجلد
+          <span class="e" lang="en">lessons/</span>.
+        </p>
+      </div>
+
+      <div class="journey">
+        <a class="lbtn" href="index.html">🏠 العودة إلى الرئيسية</a>
+        <a class="jbtn" href="index.html#roadmap">🗺 خريطة الرحلة</a>
+        <a class="jbtn" href="lessons/lesson1.html">📖 ابدأ من Lesson 1</a>
+      </div>
+
+      <p>
+        إذا كنت تستخدم التطبيق بدون إنترنت، جرّب تحديث الصفحة بعد الاتصال.
       </p>
     </section>
   </main>
+
+  <footer>
+    <b>✒️ English Writing Course</b>
+    — كورس الكتابة باللغة الإنجليزية
+    <br>
+    <span class="e" lang="en">404 — Page Not Found</span>
+  </footer>
+
+  <button id="topFab" class="fab" type="button" aria-label="العودة إلى أعلى الصفحة">
+    ↑
+  </button>
+
+  <nav class="bottombar glass" aria-label="شريط التنقل السفلي">
+    <div class="bb-tabs">
+      <button class="bb-tab" type="button" data-tab="lesson" aria-label="الدرس">
+        <span class="i" aria-hidden="true">📖</span>
+        <span>الدرس</span>
+      </button>
+
+      <button class="bb-tab" type="button" data-tab="map" aria-label="الخريطة">
+        <span class="i" aria-hidden="true">🗺</span>
+        <span>الخريطة</span>
+      </button>
+
+      <button class="bb-tab active" type="button" data-tab="home" aria-label="الرئيسية">
+        <span class="i" aria-hidden="true">🏠</span>
+        <span>الرئيسية</span>
+      </button>
+    </div>
+  </nav>
+
+  <noscript>
+    <div class="alert" style="margin:80px 16px 0;">
+      <span class="aic" aria-hidden="true">⚠️</span>
+      <p>
+        لتفعيل التنقل الذكي، يرجى تشغيل JavaScript.
+      </p>
+    </div>
+  </noscript>
 </body>
 </html>
