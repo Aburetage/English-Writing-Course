@@ -1,199 +1,175 @@
-/* ===== English Writing Course — Roadmap (مجمّعة بالمراحل) ===== */
+/* ===== English Writing Course — Roadmap ===== */
 
-import COURSE from "./course.js";
+import COURSE from "./data/course.js";
+import { $, $$, toast } from "./utils.js";
 import {
-  $,
-  escapeHtml,
-  homeHref,
-  roadmapHref,
-  lessonHref,
-  lessonStationHref,
-  toast,
-  getCurrentLessonNumber
-} from "./utils.js";
-import { isLessonVisited, markLessonVisited } from "./storage.js";
+  markLessonVisited,
+  isLessonVisited
+} from "./storage.js";
 
-function lessonByNumber(n) {
-  return COURSE.find((l) => l.n === n) || null;
+export function initRoadmap() {
+  renderStations();
+  renderJourney();
 }
 
-function availableLessons() {
-  return COURSE.filter((l) => l.file);
+function currentLessonNumber() {
+  const attr = document.body.dataset.lesson;
+  if (attr) return Number(attr);
+
+  const match = window.location.pathname.match(/lesson(\d+)\.html/i);
+  return match ? Number(match[1]) : 0;
 }
 
-/* ---------- رسم الخريطة حسب المراحل ---------- */
+function toRelative(file) {
+  if (!file) return "#";
 
-export function renderRoadmap() {
+  const path = window.location.pathname;
+
+  if (path.includes("/lessons/")) {
+    return file.replace(/^lessons\//, "");
+  }
+
+  return file;
+}
+
+function renderStations() {
   const host = $("#roadmapStations");
   if (!host) return;
 
-  if (!COURSE || !COURSE.length) {
-    host.innerHTML =
-      '<div class="alert"><span class="aic" aria-hidden="true">⚠️</span>' +
-      "<p>لا يمكن رسم خريطة الرحلة: تأكد من تحميل سجل الكورس (js/course.js).</p></div>";
-    return;
-  }
+  host.innerHTML = "";
 
-  host.classList.remove("road");
-  host.classList.add("rm-wrap");
-
-  const phases = [];
   COURSE.forEach((lesson) => {
-    let phase = phases.find((p) => p.name === lesson.phase);
-    if (!phase) {
-      phase = { name: lesson.phase, lessons: [] };
-      phases.push(phase);
+    const available = Boolean(lesson.file);
+    const visited = isLessonVisited(lesson.n);
+
+    const element = available
+      ? document.createElement("a")
+      : document.createElement("div");
+
+    element.className = "station";
+    element.id = `ls${lesson.n}`;
+
+    if (available) {
+      element.href = toRelative(lesson.file);
+      element.style.textDecoration = "none";
+      element.style.color = "inherit";
+    } else {
+      element.classList.add("locked");
+      element.style.cursor = "not-allowed";
+      element.addEventListener("click", () => {
+        toast("هذا الدرس قريبًا — أكمل الدروس المفتوحة أولًا", "warning");
+      });
     }
-    phase.lessons.push(lesson);
+
+    if (visited) {
+      element.classList.add("visited");
+    }
+
+    const dot = document.createElement("div");
+    dot.className = "sdot";
+    dot.textContent = String(lesson.n);
+
+    const label = document.createElement("div");
+    label.className = "slabel";
+
+    const en = document.createElement("span");
+    en.className = "e";
+    en.lang = "en";
+    en.textContent = lesson.en;
+
+    const ar = document.createElement("small");
+    ar.textContent = lesson.ar;
+
+    label.append(en, ar);
+
+    if (lesson.desc) {
+      const desc = document.createElement("small");
+      desc.textContent = lesson.desc;
+      label.append(desc);
+    }
+
+    element.append(dot, label);
+    host.append(element);
   });
-
-  host.innerHTML = phases
-    .map((phase, index) => {
-      const stations = phase.lessons.map(stationHtml).join("");
-      return (
-        '<div class="rm-phase">' +
-        '<div class="rm-phead">' +
-        '<span class="rm-pnum">' + (index + 1) + "</span>" +
-        "<b>" + escapeHtml(phase.name) + "</b>" +
-        "</div>" +
-        '<div class="rm-grid">' + stations + "</div>" +
-        "</div>"
-      );
-    })
-    .join("");
-
-  host.querySelectorAll(".rm-station.locked").forEach((anchor) => {
-    anchor.addEventListener("click", (event) => {
-      event.preventDefault();
-      toast("هذا الدرس قريبًا — أكمل الدروس المفتوحة أولًا");
-    });
-  });
 }
 
-function stationHtml(lesson) {
-  const available = Boolean(lesson.file);
-  const visited = isLessonVisited(lesson.n);
-  const href = available ? lessonHref(lesson.file) : "#";
+function renderJourney() {
+  const box = $("#journeyBox");
+  if (!box) return;
 
-  const statusTag = available
-    ? visited
-      ? '<span class="rm-tag done">✓ زرت</span>'
-      : '<span class="rm-tag">متاح</span>'
-    : '<span class="rm-tag lock">قريبًا 🔒</span>';
-
-  const metaTags = [];
-  if (lesson.ex) metaTags.push('<span class="rm-tag">' + lesson.ex + " تمرين</span>");
-  if (lesson.min) metaTags.push('<span class="rm-tag">~' + lesson.min + " دقيقة</span>");
-
-  const check = visited ? '<span class="rm-check" aria-hidden="true">✓</span>' : "";
-
-  return (
-    '<a class="rm-station ' +
-    (available ? "" : "locked ") +
-    (visited ? "visited" : "") +
-    '" id="ls' + lesson.n + '" href="' + href + '" data-n="' + lesson.n + '">' +
-    check +
-    '<span class="rm-dot">' + lesson.n + "</span>" +
-    '<span class="rm-body">' +
-    '<span class="rm-en" lang="en">' + escapeHtml(lesson.en) + "</span>" +
-    '<span class="rm-ar">' + escapeHtml(lesson.ar) + "</span>" +
-    (lesson.desc ? '<span class="rm-desc">' + escapeHtml(lesson.desc) + "</span>" : "") +
-    '<span class="rm-meta">' + statusTag + metaTags.join("") + "</span>" +
-    "</span></a>"
-  );
-}
-
-/* ---------- زر "واصل من حيث توقفت" ---------- */
-
-export function renderContinue() {
-  const list = availableLessons();
-  const visited = list.filter((l) => isLessonVisited(l.n));
-
-  const stats = $("#courseStats");
-  if (stats) {
-    stats.textContent = "✅ زرت " + visited.length + " من " + list.length + " درسًا متاحًا";
-  }
-
-  const button = $("#continueBtn");
-  if (!button) return;
-
-  const target = visited.length ? visited[visited.length - 1] : list[0];
-  if (!target || !target.file) {
-    button.href = roadmapHref();
-    button.innerHTML = "🗺 افتح خريطة الرحلة";
-    return;
-  }
-
-  button.href = lessonHref(target.file);
-  button.innerHTML =
-    "▶ واصل من حيث توقفت — Lesson " + target.n + " — " + escapeHtml(target.en);
-}
-
-/* ---------- كارت نهاية الدرس ---------- */
-
-export function renderJourney() {
-  const host = $("#journeyBox");
-  if (!host) return;
-
-  const current = getCurrentLessonNumber();
+  const current = currentLessonNumber();
   if (!current) return;
 
   markLessonVisited(current);
 
-  const previous = lessonByNumber(current - 1);
-  const next = lessonByNumber(current + 1);
+  const index = COURSE.findIndex((lesson) => lesson.n === current);
+  if (index === -1) return;
 
-  let html = '<nav class="lesson-end-nav" aria-label="التنقل بين الدروس">';
+  const prev = COURSE[index - 1];
+  const next = COURSE[index + 1];
 
-  if (previous && previous.file) {
-    html +=
-      '<a class="len-btn prev" href="' + lessonHref(previous.file) + '">' +
-      '<span class="len-arrow" aria-hidden="true">→</span>' +
-      '<span class="len-text"><small>الدرس السابق</small><strong>' +
-      previous.n + ". " + escapeHtml(previous.ar) + "</strong></span>" +
-      '<span class="len-check' + (isLessonVisited(previous.n) ? " done" : "") + '">' +
-      (isLessonVisited(previous.n) ? "✓" : "") + "</span></a>";
-  } else {
-    html +=
-      '<a class="len-btn prev" href="' + homeHref() + '">' +
-      '<span class="len-arrow" aria-hidden="true">→</span>' +
-      '<span class="len-text"><small>البداية</small><strong>🏠 الرئيسية</strong></span>' +
-      '<span class="len-check"></span></a>';
-  }
+  box.innerHTML = "";
 
-  html += '<div class="len-divider" aria-hidden="true"></div>';
+  const nav = document.createElement("nav");
+  nav.className = "lesson-end-nav";
+  nav.setAttribute("aria-label", "التنقل بين الدروس");
 
-  if (next && next.file) {
-    html +=
-      '<a class="len-btn next" href="' + lessonHref(next.file) + '">' +
-      '<span class="len-check' + (isLessonVisited(next.n) ? " done" : "") + '">' +
-      (isLessonVisited(next.n) ? "✓" : "") + "</span>" +
-      '<span class="len-text"><small>الدرس التالي</small><strong>' +
-      next.n + ". " + escapeHtml(next.ar) + "</strong></span>" +
-      '<span class="len-arrow" aria-hidden="true">←</span></a>';
-  } else if (next) {
-    html +=
-      '<a class="len-btn next disabled" href="' + lessonStationHref(next.n) + '">' +
-      '<span class="len-check"></span>' +
-      '<span class="len-text"><small>قريبًا</small><strong>Lesson ' +
-      next.n + " — " + escapeHtml(next.en) + "</strong></span>" +
-      '<span class="len-arrow" aria-hidden="true">🔒</span></a>';
-  } else {
-    html +=
-      '<a class="len-btn next" href="' + roadmapHref() + '">' +
-      '<span class="len-check"></span>' +
-      '<span class="len-text"><small>أنهيت الدرس</small><strong>🏁 اذهب للخريطة</strong></span>' +
-      '<span class="len-arrow" aria-hidden="true">←</span></a>';
-  }
+  const prevButton = createEndButton(prev, "prev", "الدرس السابق");
+  const divider = document.createElement("div");
+  divider.className = "len-divider";
+  const nextButton = createEndButton(next, "next", "الدرس التالي");
 
-  html += "</nav>";
-  host.innerHTML = html;
+  nav.append(prevButton, divider, nextButton);
+  box.append(nav);
 }
 
-/* ---------- التهيئة ---------- */
+function createEndButton(lesson, direction, label) {
+  const element = document.createElement("a");
+  element.className = `len-btn ${direction}`;
 
-export function initRoadmap() {
-  renderRoadmap();
-  renderContinue();
-  renderJourney();
+  const available = Boolean(lesson && lesson.file);
+
+  if (!available) {
+    element.classList.add("disabled");
+    element.href = "#";
+    element.setAttribute("aria-disabled", "true");
+
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      toast(
+        lesson
+          ? "هذا الدرس قريبًا"
+          : "لا يوجد درس في هذا الاتجاه",
+        "info"
+      );
+    });
+  } else {
+    element.href = toRelative(lesson.file);
+  }
+
+  const arrow = document.createElement("span");
+  arrow.className = "len-arrow";
+  arrow.textContent = direction === "prev" ? "→" : "←";
+
+  const text = document.createElement("span");
+  text.className = "len-text";
+
+  const small = document.createElement("small");
+  small.textContent = label;
+
+  const strong = document.createElement("strong");
+  strong.textContent = lesson
+    ? `${lesson.n}. ${lesson.ar}`
+    : "—";
+
+  text.append(small, strong);
+
+  const check = document.createElement("span");
+  const visited = lesson ? isLessonVisited(lesson.n) : false;
+  check.className = `len-check${visited ? " done" : ""}`;
+  check.textContent = visited ? "✓" : "";
+
+  element.append(arrow, text, check);
+
+  return element;
 }
