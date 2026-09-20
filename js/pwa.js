@@ -19,7 +19,7 @@ export function initPWA() {
             installing.state === "installed" &&
             navigator.serviceWorker.controller
           ) {
-            toast("تم تحديث نسخة الموقع — أعد التحميل للحصول على أحدث نسخة");
+            toast("تم تحديث نسخة الموقع — أعد التحميل للحصول على أحدث نسخة", "success");
           }
         });
       });
