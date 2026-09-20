@@ -2,11 +2,11 @@
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#2c7a68" />
-      <stop offset=".55" stop-color="#3a9b85" />
+      <stop offset="0.55" stop-color="#3a9b85" />
       <stop offset="1" stop-color="#7fc9b2" />
     </linearGradient>
 
-    <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#ffffff" />
       <stop offset="1" stop-color="#e8f5f1" />
     </linearGradient>
@@ -14,14 +14,14 @@
 
   <rect width="512" height="512" fill="url(#bg)" />
 
-  <g transform="translate(61 61) scale(0.76)">
+  <g transform="translate(64 64) scale(0.75)">
     <path
       d="M256 208c-38-26-96-32-148-22v196c52-10 110-4 148 22z"
-      fill="url(#pg)"
+      fill="url(#page)"
     />
     <path
       d="M256 208c38-26 96-32 148-22v196c-52-10-110-4-148 22z"
-      fill="url(#pg)"
+      fill="url(#page)"
     />
     <path
       d="M256 208v196"
@@ -33,7 +33,7 @@
     <text
       x="182"
       y="332"
-      font-family="Georgia,'Times New Roman',serif"
+      font-family="Georgia, 'Times New Roman', serif"
       font-size="118"
       font-weight="bold"
       fill="#2b6ca3"
@@ -43,7 +43,7 @@
     <text
       x="330"
       y="332"
-      font-family="'Cairo','Segoe UI',sans-serif"
+      font-family="Cairo, 'Segoe UI', sans-serif"
       font-size="108"
       font-weight="bold"
       fill="#3a9b85"
@@ -63,7 +63,7 @@
       stroke-width="10"
       stroke-linecap="round"
       fill="none"
-      opacity=".9"
+      opacity="0.9"
     />
   </g>
 </svg>
