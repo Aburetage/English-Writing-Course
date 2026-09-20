@@ -27,7 +27,12 @@ export function initToc() {
     });
   }
 
-  // navigation.js dispatches "ewc:toggle-toc" when the 📑 tab is clicked.
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setState(!isOpen);
+    });
+  });
+
   window.addEventListener("ewc:toggle-toc", () => {
     setState(!isOpen);
   });
