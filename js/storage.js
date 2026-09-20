@@ -1,187 +1,151 @@
 /* ===== English Writing Course — Storage ===== */
 
-const STORAGE_KEY = "ewc:progress:v2";
+const PREFIX = "ewc:";
+const PROGRESS_KEY = `${PREFIX}progress:v1`;
 
-const LEGACY_KEYS = [
-  "ewc-progress",
-  "ewc_progress",
-  "ewc:progress:v1",
-  "writing_answers",
-  "quiz_answers",
-  "course_progress"
-];
+function defaultProgress() {
+  return {
+    version: 1,
+    lastVisitedLesson: 0,
+    lessons: {},
+    writing: {},
+    quiz: {},
+    settings: {}
+  };
+}
 
-const memoryStore = {};
-
-function hasLocalStorage() {
+function readJSON(key, fallback) {
   try {
-    const testKey = "__ewc_test__";
-    window.localStorage.setItem(testKey, "1");
-    window.localStorage.removeItem(testKey);
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+
+    const parsed = JSON.parse(raw);
+
+    if (!parsed || typeof parsed !== "object") return fallback;
+
+    return parsed;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJSON(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
     return true;
   } catch {
     return false;
   }
 }
 
-function readRaw() {
-  if (hasLocalStorage()) {
-    return window.localStorage.getItem(STORAGE_KEY);
-  }
-  return memoryStore[STORAGE_KEY] || null;
-}
+export function getProgress() {
+  const state = readJSON(PROGRESS_KEY, defaultProgress());
 
-function writeRaw(value) {
-  if (hasLocalStorage()) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, value);
-      return;
-    } catch {
-      // fall through to memory
-    }
-  }
-  memoryStore[STORAGE_KEY] = value;
-}
-
-function createState() {
   return {
-    writing: {},
-    quiz: {},
-    visited: {},
-    completed: {},
-    updatedAt: new Date().toISOString()
+    ...defaultProgress(),
+    ...state,
+    lessons: state.lessons || {},
+    writing: state.writing || {},
+    quiz: state.quiz || {},
+    settings: state.settings || {}
   };
 }
 
-function normalizeState(input) {
-  const state = createState();
-
-  if (!input || typeof input !== "object") return state;
-
-  if (input.writing && typeof input.writing === "object") {
-    state.writing = input.writing;
-  }
-
-  if (input.quiz && typeof input.quiz === "object") {
-    state.quiz = input.quiz;
-  }
-
-  if (input.visited && typeof input.visited === "object") {
-    state.visited = input.visited;
-  }
-
-  if (input.completed && typeof input.completed === "object") {
-    state.completed = input.completed;
-  }
-
-  if (typeof input.updatedAt === "string") {
-    state.updatedAt = input.updatedAt;
-  }
-
-  return state;
-}
-
-export function getProgress() {
-  const raw = readRaw();
-  if (!raw) return createState();
-
-  try {
-    return normalizeState(JSON.parse(raw));
-  } catch {
-    return createState();
-  }
-}
-
 export function saveProgress(state) {
-  const normalized = normalizeState(state);
-  normalized.updatedAt = new Date().toISOString();
-  writeRaw(JSON.stringify(normalized));
+  return writeJSON(PROGRESS_KEY, state);
+}
+
+export function markLessonVisited(n) {
+  if (!n) return;
+
+  const state = getProgress();
+  const now = new Date().toISOString();
+
+  state.lessons[n] = state.lessons[n] || {};
+  state.lessons[n].visited = true;
+  state.lessons[n].lastVisitedAt = now;
+
+  state.lastVisitedLesson = n;
+  state.lastActiveAt = now;
+
+  saveProgress(state);
+}
+
+export function isLessonVisited(n) {
+  const state = getProgress();
+  return Boolean(state.lessons?.[n]?.visited);
+}
+
+export function getVisitedLessonNumbers() {
+  const state = getProgress();
+
+  return Object.entries(state.lessons || {})
+    .filter(([, value]) => value?.visited)
+    .map(([key]) => parseInt(key, 10))
+    .filter(Number.isFinite);
 }
 
 export function saveWriting(key, value) {
   if (!key) return;
+
   const state = getProgress();
-  state.writing[key] = String(value ?? "");
+  state.writing[key] = value;
+  state.updatedAt = new Date().toISOString();
+
   saveProgress(state);
 }
 
 export function getWriting(key) {
-  if (!key) return "";
   const state = getProgress();
   return state.writing?.[key] || "";
 }
 
 export function saveQuizAnswer(quizId, qid, payload) {
   if (!quizId || !qid) return;
+
   const state = getProgress();
   const compositeKey = `${quizId}:${qid}`;
+
   state.quiz[compositeKey] = {
-    ...(payload || {}),
+    ...payload,
     updatedAt: new Date().toISOString()
   };
+
   saveProgress(state);
 }
 
 export function getQuizAnswer(quizId, qid) {
-  if (!quizId || !qid) return null;
   const state = getProgress();
   const compositeKey = `${quizId}:${qid}`;
+
   return state.quiz?.[compositeKey] || null;
 }
 
 export function resetQuizProgress(quizId) {
   if (!quizId) return;
+
   const state = getProgress();
-  const prefix = `${quizId}:`;
+
   Object.keys(state.quiz || {}).forEach((key) => {
-    if (key.startsWith(prefix)) {
+    if (key.startsWith(`${quizId}:`)) {
       delete state.quiz[key];
     }
   });
+
   saveProgress(state);
 }
 
-export function markLessonVisited(lessonNumber) {
-  const n = Number(lessonNumber);
-  if (!Number.isFinite(n) || n <= 0) return;
-  const state = getProgress();
-  state.visited[n] = new Date().toISOString();
-  saveProgress(state);
-}
-
-export function isLessonVisited(lessonNumber) {
-  const n = Number(lessonNumber);
-  if (!Number.isFinite(n) || n <= 0) return false;
-  const state = getProgress();
-  return Boolean(state.visited?.[n]);
-}
-
-export function markLessonCompleted(lessonNumber) {
-  const n = Number(lessonNumber);
-  if (!Number.isFinite(n) || n <= 0) return;
-  const state = getProgress();
-  state.completed[n] = new Date().toISOString();
-  saveProgress(state);
-}
-
-export function isLessonCompleted(lessonNumber) {
-  const n = Number(lessonNumber);
-  if (!Number.isFinite(n) || n <= 0) return false;
-  const state = getProgress();
-  return Boolean(state.completed?.[n]);
-}
-
+/**
+ * مسح كل بيانات الموقع الجديدة + بعض البيانات القديمة إن وُجدت.
+ */
 export function resetAllProgress() {
-  if (hasLocalStorage()) {
-    [STORAGE_KEY, ...LEGACY_KEYS].forEach((key) => {
-      try {
-        window.localStorage.removeItem(key);
-      } catch {
-        // ignore
-      }
-    });
-  }
+  const keysToRemove = Object.keys(localStorage).filter((key) => {
+    return (
+      key.startsWith(PREFIX) ||
+      /^l\d+vis$/.test(key) ||
+      /^l\d+(ta-|-)/.test(key)
+    );
+  });
 
-  delete memoryStore[STORAGE_KEY];
-  LEGACY_KEYS.forEach((key) => delete memoryStore[key]);
+  keysToRemove.forEach((key) => localStorage.removeItem(key));
 }
