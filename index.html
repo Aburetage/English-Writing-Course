@@ -45,26 +45,6 @@
     body[data-page="home"] .bb-tab[data-tab="toc"] {
       display: none !important;
     }
-
-    .home-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: var(--space-3);
-      margin-top: var(--space-4);
-    }
-
-    .muted {
-      color: var(--text-muted);
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin: var(--space-3) 0 0;
-    }
-
-    .intro-note {
-      margin-top: var(--space-4);
-    }
   </style>
 
   <script type="application/ld+json">
@@ -103,15 +83,15 @@
       </h1>
 
       <div class="lesson-meta">
-        <span>16 درسًا</span>
-        <span>4 دروس متاحة الآن</span>
+        <span>من الكلمة إلى المقال</span>
         <span>تفاعلي بالعربية والإنجليزية</span>
         <span>يعمل offline بعد التثبيت</span>
       </div>
 
       <p>
-        هذا الكورس لا يعلّم القواعد كقوائم منفصلة، بل يبني مهارة الكتابة خطوة بخطوة:
-        من فهم وحدة الكلمة، إلى العبارة، فالجملة، فالفاقرة، ثم المقال.
+        هذا الكورس مصمم يمشي معك خطوة بخطوة:
+        تبدأ من فهم units الكتابة الصغيرة، ثم تتدرب على أقسام الكلام،
+        ثم تبني جملة صحيحة، وبعدها تنتقل إلى الفقرة والمقال.
       </p>
 
       <div class="achain ltr">
@@ -123,120 +103,9 @@
         <span class="chip"><span class="e" lang="en">Essay</span><small>مقال</small></span>
       </div>
 
-      <div class="home-actions">
-        <a class="lbtn" href="#intro">📘 اقرأ مقدمة الكورس</a>
-        <a class="lbtn" id="continueBtn" href="lessons/lesson1.html">🚀 ابدأ الدرس الأول</a>
-      </div>
-
-      <p class="muted" id="courseStats">جارٍ حساب تقدمك...</p>
-    </section>
-
-    <section class="card" id="intro">
-      <div class="card-head">
-        <span class="num" aria-hidden="true">📘</span>
-        <h2>مقدمة الكورس — كيف نبني الكتابة؟</h2>
-      </div>
-
-      <p>
-        لن ننتقل مباشرة من معرفة الكلمات إلى كتابة مقال كامل.
-        سنمر بمراحل متدرجة، لأن الكتابة نفسها مبنية بهذه الصورة.
-      </p>
-
-      <div class="formula">
-        <span class="e" lang="en">Concepts → Parts of Speech → Sentence Structure → Types of Sentences → Punctuation → Paragraph → Essay</span>
-        <small>المفاهيم ← أقسام الكلام ← تركيب الجملة ← أنواع الجمل ← الترقيم ← الفقرة ← المقال</small>
-      </div>
-
-      <div class="roles">
-        <div class="role">
-          <span class="ric" aria-hidden="true">🧱</span>
-          <b><span class="e" lang="en">Concepts</span></b>
-          <small>المفاهيم ووحدات الكتابة</small>
-          <div class="ven" lang="en">Word / Phrase / Clause / Sentence</div>
-          <small>نفهم أصغر الوحدات التي تُبنى منها الكتابة.</small>
-        </div>
-
-        <div class="role">
-          <span class="ric" aria-hidden="true">🔤</span>
-          <b><span class="e" lang="en">Parts of Speech</span></b>
-          <small>أقسام الكلام</small>
-          <div class="ven" lang="en">Noun / Verb / Adjective / Adverb</div>
-          <small>نتعرف إلى أنواع الكلمات ووظائفها داخل اللغة.</small>
-        </div>
-
-        <div class="role">
-          <span class="ric" aria-hidden="true">⚖️</span>
-          <b><span class="e" lang="en">Sentence Structure</span></b>
-          <small>تركيب الجملة</small>
-          <div class="ven" lang="en">Subject + Verb + Complement / Object</div>
-          <small>نتعلم كيف نحوّل الفكرة إلى جملة صحيحة حسب الغرض.</small>
-        </div>
-
-        <div class="role">
-          <span class="ric" aria-hidden="true">🧩</span>
-          <b><span class="e" lang="en">Types of Sentences</span></b>
-          <small>أنواع الجمل</small>
-          <div class="ven" lang="en">Simple / Compound / Complex</div>
-          <small>نفهم كيف تتنوع الجمل وكيف نربط الأفكار بينها.</small>
-        </div>
-
-        <div class="role">
-          <span class="ric" aria-hidden="true">✏️</span>
-          <b><span class="e" lang="en">Punctuation</span></b>
-          <small>علامات الترقيم</small>
-          <div class="ven" lang="en">Period / Comma / Question mark</div>
-          <small>نتعلم كيف تنظّم علامات الترقيم المعنى وتوضح العلاقة بين الأجزاء.</small>
-        </div>
-
-        <div class="role">
-          <span class="ric" aria-hidden="true">🧱</span>
-          <b><span class="e" lang="en">Paragraph</span></b>
-          <small>كتابة الفقرة</small>
-          <div class="ven" lang="en">Topic sentence + supporting sentences</div>
-          <small>نتعلم كيف نجمع الجمل في فقرة متماسكة تدور حول فكرة واحدة.</small>
-        </div>
-
-        <div class="role">
-          <span class="ric" aria-hidden="true">📄</span>
-          <b><span class="e" lang="en">Essay</span></b>
-          <small>كتابة المقال</small>
-          <div class="ven" lang="en">Introduction + Body + Conclusion</div>
-          <small>نصل إلى تنظيم مجموعة فقرات حول موضوع كامل.</small>
-        </div>
-      </div>
-
-      <p class="intro-note">
-        إذن، كل جزء في الكورس له وظيفة في الرحلة.
-        لا توجد هذه المراحل لمجرد زيادة عدد الدروس،
-        وإنما لأن الكتابة الحقيقية تُبنى بهذا التدرج.
-      </p>
-
-      <div class="alert ok">
-        <span class="aic" aria-hidden="true">🎯</span>
-        <p>
-          الهدف ليس أن تحفظ مصطلحات نحوية،
-          بل أن تصير قادرًا على السؤال عند الكتابة:
-          <span class="e" lang="en">What idea do I want to express?</span>
-          ثم
-          <span class="e" lang="en">What structure fits this purpose?</span>
-        </p>
-      </div>
-
-      <div class="dpath">
-        <div class="dstep"><span class="e" lang="en">1. Recognize</span> — تتعرف على العنصر.</div>
-        <div class="dstep"><span class="e" lang="en">2. Understand</span> — تفهم وظيفته ومعناه.</div>
-        <div class="dstep"><span class="e" lang="en">3. Analyze</span> — تراه داخل سياق جملة أو فقرة.</div>
-        <div class="dstep"><span class="e" lang="en">4. Produce</span> — تستخدمه في كتابتك الخاصة.</div>
-      </div>
-
-      <div class="home-actions">
-        <a class="signpost" href="lessons/lesson1.html">
-          <span class="e" lang="en">Lesson 1 — Definitions and Writing Units</span>
-        </a>
-        <a class="signpost" href="#roadmap">
-          🗺 افتح خريطة الرحلة
-        </a>
-      </div>
+      <a class="lbtn" href="lessons/lesson1.html" style="font-size:1rem;padding:var(--space-3) var(--space-6);">
+        🚀 ابدأ الدرس الأول
+      </a>
     </section>
 
     <section class="card" id="roadmap">
@@ -251,6 +120,8 @@
       </p>
 
       <div id="roadmapStations" class="road" aria-live="polite"></div>
+
+      <div id="journeyBox"></div>
     </section>
 
     <section class="card">
@@ -268,16 +139,11 @@
         🧹 مسح جميع الإجابات المحفوظة
       </button>
     </section>
-
-    <div id="journeyBox"></div>
   </main>
 
   <footer>
     <p>
       ✒️ <b>English Writing Course</b> — كورس الكتابة باللغة الإنجليزية
-    </p>
-    <p>
-      From Word to Essay | من الكلمة إلى المقال
     </p>
   </footer>
 
@@ -289,22 +155,14 @@
         <span class="i" aria-hidden="true">🏠</span>
         <span>الرئيسية</span>
       </a>
-
-      <a class="bb-tab" href="#intro" data-tab="intro">
-        <span class="i" aria-hidden="true">📘</span>
-        <span>المقدمة</span>
-      </a>
-
       <a class="bb-tab" href="#roadmap" data-tab="map">
         <span class="i" aria-hidden="true">🗺</span>
         <span>الخريطة</span>
       </a>
-
       <a class="bb-tab" href="lessons/lesson1.html" data-tab="lesson">
         <span class="i" aria-hidden="true">📖</span>
         <span>ابدأ</span>
       </a>
-
       <button class="bb-tab" type="button" data-tab="toc" aria-controls="toc" aria-expanded="false">
         <span class="i" aria-hidden="true">📑</span>
         <span>الفهرس</span>
