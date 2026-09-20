@@ -1,6 +1,6 @@
 /* ===== English Writing Course — Utils ===== */
 
-const isLessonPage = window.location.pathname.includes("/lessons/");
+export const isLessonPage = window.location.pathname.includes("/lessons/");
 
 export const SITE_ROOT = isLessonPage ? "../" : "";
 
@@ -15,6 +15,10 @@ export function homeHref() {
 
 export function roadmapHref() {
   return `${homeHref()}#roadmap`;
+}
+
+export function introHref() {
+  return `${homeHref()}#intro`;
 }
 
 export function lessonHref(file) {
@@ -52,10 +56,24 @@ export function smoothScrollTo(target, offset = 88) {
   });
 }
 
+export function getCurrentLessonNumber() {
+  const value = parseInt(document.body?.dataset?.lesson || "0", 10);
+  return Number.isFinite(value) ? value : 0;
+}
+
+export function supportsIntersectionObserver() {
+  return "IntersectionObserver" in window;
+}
+
 function removeExistingToasts() {
   $$(".toast").forEach((el) => el.remove());
 }
 
+/**
+ * Toast notification.
+ * NOTE: message is rendered via innerHTML because internal callers
+ * pass safe HTML (e.g. links to next lesson). Never pass user input.
+ */
 export function toast(message, timeout = 4200) {
   if (!message) return;
 
@@ -94,9 +112,18 @@ export function toast(message, timeout = 4200) {
   el.innerHTML = message;
   document.body.appendChild(el);
 
-  window.setTimeout(() => {
+  setTimeout(() => {
     el.style.opacity = "0";
     el.style.transform = "translateY(8px)";
-    window.setTimeout(() => el.remove(), 320);
+    setTimeout(() => el.remove(), 320);
   }, timeout);
+}
+
+export function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
