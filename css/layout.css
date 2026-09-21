@@ -1,4 +1,6 @@
 /* ===== English Writing Course — Layout ===== */
+/* Modified: bottom-bar order lock, lesson tab hidden, TOC scroll fallback, z-index layering fix. */
+/* No color/theme changes. No variable redefinitions. */
 
 /* Kill legacy top navigation completely */
 .topbar,
@@ -45,8 +47,10 @@ section[id],
   position: fixed;
   top: calc(var(--space-4) + var(--safe-top));
   inset-inline-end: calc(var(--space-3) + var(--safe-right));
-  z-index: var(--z-toc);
+  z-index: 1000 !important;
   width: min(var(--toc-width), calc(100vw - 28px));
+  /* Fallback first, then progressive overrides */
+  max-height: 80vh;
   max-height: calc(
     100vh -
     var(--bottombar-height) -
@@ -61,8 +65,9 @@ section[id],
     var(--safe-top) -
     var(--safe-bottom)
   );
-  overflow-y: auto;
+  overflow-y: auto !important;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   border-radius: var(--radius-xl);
   padding: var(--space-4);
   background: var(--surface-glass);
@@ -82,12 +87,12 @@ section[id],
   width: 5px;
 }
 
-/* Backdrop */
+/* Backdrop — must stay BELOW the bottom bar so taps reach it */
 #backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: var(--z-backdrop);
+  z-index: 999 !important;
   background: rgba(0, 0, 0, 0.30);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
@@ -97,12 +102,12 @@ section[id],
   display: block;
 }
 
-/* Bottom Navigation Bar */
+/* Bottom Navigation Bar — always on top so every tab is clickable */
 .bottombar {
   position: fixed;
   bottom: calc(var(--space-3) + var(--safe-bottom));
   inset-inline: calc(var(--space-3) + var(--safe-left)) calc(var(--space-3) + var(--safe-right));
-  z-index: var(--z-bottombar);
+  z-index: 9999 !important;
   height: var(--bottombar-height);
   display: flex;
   align-items: center;
@@ -132,6 +137,8 @@ section[id],
 
 .bb-tab {
   position: relative;
+  z-index: 1;
+  pointer-events: auto !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -182,7 +189,7 @@ section[id],
   position: fixed;
   bottom: calc(var(--bottombar-height) + var(--space-5) + var(--safe-bottom));
   inset-inline-end: calc(var(--space-6) + var(--safe-right));
-  z-index: var(--z-fab);
+  z-index: 9998 !important;
   width: 46px;
   height: 46px;
   border: 0;
@@ -214,7 +221,7 @@ section[id],
   bottom: calc(var(--bottombar-height) + var(--space-6) + var(--safe-bottom));
   left: 50%;
   transform: translateX(-50%);
-  z-index: var(--z-toast);
+  z-index: 9997 !important;
   max-width: min(92vw, 520px);
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-pill);
@@ -303,4 +310,42 @@ section[id],
   .bb-tab .i {
     font-size: 1.15rem;
   }
+}
+
+/* =========================================================
+   Bottom Bar Fix — hide Lesson tab, lock order, Home centered
+   This block only affects layout/order/z-index.
+   No colors, no theme, no variable changes.
+   ========================================================= */
+
+/* Remove the "Lesson" tab visually on every page */
+.bb-tab[data-tab="lesson"] {
+  display: none !important;
+}
+
+/* Fixed visual order regardless of HTML source order:
+   Map (right in RTL) → Home (center) → TOC (left in RTL) */
+.bb-tab[data-tab="map"] {
+  order: 1;
+}
+
+.bb-tab[data-tab="home"] {
+  order: 2;
+}
+
+.bb-tab[data-tab="toc"] {
+  order: 3;
+}
+
+/* With 3 items + space-around, Home sits in the exact center */
+.bb-tabs {
+  justify-content: space-around !important;
+}
+
+/* Ensure every tab receives pointer events even if a
+   backdrop or TOC panel is layered nearby */
+.bb-tab,
+.bb-tab .i,
+.bb-tab span {
+  pointer-events: auto !important;
 }
