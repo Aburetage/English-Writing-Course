@@ -1,17 +1,18 @@
 {
-  "name": "English Writing Course — كورس الكتابة باللغة الإنجليزية",
+  "name": "English Writing Course | كورس الكتابة باللغة الإنجليزية",
   "short_name": "Writing Course",
-  "description": "كورس تفاعلي لبناء مهارة الكتابة باللغة الإنجليزية من الكلمة إلى المقال.",
+  "description": "كورس عربي لتعلم الكتابة باللغة الإنجليزية خطوة بخطوة: من الكلمة إلى الجملة ثم الفقرة والمقال.",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
-  "orientation": "portrait-primary",
-  "background_color": "#eef4f1",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
   "theme_color": "#3a9b85",
-  "categories": ["education", "books"],
+  "categories": [
+    "education"
+  ],
   "icons": [
     {
       "src": "icons/icon.svg",
@@ -24,6 +25,36 @@
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "الدرس الأول — التعريفات",
+      "short_name": "Lesson 1",
+      "description": "Word, Phrase, Clause, Sentence, Paragraph, Essay",
+      "url": "lessons/lesson1.html",
+      "lang": "ar"
+    },
+    {
+      "name": "الدرس الثاني — أقسام الكلام",
+      "short_name": "Lesson 2",
+      "description": "Parts of Speech",
+      "url": "lessons/lesson2.html",
+      "lang": "ar"
+    },
+    {
+      "name": "الدرس الثالث — التطبيق",
+      "short_name": "Lesson 3",
+      "description": "Practice on Parts of Speech",
+      "url": "lessons/lesson3.html",
+      "lang": "ar"
+    },
+    {
+      "name": "الدرس الرابع — بناء الجملة",
+      "short_name": "Lesson 4",
+      "description": "How to Structure a Sentence",
+      "url": "lessons/lesson4.html",
+      "lang": "ar"
     }
   ]
 }
