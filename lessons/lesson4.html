@@ -12,21 +12,21 @@
   <link rel="manifest" href="../manifest.webmanifest">
   <meta name="theme-color" content="#3a9b85">
 
-  <link rel="icon" href="../icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="../icon.svg">
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../icons/icon.svg">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="English Writing Course">
   <meta property="og:title" content="English Writing Course | Lesson 4 — How to Structure a Sentence | الدرس الرابع">
   <meta property="og:description" content="نتعلم كيف نحوّل الفكرة إلى جملة إنجليزية صحيحة حسب الغرض: إخبار، سؤال، أمر، تعجب، أو شرط.">
   <meta property="og:url" content="https://aburetage.github.io/English-Writing-Course/lessons/lesson4.html">
-  <meta property="og:image" content="https://aburetage.github.io/English-Writing-Course/icon.svg">
+  <meta property="og:image" content="https://aburetage.github.io/English-Writing-Course/icons/icon.svg">
   <meta property="og:locale" content="ar_AR">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="English Writing Course | Lesson 4 — How to Structure a Sentence">
   <meta name="twitter:description" content="من الفكرة إلى الجملة: كيف تختار التركيب الصحيح لتعبّر عن المعنى الذي تريده؟">
-  <meta name="twitter:image" content="https://aburetage.github.io/English-Writing-Course/icon.svg">
+  <meta name="twitter:image" content="https://aburetage.github.io/English-Writing-Course/icons/icon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,15 +39,7 @@
   <link rel="stylesheet" href="../css/lessons.css">
   <link rel="stylesheet" href="../css/print.css">
 
-  <!--
-    ملاحظة مؤقتة:
-    استخدمنا هنا المحرك القديم الموجود عندك (course-data.js + course.js)
-    حتى لا يتعطل الموقع قبل تسليم دفعة JS Modules.
-    لما نوصل للدفعة الثالثة، نستبدل بلوك الـ scripts ده بـ:
-    <script type="module" src="../js/main.js"></script>
-  -->
-  <script defer src="../course-data.js"></script>
-  <script defer src="../course.js"></script>
+  <script type="module" src="../js/main.js"></script>
 
   <script type="application/ld+json">
   {
@@ -992,7 +984,7 @@
     </section>
 
     <!-- Part 1 ends here — continue with Part 2 -->
-         <section class="card" id="choose">
+    <section class="card" id="choose">
       <div class="card-head">
         <span class="num" aria-hidden="true">🎯</span>
         <h2>كيف نختار شكل الجملة؟</h2>
@@ -1627,7 +1619,7 @@
     </section>
 
     <!-- Part 2 ends here — continue with Part 3 -->
-         <section class="card" id="pr46">
+    <section class="card" id="pr46">
       <div class="card-head">
         <span class="num">6</span>
         <h2><span class="e" lang="en">Practice 6 — Build the Sentence</span> — ابنِ الجملة</h2>
@@ -2112,7 +2104,7 @@
       </a>
     </section>
 
-    <div id="journeyBox"></div>
+    <div id="journeyBox" class="journey" aria-label="التنقل بين دروس الكورس"></div>
 
   </main>
 
@@ -2123,6 +2115,7 @@
     <p>
       Lesson 4 — How to Structure a Sentence | الدرس الرابع — كيفية بناء الجملة
     </p>
+    <button id="resetAll" class="rv" type="button">🧹 مسح جميع الإجابات المحفوظة</button>
   </footer>
 
   <button id="topFab" class="fab" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
