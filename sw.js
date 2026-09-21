@@ -1,16 +1,15 @@
 /* ===== English Writing Course — Service Worker ===== */
 
-const CACHE = "ewc-final-v1";
+const CACHE = "ewc-v9-ui-fixes";
 
 const CORE = [
   "./",
   "./index.html",
   "./404.html",
+  "./manifest.webmanifest",
 
-  "./lessons/lesson1.html",
-  "./lessons/lesson2.html",
-  "./lessons/lesson3.html",
-  "./lessons/lesson4.html",
+  "./icons/icon.svg",
+  "./icons/icon-maskable.svg",
 
   "./css/tokens.css",
   "./css/base.css",
@@ -22,50 +21,59 @@ const CORE = [
   "./js/main.js",
   "./js/utils.js",
   "./js/storage.js",
-  "./js/navigation.js",
   "./js/toc.js",
+  "./js/navigation.js",
   "./js/quiz.js",
   "./js/autosave.js",
   "./js/roadmap.js",
   "./js/pwa.js",
+
   "./js/data/course.js",
   "./js/data/vocabulary.js",
 
-  "./manifest.webmanifest",
-  "./robots.txt",
-  "./sitemap.xml",
-
-  "./icons/icon.svg",
-  "./icons/icon-maskable.svg"
+  "./lessons/lesson1.html",
+  "./lessons/lesson2.html",
+  "./lessons/lesson3.html",
+  "./lessons/lesson4.html"
 ];
-
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches
-      .open(CACHE)
-      .then((cache) => Promise.allSettled(CORE.map((url) => cache.add(url))))
-      .then(() => self.skipWaiting())
+    (async () => {
+      const cache = await caches.open(CACHE);
+
+      await Promise.allSettled(
+        CORE.map(async (url) => {
+          try {
+            const response = await fetch(url, { cache: "no-cache" });
+
+            if (response && response.ok) {
+              await cache.put(url, response);
+            }
+          } catch {
+            // تجاهل أي ملف غير متاح حتى لا يفشل تثبيت Service Worker.
+          }
+        })
+      );
+
+      await self.skipWaiting();
+    })()
   );
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(
-          keys
-            .filter((key) => key !== CACHE && key.startsWith("ewc-"))
-            .map((key) => caches.delete(key))
-        )
-      )
-      .then(() => self.clients.claim())
+    (async () => {
+      const keys = await caches.keys();
+
+      await Promise.all(
+        keys
+          .filter((key) => key !== CACHE)
+          .map((key) => caches.delete(key))
+      );
+
+      await self.clients.claim();
+    })()
   );
 });
 
@@ -76,57 +84,62 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
-  if (url.origin !== self.location.origin) {
-    event.respondWith(
-      caches.match(request).then((cached) => {
-        const network = fetch(request)
-          .then((response) => {
-            if (response && (response.ok || response.type === "opaque")) {
-              const copy = response.clone();
-              caches.open(CACHE).then((cache) => cache.put(request, copy));
-            }
-            return response;
-          })
-          .catch(() => cached);
+  if (url.origin !== self.location.origin) return;
 
-        return cached || network;
-      })
-    );
-    return;
-  }
-
+  // صفحات التنقل: الشبكة أولًا، ثم الكاش، ثم الصفحة الرئيسية/404 عند الحاجة.
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(() =>
-          caches
-            .match(request)
-            .then((cached) => cached || caches.match("./index.html"))
-        )
+      (async () => {
+        try {
+          const networkResponse = await fetch(request);
+
+          const cache = await caches.open(CACHE);
+          cache.put(request, networkResponse.clone()).catch(() => {});
+
+          return networkResponse;
+        } catch {
+          const cache = await caches.open(CACHE);
+
+          const cachedResponse =
+            (await cache.match(request)) ||
+            (await cache.match("./index.html")) ||
+            (await cache.match("index.html")) ||
+            (await cache.match("./404.html")) ||
+            (await cache.match("404.html"));
+
+          return (
+            cachedResponse ||
+            new Response("Offline", {
+              status: 503,
+              headers: {
+                "Content-Type": "text/plain; charset=utf-8"
+              }
+            })
+          );
+        }
+      })()
     );
+
     return;
   }
 
+  // الأصول: الكاش أولًا لسرعة العرض، مع محاولة التحديث من الشبكة في الخلفية.
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const network = fetch(request)
-        .then((response) => {
-          if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(() => cached);
+    (async () => {
+      const cache = await caches.open(CACHE);
+      const cachedResponse = await cache.match(request);
 
-      return cached || network;
-    })
+      const networkPromise = fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.ok) {
+            cache.put(request, networkResponse.clone()).catch(() => {});
+          }
+
+          return networkResponse;
+        })
+        .catch(() => cachedResponse);
+
+      return cachedResponse || networkPromise;
+    })()
   );
 });
